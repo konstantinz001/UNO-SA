@@ -1,5 +1,5 @@
 import scala.io.StdIn.readLine
-
+// test
 object UNO {
   def main(args: Array[String]): Unit = {
     printKarten()
