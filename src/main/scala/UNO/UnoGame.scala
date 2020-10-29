@@ -1,8 +1,8 @@
 import scala.io.StdIn.readLine
 
-object UNO {
+
+object UnoGame {
   def main(args: Array[String]): Unit = {
-    printKarten()
     println("_________________")
     println("UNO! ")
     println("_________________\n\n")
@@ -23,6 +23,9 @@ object UNO {
       player(a) = Player(args, a)
       println("Hallo " + player(a))
     }
+    //(cardNumber: Int, cardName: Array[String], playerNum: Int, pullDeck: Int, pushDeck: Int, playerTurn: Int)
+    UNO.GameBoard.board(3,Array("Karte1","Karte2","Karte3"),anzahlPlayer,1,107,1)
+    UNO.GameBoard.board(4,Array("Karte1","Karte2","Karte3","Karte4"),anzahlPlayer,100,50,2)
   }
 
   def Player(playerNames: Array[String], anzahl: Int): String = {
@@ -31,30 +34,5 @@ object UNO {
       playerNames.head
     else
       readLine("\nPlayer " + anzahl + "!\nBitte gib deinen Namen ein: ")
-  }
-  def printKarten(): Unit = {
-
-    val Player = 5
-    val CardNumber = 7
-    val CardName = "KARTENNAME"
-
-    val a = " _______________"
-    val b = "|               |"
-    val c = "|               |"
-    val d = "|  " + CardName
-    val e = "|               |"
-    val f = "|               |"
-    val g = " ---------------"
-
-    val handCards = ((a + "\t") * CardNumber) + "\n" +
-    ((b + "\t") * CardNumber) + "\n" +
-      ((c + "\t") * CardNumber) + "\n" +
-      ((d + "\t") * CardNumber) + "\n" +
-      ((e + "\t") * CardNumber) + "\n" +
-      ((f + "\t") * CardNumber) + "\n" +
-      ((g + "\t") * CardNumber)
-
-
-    print(handCards)
   }
 }
