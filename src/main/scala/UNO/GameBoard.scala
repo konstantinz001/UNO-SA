@@ -80,6 +80,6 @@ object GameBoard {
       print((yourturn() + pullStack() + "\n\n" +
         putStack() + "\n\n" + hand() + "\n"))
     }
-    printGameBoard()
+    printGameBoard() // gibt spielboard aus
   }
 }
