@@ -1,8 +1,10 @@
 package UNO
 
-class GameBoardSpec {
+import org.scalatest._
 
 
-    // only for folder structuer
-    // another commit test
+
+class GameBoardSpec extends WordSpec with Matchers {
+
+
 }
