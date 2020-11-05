@@ -1,5 +1,0 @@
-package UNO
-
-class Stack {
-
-}
