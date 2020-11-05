@@ -21,7 +21,6 @@ object GameBoard {
         ((e + " ") * cardNumber) + "\n" +
         ((f + " ") * cardNumber) + "\n" +
         ((g + " ") * cardNumber)
-
     }
 
     def playerHand(): Array[String] = {
