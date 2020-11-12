@@ -1,5 +1,5 @@
 package UNO
-import UNO.Player
+import UNO.model.Player
 import org.scalatest._
 
 class PlayerSpec extends WordSpec with Matchers {
