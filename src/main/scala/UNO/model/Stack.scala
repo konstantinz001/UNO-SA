@@ -1,6 +1,4 @@
-package UNO
-
-import scala.util.Random
+package UNO.model
 
 object Stack{
   val initialize: List[Card] = {
