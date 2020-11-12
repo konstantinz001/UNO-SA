@@ -1,5 +1,6 @@
-import scala.io.StdIn.readLine
+package UNO
 
+import scala.io.StdIn.readLine
 
 object UnoGame {
   def main(args: Array[String]): Unit = {
@@ -24,8 +25,8 @@ object UnoGame {
       println("Hallo " + player(a))
     }
     //(cardNumber: Int, cardName: Array[String], playerNum: Int, pullDeck: Int, pushDeck: Int, playerTurn: Int)
-    UNO.GameBoard.board(3,Array("Karte1","Karte2","Karte3"),anzahlPlayer,1,107,1)
-    UNO.GameBoard.board(4,Array("Karte1","Karte2","Karte3","Karte4"),anzahlPlayer,100,50,2)
+    GameBoard.board(3, Array("Karte1", "Karte2", "Karte3"), anzahlPlayer, 1, 107, 1)
+    UNO.GameBoard.board(4, Array("Karte1", "Karte2", "Karte3", "Karte4"), anzahlPlayer, 100, 50, 2)
   }
 
   def Player(playerNames: Array[String], anzahl: Int): String = {

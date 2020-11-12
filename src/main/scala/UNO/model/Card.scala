@@ -1,7 +1,7 @@
-package UNO
+package UNO.model
 
 case class Card(number: Int, color: String) {
   override def toString: String = {
-    "Card = %d || %s".format(number,color)
+    "Card = %d || %s".format(number, color)
   }
 }
