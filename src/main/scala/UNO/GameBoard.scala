@@ -1,4 +1,5 @@
 package UNO
+import UNO.model
 
 object GameBoard {
 
@@ -79,7 +80,6 @@ object GameBoard {
       print((yourturn() + pullStack() + "\n\n" +
         putStack() + "\n\n" + hand() + "\n"))
     }
-
     printGameBoard() // gibt spielboard aus
   }
 }
