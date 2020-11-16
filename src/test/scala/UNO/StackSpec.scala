@@ -1,15 +1,16 @@
 package UNO
+import model._
 
 import org.scalatest.{Matchers,WordSpec}
 
 class StackSpec extends WordSpec with Matchers {
   "An initial Stack" should {
     val stack = Stack.initialize
-    "contain 20 cards" in {
-      stack.size should be(20)
+    "contain 48 cards" in {
+      stack.size should be(48)
     }
-    "should have 20 cards" in { // for later checking if other cards are in the stack
-      stack.count(_.isInstanceOf[Card]) should be (20)
+    "should have 48 cards" in { // for later checking if other cards are in the stack
+      stack.count(_.isInstanceOf[Card]) should be (48)
     }
 
     "A shuffled Cardstack" should {
@@ -17,11 +18,11 @@ class StackSpec extends WordSpec with Matchers {
       val stackShuff = Stack.shuffleCards(stack)
 
       "contains 20 Cards" in {
-        stackShuff.size should be (20)
+        stackShuff.size should be (48)
       }
 
       "contains 5 yellow with number 5" in {
-        stackShuff.count(_.color=="yellow") should be (5)
+        stackShuff.count(_.color=="yellow") should be (12)
       }
     }
   }

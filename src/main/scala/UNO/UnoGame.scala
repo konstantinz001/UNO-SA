@@ -1,39 +1,37 @@
 package UNO
 
 import scala.io.StdIn.readLine
+import UNO.model.Player
+import UNO.model.Card
+import aview.TUI
+
+import scala.collection.mutable.ListBuffer
 
 object UnoGame {
   def main(args: Array[String]): Unit = {
     println("_________________")
     println("UNO! ")
     println("_________________\n\n")
-    val anzahlPlayer = readLine("Wie viele Spieler gibt es (2-10)?\n").toInt
-    if (anzahlPlayer > 10) {
-      Console.err.println("Zu viele Spieler!")
-      sys.exit(1)
-    }
-    else if (anzahlPlayer < 2) {
-      Console.err.println("Zu wenig Spieler!")
-      sys.exit(1)
-    }
 
-    val a = 0
-    for (a <- 1 to anzahlPlayer) {
+    val card = new Card(1,"red")
+    val tui = new TUI
 
-      val player = new Array[String](anzahlPlayer + 1)
-      player(a) = Player(args, a)
-      println("Hallo " + player(a))
-    }
-    //(cardNumber: Int, cardName: Array[String], playerNum: Int, pullDeck: Int, pushDeck: Int, playerTurn: Int)
-    GameBoard.board(3, Array("Karte1", "Karte2", "Karte3"), anzahlPlayer, 1, 107, 1)
-    UNO.GameBoard.board(4, Array("Karte1", "Karte2", "Karte3", "Karte4"), anzahlPlayer, 100, 50, 2)
+    //tui.processInputLine("n 3 s 1", card)
+    tui.processInputLine("n 3 r 0 4", card)
   }
 
-  def Player(playerNames: Array[String], anzahl: Int): String = {
+  def playerName(playerNames: Array[String], anzahl: Int): String = {
 
     if (playerNames.length > 0)
       playerNames.head
     else
       readLine("\nPlayer " + anzahl + "!\nBitte gib deinen Namen ein: ")
   }
+
+  def startHand(): ListBuffer[Card] = {
+
+    val c = Card(1, "green") :: Card(2, "red") :: Card(3, "blue") :: Card(4, "blue") :: Card(5, "yellow") :: Nil
+    ListBuffer.empty ++= c
+  }
 }
+
