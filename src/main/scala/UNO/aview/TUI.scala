@@ -6,49 +6,63 @@ import scala.io.StdIn.readLine
 
 
 class TUI {
+  println("Possible instructions:")
+  printf("Instruction 1: \tq = Quit \n\t\t\t\t n = new Game\n")
+  printf("Instruction 2: \ty/n = New Player? \n")
+  printf("Instruction 3: \ts = Take a new Card from Stack \n\t\t\t\t r = Put a Card from Hand into GameBoard")
+  printf("Instruction 4: \tWhich Playerturn?")
+  printf("Instruction 5: \t[Optional] Index for Instruction 2 -> r\n\n\n")
+  val input = readLine("Create new Player?: ")
 
-  def processInputLine(input: String, newCard: Card): Unit = {
+  def createGame(): Player = {
+
+    print("\n\n")
     val is: Array[String] = input.split(" ")
-    println("Possible instructions:")
-    printf("Instruction 1: \t q = Quit \n\t\t\t\t n = new Game\n")
-    printf("Instruction 2: \tNumber of new Player \n")
-    printf("Instruction 3: \ts = Take a new Card from Stack \n\t\t\t\t r = Put a Card from Hand into GameBoard")
-    printf("Instruction 4: \tWhich Playerturn?")
-    printf("Instruction 5: \t[Optional] Index for Instruction 2 -> r\n\n\n")
-
 
     is(0) match {
+
+      case "y" => {
+        val printerName = readLine("Please enter your name: ")
+        val player = Player(printerName, startHand())
+        println("Hello " + player.toString)
+        return player
+      }
       case "q" => {
         println("Game exit")
         System.exit(0)
+        return Player("", None.toList)
       }
       case "n" => {
-        if (is(1).matches("[2-5]")) {
-          var player = new Array[Player](is(1).toInt)
-          for (a <- 0 until is(1).toInt) {
-            val printerName = readLine("Please enter your name: ")
-            player(a) = Player(printerName, startHand())
-            println("Hello " + player(a).toString)
-          }
-          if(is(2).matches("s" ) && is(3).matches("[0-5]")) {
-            //player(is(3).toInt).setPlayerCards(newCard)
-            println(player(is(3).toInt).setPlayerCards(newCard))
-          }
-          else if(is(2).matches("r") && is(3).matches("[0-5]") && is(4).matches("[0-9]|10")){
-            //player(is(3).toInt).removePlayerCards(is(4).toInt)
-            println(player(is(3).toInt).removePlayerCards(is(4).toInt))
-          }
-
-          else {
-            println("Inner")
-            System.exit(1)
-          }
-        } else {
-          println("Outer")
-          System.exit(1)
-        }
+        println("Game exit")
+        System.exit(0)
+        return Player("",None.toList)
       }
     }
   }
-}
 
+  def playGame(pL:List[Player], newCard: Card,idx:Int): Unit = {
+      println("PLAYER " + pL(0).getPlayerName.toUpperCase())
+      val input = readLine("Instruction: ")
+      print("\n\n")
+      val is: Array[String] = input.split(" ")
+
+
+      is(0) match {
+        case "s" => {
+          println(pL(idx).setPlayerCards(newCard))
+          val l = List(pL(idx+1),pL(idx).setPlayerCards(newCard))
+          playGame(l,newCard, 0)
+        }
+        case "r" => {
+          println(pL(idx).removePlayerCards(is(1).toInt))
+          val l = List(pL(idx+1),pL(idx).removePlayerCards(is(1).toInt))
+          playGame(l,newCard, 0)
+        }
+        case "q" => {
+          println("Game exit")
+          System.exit(0)
+          return Player("", None.toList)
+        }
+      }
+    }
+}

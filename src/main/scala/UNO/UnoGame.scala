@@ -15,9 +15,8 @@ object UnoGame {
 
     val card = new Card(1,"red")
     val tui = new TUI
-
-    //tui.processInputLine("n 2 s 1", card)
-    tui.processInputLine("n 2 r 0 0", card)
+    val pL = List(tui.createGame(),tui.createGame())
+    tui.playGame(pL,card,0)
   }
 
   def playerName(playerNames: Array[String], anzahl: Int): String = {
