@@ -16,8 +16,8 @@ object UnoGame {
     val card = new Card(1,"red")
     val tui = new TUI
 
-    //tui.processInputLine("n 3 s 1", card)
-    tui.processInputLine("n 3 r 0 4", card)
+    //tui.processInputLine("n 2 s 1", card)
+    tui.processInputLine("n 2 r 0 0", card)
   }
 
   def playerName(playerNames: Array[String], anzahl: Int): String = {
@@ -28,10 +28,9 @@ object UnoGame {
       readLine("\nPlayer " + anzahl + "!\nBitte gib deinen Namen ein: ")
   }
 
-  def startHand(): ListBuffer[Card] = {
+  def startHand(): List[Card] = {
 
-    val c = Card(1, "green") :: Card(2, "red") :: Card(3, "blue") :: Card(4, "blue") :: Card(5, "yellow") :: Nil
-    ListBuffer.empty ++= c
+    return Card(1, "green") :: Card(2, "red") :: Card(3, "blue") :: Card(4, "blue") :: Card(5, "yellow") :: Nil
   }
 }
 

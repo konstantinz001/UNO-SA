@@ -1,34 +1,44 @@
 package UNO.model
 import scala.collection.mutable.ListBuffer
 import scala.io.StdIn.readLine
+import scala.util.control.Breaks.{break, breakable}
 
 
 //ListBuffer zu List umändern
-case class Player (name: String, playerCards:ListBuffer[Card]){
+case class Player (name: String, playerCards:List[Card]){
   override def toString:String = {
-    name + " " + playerCards
+    name + "\n" + playerCards + "\n"
   }
 
   def getPlayerName: String = {
     name
   }
 
-  def getPlayerCards: ListBuffer[Card] = {
+  def getPlayerCards: List[Card] = {
     playerCards
   }
 
-  def resetPlayerCards(setCard: Card): Player = {
-    playerCards+=setCard
-    return Player(getPlayerName, playerCards)
+  def setPlayerCards(setCard: Card): Player = {
+    val tmp = setCard :: playerCards
+    return copy(playerCards = tmp)
   }
 
   def removePlayerCards(idx: Int): Player = {
-    getPlayerCards.remove(idx)
-    return Player(getPlayerName, getPlayerCards)
+    var tmp = List[Card]()
+    for (i <- 0 until playerCards.length) {
+      breakable {
+        if (i == idx) {
+          break
+        } else {
+          tmp = playerCards(i):: tmp
+        }
+      }
+    }
+    return copy(playerCards = tmp.reverse)
   }
 
-  def startHand(): ListBuffer[Card] = {
+  def startHand(): List[Card] = {
     val c = Card(1, "green") :: Card(2, "red") :: Card(3, "blue") :: Card(4, "blue") :: Card(5, "yellow") :: Nil
-    ListBuffer.empty ++= c
+    return c
   }
 }

@@ -24,19 +24,19 @@ class TUI {
       }
       case "n" => {
         if (is(1).matches("[2-5]")) {
-          val player = new Array[Player](is(1).toInt)
+          var player = new Array[Player](is(1).toInt)
           for (a <- 0 until is(1).toInt) {
             val printerName = readLine("Please enter your name: ")
             player(a) = Player(printerName, startHand())
             println("Hello " + player(a).toString)
           }
           if(is(2).matches("s" ) && is(3).matches("[0-5]")) {
-            player(is(3).toInt).resetPlayerCards(newCard)
-            println(player(is(3).toInt))
+            //player(is(3).toInt).setPlayerCards(newCard)
+            println(player(is(3).toInt).setPlayerCards(newCard))
           }
           else if(is(2).matches("r") && is(3).matches("[0-5]") && is(4).matches("[0-9]|10")){
-            player(is(3).toInt).removePlayerCards(is(4).toInt)
-            println(player(is(3).toInt))
+            //player(is(3).toInt).removePlayerCards(is(4).toInt)
+            println(player(is(3).toInt).removePlayerCards(is(4).toInt))
           }
 
           else {
