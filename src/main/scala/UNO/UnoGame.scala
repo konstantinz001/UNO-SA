@@ -17,7 +17,7 @@ object UnoGame {
     val playStack = Card(5, "green")
     val tui = new TUI
     val pL = List(tui.createGame("y"), tui.createGame("y"))
-    tui.playGame(pL,stackcard,playStack,0)
+    tui.playGame("r 0", pL,stackcard,playStack,0)
     //tui.playGame("r 0", pL, card, 0)
 
     //def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {

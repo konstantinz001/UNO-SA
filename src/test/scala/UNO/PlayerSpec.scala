@@ -41,5 +41,14 @@ class PlayerSpec extends WordSpec with Matchers {
           "Card = 5 || yellow)")
       }
     }
+    "startHand" should {
+      val h = Player.startHand()
+      "have a size" in {
+        h.size should be(3)
+      }
+      "have a Card" in {
+        h(0) should be(Card(1, "green"))
+      }
+    }
   }
 }

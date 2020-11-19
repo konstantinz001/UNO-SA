@@ -7,14 +7,6 @@ case class Player (name: String, playerCards:List[Card]) {
     name + "\n" + playerCards + "\n"
   }
 
-  def getPlayerName: String = {
-    name
-  }
-
-  def getPlayerCards: List[Card] = {
-    playerCards
-  }
-
   def setPlayerCards(setCard: Card): Player = {
     val tmp = setCard :: playerCards
     return copy(playerCards = tmp)
@@ -35,10 +27,10 @@ case class Player (name: String, playerCards:List[Card]) {
   }
 }
 
-
 object Player {
   def startHand(): List[Card] = {
-    val c = Card(1, "green") :: Card(2, "green") :: Card(3, "green") :: Card(4, "green") :: Card(5, "green") :: Nil
+    //val c = Card(1, "green") :: Card(2, "green") :: Card(3, "green") :: Card(4, "green") :: Card(5, "green") :: Nil
+    val c = Card(1, "green") :: Card(2, "green") :: Card(3, "green") :: Nil
     return c
   }
 }

@@ -2,6 +2,7 @@ package UNO.aview
 
 import UNO.model.{Card, Player}
 import UNO.model.Player
+import org.graalvm.compiler.graph.Node.Input
 
 import scala.io.StdIn.readLine
 import scala.util.control.Breaks.{break, breakable}
@@ -14,9 +15,9 @@ class TUI {
   printf("Instruction 3: \ts = Take a new Card from Stack \n\t\t\t\t r = Put a Card from Hand into GameBoard")
   printf("Instruction 4: \tWhich Playerturn?")
   printf("Instruction 5: \t[Optional] Index for Instruction 2 -> r\n\n\n")
-  /**/val input = readLine("Create new Player?: ")
+  //val input = readLine("Create new Player?: ")
 
-  def createGame(input:String): Player = {
+  def createGame(input: String): Player = {
 
     print("\n\n")
     val is: Array[String] = input.split(" ")
@@ -24,8 +25,8 @@ class TUI {
     is(0) match {
 
       case "y" => {
-        /**/val printerName = readLine("Please enter your name: ")
-        //val printerName = "Bob"
+        //val printerName = readLine("Please enter your name: ")
+        val printerName = "Bob"
         val player = Player(printerName, Player.startHand())
         println("Hello " + player.toString)
         return player
@@ -43,12 +44,12 @@ class TUI {
     }
   }
 
-  //def playGame(input:String, pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-  def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-      println("PLAYER " + pL(0).getPlayerName.toUpperCase())
+  def playGame(input:String, pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
+  //def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
+      println("PLAYER " + pL(0).name.toUpperCase())
       print("\n\nPlayStack: " + playStack + "\n")
-      print("HandCard: " + pL(idx).getPlayerCards + "\n")
-    /**/val input = readLine("Instruction: ")
+      print("HandCard: " + pL(idx).playerCards + "\n")
+    //val input = readLine("Instruction: ")
       print("\n\n")
       val is: Array[String] = input.split(" ")
 
@@ -60,44 +61,44 @@ class TUI {
           for (i <- 1 until stackCard.size) {
             s = stackCard(i) :: s
           }
-          /**/playGame(l, s, playStack, 0)
+          //playGame(l, s, playStack, 0)
         }
         case "r" => {
-          val c = pL(idx).getPlayerCards(is(1).toInt)
+          val c = pL(idx).playerCards(is(1).toInt)
           if((c.color == playStack.color) || c.number == playStack.number) {
             println(pL(idx).removePlayerCards(is(1).toInt))
             val newPlayStack = c
             val l = List(pL(idx+1),pL(idx).removePlayerCards(is(1).toInt))
-            /**/playGame(l, stackCard, c, 0)
+            //playGame(l, stackCard, c, 0)
           } else {
             println("Wrong Card!")
           }
         }
         case "u" => {
 
-          val c = pL(idx).getPlayerCards(is(1).toInt)
+          val c = pL(idx).playerCards(is(1).toInt)
           if((c.color == playStack.color) || c.number == playStack.number) {
             println(pL(idx).removePlayerCards(is(1).toInt))
             val newPlayStack = c
             val l = List(pL(idx+1),pL(idx).removePlayerCards(is(1).toInt))
-            if (pL(idx).getPlayerCards.size == 2) {
+            if (pL(idx).playerCards.size == 2) {
               println("UNO")
-              playGame(l, stackCard, c, 0)
+              //playGame(l, stackCard, c, 0)
             }
-            else if (pL(idx).getPlayerCards.size == 1) {
+            else if (pL(idx).playerCards.size == 1) {
               println("UNO - UNO!")
-              println("Player " + pL(0).getPlayerName.toUpperCase() + " hat gewonnen!")
+              println("Player " + pL(0).name.toUpperCase() + " hat gewonnen!")
               System.exit(0)
             }
             else {
-              println("Zu viele Karten!!!")
+              println("To many Cards!!!")
               println(pL(idx).setPlayerCards(stackCard(0)))
               val l = List(pL(idx+1),pL(idx).setPlayerCards(stackCard(0)))
               var s = List[Card]()
               for (i <- 1 until stackCard.size) {
                 s = stackCard(i) :: s
               }
-              /**/playGame(l, s, playStack, 0)
+              //playGame(l, s, playStack, 0)
             }
           } else {
             println("Wrong Card!")
@@ -112,3 +113,10 @@ class TUI {
       }
     }
 }
+
+//TODO: Controller
+//UNO-Funktion (Zweiteilig)
+//ZiehFunktion
+//LegeFunktion
+//PlayerCreate
+//GameExitFunktion
