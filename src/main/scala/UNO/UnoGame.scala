@@ -13,23 +13,10 @@ object UnoGame {
     println("UNO! ")
     println("_________________\n\n")
 
-    val card = new Card(1,"red")
+    val card = new Card(1, "red")
     val tui = new TUI
-    val pL = List(tui.createGame(),tui.createGame())
-    tui.playGame(pL,card,0)
-  }
-
-  def playerName(playerNames: Array[String], anzahl: Int): String = {
-
-    if (playerNames.length > 0)
-      playerNames.head
-    else
-      readLine("\nPlayer " + anzahl + "!\nBitte gib deinen Namen ein: ")
-  }
-
-  def startHand(): List[Card] = {
-
-    return Card(1, "green") :: Card(2, "red") :: Card(3, "blue") :: Card(4, "blue") :: Card(5, "yellow") :: Nil
+    val pL = List(tui.createGame("y"), tui.createGame("y"))
+    tui.playGame("s",pL,card,0)
+    tui.playGame("r 0", pL, card, 0)
   }
 }
-
