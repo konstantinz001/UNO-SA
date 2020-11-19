@@ -7,116 +7,55 @@ import org.graalvm.compiler.graph.Node.Input
 import scala.io.StdIn.readLine
 import scala.util.control.Breaks.{break, breakable}
 
+import UNO.controller.controller
+import UNO.util.Observer
 
-class TUI {
-  println("Possible instructions:")
-  printf("Instruction 1: \tq = Quit \n\t\t\t\t n = new Game\n")
-  printf("Instruction 2: \ty/n = New Player? \n")
-  printf("Instruction 3: \ts = Take a new Card from Stack \n\t\t\t\t r = Put a Card from Hand into GameBoard")
-  printf("Instruction 4: \tWhich Playerturn?")
-  printf("Instruction 5: \t[Optional] Index for Instruction 2 -> r\n\n\n")
+
+class TUI (controller: controller) extends Observer {
+
+  controller.add(this)
+
   //val input = readLine("Create new Player?: ")
 
-  def createGame(input: String): Player = {
+  def processInputLine(input: String): Unit = {
 
-    print("\n\n")
+    val name1 = "Konstantin"
+    val name2 = "Soni"
+
+    val stackcard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
+    val playStack = Card(5, "green")
+
+
     val is: Array[String] = input.split(" ")
+
+    val pL = controller.playerToList(controller.createPlayer(name1), controller.createPlayer(name2))
 
     is(0) match {
 
-      case "y" => {
-        //val printerName = readLine("Please enter your name: ")
-        val printerName = "Bob"
-        val player = Player(printerName, Player.startHand())
-        println("Hello " + player.toString)
-        return player
+      case "s" => {
+        controller.getCard(pL, stackcard)
+      }
+      case "r" => {
+        controller.removeCard(pL, playStack, is(1).toInt)
+      }
+      case "u" => {
+        controller.callUno(pL, stackcard, playStack, is(1).toInt)
       }
       case "q" => {
-        println("Game exit")
-        System.exit(0)
-        return Player("", None.toList)
+        controller.exitGame()
+      }
+      case "t" => {
+        controller.printGameStats(pL,stackcard,playStack)
+      }
+
+
+      case "q" => {
+        controller.exitGame()
       }
       case "n" => {
-        println("Game exit")
-        System.exit(0)
-        return Player("",None.toList)
+        controller.exitGame()
       }
     }
   }
-
-  def playGame(input:String, pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-  //def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-      println("PLAYER " + pL(0).name.toUpperCase())
-      print("\n\nPlayStack: " + playStack + "\n")
-      print("HandCard: " + pL(idx).playerCards + "\n")
-    //val input = readLine("Instruction: ")
-      print("\n\n")
-      val is: Array[String] = input.split(" ")
-
-      is(0) match {
-        case "s" => {
-          println(pL(idx).setPlayerCards(stackCard(0)))
-          val l = List(pL(idx+1),pL(idx).setPlayerCards(stackCard(0)))
-          var s = List[Card]()
-          for (i <- 1 until stackCard.size) {
-            s = stackCard(i) :: s
-          }
-          //playGame(l, s, playStack, 0)
-        }
-        case "r" => {
-          val c = pL(idx).playerCards(is(1).toInt)
-          if((c.color == playStack.color) || c.number == playStack.number) {
-            println(pL(idx).removePlayerCards(is(1).toInt))
-            val newPlayStack = c
-            val l = List(pL(idx+1),pL(idx).removePlayerCards(is(1).toInt))
-            //playGame(l, stackCard, c, 0)
-          } else {
-            println("Wrong Card!")
-          }
-        }
-        case "u" => {
-
-          val c = pL(idx).playerCards(is(1).toInt)
-          if((c.color == playStack.color) || c.number == playStack.number) {
-            println(pL(idx).removePlayerCards(is(1).toInt))
-            val newPlayStack = c
-            val l = List(pL(idx+1),pL(idx).removePlayerCards(is(1).toInt))
-            if (pL(idx).playerCards.size == 2) {
-              println("UNO")
-              //playGame(l, stackCard, c, 0)
-            }
-            else if (pL(idx).playerCards.size == 1) {
-              println("UNO - UNO!")
-              println("Player " + pL(0).name.toUpperCase() + " hat gewonnen!")
-              System.exit(0)
-            }
-            else {
-              println("To many Cards!!!")
-              println(pL(idx).setPlayerCards(stackCard(0)))
-              val l = List(pL(idx+1),pL(idx).setPlayerCards(stackCard(0)))
-              var s = List[Card]()
-              for (i <- 1 until stackCard.size) {
-                s = stackCard(i) :: s
-              }
-              //playGame(l, s, playStack, 0)
-            }
-          } else {
-            println("Wrong Card!")
-          }
-        }
-
-        case "q" => {
-          println("Game exit")
-          System.exit(0)
-          return Player("", None.toList)
-        }
-      }
-    }
+  override def update: Unit = controller.playerToString
 }
-
-//TODO: Controller
-//UNO-Funktion (Zweiteilig)
-//ZiehFunktion
-//LegeFunktion
-//PlayerCreate
-//GameExitFunktion
