@@ -1,7 +1,6 @@
-package UNO
-import model._
+package UNO.model
 
-import org.scalatest.{Matchers,WordSpec}
+import org.scalatest.{Matchers, WordSpec}
 
 class StackSpec extends WordSpec with Matchers {
   "An initial Stack" should {
