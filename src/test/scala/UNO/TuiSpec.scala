@@ -59,6 +59,7 @@ class TuiSpec extends WordSpec with Matchers {
     val controller = new controller()
     val tui = new TUI(controller)
     controller.notifyObservers
+
       "TUI input 't'" in {
         tui.processInputLine("t") should be
         val pL = List(controller.createPlayer("Konstantin"), controller.createPlayer("Soni"))
@@ -73,17 +74,17 @@ class TuiSpec extends WordSpec with Matchers {
         val pL = List(controller.createPlayer("Konstantin"), controller.createPlayer("Soni"))
         tui.processInputLine("r 0") should be
         (println("Konstantin\nList(Card = 2 || green, Card = 3 || green)"))
-        }
+      }
       "PlayGame input 's'" in {
         val pL = List(controller.createPlayer("Konstantin"), controller.createPlayer("Soni"))
         tui.processInputLine("r 0") should be
         (println("Konstantin\nList(Card = 1 || red, Card = 1 || green, Card = 2 || green, Card = 3 || green)"))
-        }
+      }
         "PlayGame input 'u'" in {
           val pL = List(Player("Konstantin", List(Card(2, "green"))), controller.createPlayer("Soni"))
           tui.processInputLine("u 0") should be
           ( println("UNO - UNO!\nPlayer KONSTANTIN hat gewonnen!"))
           ""
-          }
         }
-      }
+  }
+}
