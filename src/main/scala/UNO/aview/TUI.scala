@@ -60,12 +60,12 @@ class TUI (controller: controller) extends Observer {
 
 
 
-  override def update: Unit = {
+  override def update: Boolean = {
     print("\n" + "_"*50 + "\nPLAYER " + controller.playerList(0).name.toUpperCase() +
       "\n\nHandcards: \t" + controller.playerList(0).playerCards +
       "\n\n\nPlayStack: \t" + controller.playStack +
       "\nStackCard: \t" + controller.stackCard + "\n" )
-
+    true
   }
 }
 

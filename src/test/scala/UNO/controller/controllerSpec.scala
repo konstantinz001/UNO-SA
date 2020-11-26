@@ -13,7 +13,9 @@ class controllerSpec extends WordSpec with Matchers{
 
         def isUpdated: Boolean = updated
 
-        override def update: Unit = updated = true
+        override def update: Boolean = {
+          true
+        }
       }
       val player = controller.createPlayer("Konstantin")
       "a new Player" in {
