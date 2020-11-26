@@ -2,9 +2,9 @@ package UNO.controller
 
 import UNO.model.{Card, Player}
 import UNO.util.Observable
-import javax.print.attribute.standard.PrinterName
 
 import scala.io.StdIn.readLine
+
 
 class controller extends Observable {
 

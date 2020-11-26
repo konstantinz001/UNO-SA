@@ -6,13 +6,14 @@ import scala.io.StdIn.readLine
 import UNO.model.Player
 import UNO.model.Card
 import aview.TUI
+import UNO.controller.controller
 
 import scala.collection.mutable.ListBuffer
 
 object UnoGame {
   val controller = new controller()
   val tui = new TUI(controller)
-  controller.notifyObservers
+  controller.notifyObservers("")
 
   def main(args: Array[String]): Unit = {
     println("_________________")
