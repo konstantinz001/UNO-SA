@@ -28,53 +28,53 @@ class controller extends Observable {
   //TODO
   //Rückgabe von Funkton mit Fallunterscheidung
 
-  def getCard(pL: List[Player], stackCard: List[Card]): Unit = {
-    println(pL(0).setPlayerCards(stackCard(0)))
-    val l = List(pL(0 + 1), pL(0).setPlayerCards(stackCard(0)))
-    var s = List[Card]()
+  def getCard(playerList: List[Player], stackCard: List[Card]): Unit = {
+    println(playerList(0).setPlayerCards(stackCard(0)))
+    //val l = List(playerList(0 + 1), playerList(0).setPlayerCards(stackCard(0)))
+    var stack = List[Card]()
     for (i <- 1 until stackCard.size) {
-      s = stackCard(i) :: s
+      stack = stackCard(i) :: stack
     }
     //playGame(l, s, playStack, 0)
   }
 
-  def removeCard(pL: List[Player], playStack: Card, idx: Int) {
-    val c = pL(0).playerCards(idx.toInt)
-    if ((c.color == playStack.color) || c.number == playStack.number) {
-      println(pL(0).removePlayerCards(idx.toInt))
-      val newPlayStack = c
-      val l = List(pL(0 + 1), pL(0).removePlayerCards(idx.toInt))
+  def removeCard(playerList: List[Player], playStack: Card, handindex: Int) {
+    val currentcard = playerList(0).playerCards(handindex.toInt)
+    if ((currentcard.color == playStack.color) || currentcard.number == playStack.number) {
+      println(playerList(0).removePlayerCards(handindex.toInt))
+      val newPlayStack = currentcard
+      val l = List(playerList(0 + 1), playerList(0).removePlayerCards(handindex.toInt))
       //playGame(l, stackCard, c, 0)
     } else {
       println("Wrong Card!")
     }
   }
 
-  def callUno(pL: List[Player], stackCard: List[Card], playStack: Card, idx: Int) {
-    removeCard(pL, playStack, idx)
-    if (pL(0).playerCards.size == 2) {
+  def callUno(playerList: List[Player], stackCard: List[Card], playStack: Card, cardindex: Int) {
+    removeCard(playerList, playStack, cardindex)
+    if (playerList(0).playerCards.size == 2) {
       println("UNO")
       //playGame(l, stackCard, c, 0)
     }
-    else if (pL(0).playerCards.size == 1) {
+    else if (playerList(0).playerCards.size == 1) {
       println("UNO - UNO!")
-      println("Player " + pL(0).name.toUpperCase() + " hat gewonnen!")
+      println("Player " + playerList(0).name.toUpperCase() + " hat gewonnen!")
       System.exit(0)
     }
     else {
       println("To many Cards!!!")
-      getCard(pL, stackCard)
+      getCard(playerList, stackCard)
       //playGame(l, s, playStack, 0)
     }
   }
 
-  def printGameStats(pL: List[Player], stackCard: List[Card], playStack: Card) {
-    println("PLAYER " + pL(0).name.toUpperCase())
+  def printGameStats(playerList: List[Player], stackCard: List[Card], playStack: Card) {
+    println("PLAYER " + playerList(0).name.toUpperCase())
     print("\n\nPlayStack: " + playStack + "\n")
     print("StackCard: " + stackCard + "\n")
     //val input = readLine("Instruction: ")
     print("\n\n")
-    print(pL(0) + "\n" + pL(1))
+    print(playerList(0) + "\n" + playerList(1))
   }
 
   def playerToString: String = Player.toString()

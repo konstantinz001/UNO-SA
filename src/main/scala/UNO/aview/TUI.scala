@@ -19,36 +19,34 @@ class TUI (controller: controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
 
-    val name1 = "Konstantin"
-    val name2 = "Soni"
+    val playername1 = "Konstantin"
+    val playername2 = "Soni"
 
-    val stackcard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
+    val stack = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
     val playStack = Card(5, "green")
 
 
     val is: Array[String] = input.split(" ")
 
-    val pL = controller.playerToList(controller.createPlayer(name1), controller.createPlayer(name2))
+    val playerList = controller.playerToList(controller.createPlayer(playername1), controller.createPlayer(playername2))
 
     is(0) match {
 
       case "s" => {
-        controller.getCard(pL, stackcard)
+        controller.getCard(playerList, stack)
       }
       case "r" => {
-        controller.removeCard(pL, playStack, is(1).toInt)
+        controller.removeCard(playerList, playStack, is(1).toInt)
       }
       case "u" => {
-        controller.callUno(pL, stackcard, playStack, is(1).toInt)
+        controller.callUno(playerList, stack, playStack, is(1).toInt)
       }
       case "q" => {
         controller.exitGame()
       }
       case "t" => {
-        controller.printGameStats(pL,stackcard,playStack)
+        controller.printGameStats(playerList,stack,playStack)
       }
-
-
       case "q" => {
         controller.exitGame()
       }
