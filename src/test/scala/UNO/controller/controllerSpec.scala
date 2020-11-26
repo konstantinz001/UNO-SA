@@ -30,32 +30,15 @@ class controllerSpec extends WordSpec with Matchers{
         val pL = controller.playerToList(controller.createPlayer("Konstantin"),
           controller.createPlayer("Soni"))
         val stackcard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-        controller.getCard(pL,stackcard) should be
+        controller.getCard() should be
         (println("Konstantin\nList(Card = 1 || red, Card = 1 || green, Card = 2 || green, Card = 3 || green)"))
       }
       "a Player put a Card into Playstack" in {
         val pL = controller.playerToList(controller.createPlayer("Konstantin"),
           controller.createPlayer("Soni"))
         val playStack = Card(5, "green")
-        controller.removeCard(pL,playStack,0) should be
+        controller.removeCard(0) should be
         (println("Konstantin\nList(Card = 2 || green, Card = 3 || green)"))
-      }
-      "a Player call UNO with 1 Card" in {
-        val pL = controller.playerToList(Player("Konstantin",List(Card(2,"green"))),
-          controller.createPlayer("Soni"))
-        val playStack = Card(5, "green")
-        val stackcard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-        controller.callUno(pL,stackcard,playStack,0) should be (print("UNO - UNO!\nPlayer Konstantin wins!"))
-      }
-      "GameStats" in {
-        val pL = controller.playerToList(Player("Konstantin", List(Card(2, "green"))),
-          controller.createPlayer("Soni"))
-        val playStack = Card(5, "green")
-        val stackcard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-        controller.printGameStats(pL, stackcard, playStack) should be(print("\n\nPlayStack: Card = 5 || green\n" +
-          "StackCard: List(Card = 1 || red, Card = 2 || green, Card = 3 || green)\n\n\n" +
-          "Konstantin\nList(Card = 1 || green, Card = 2 || green, Card = 3 || green)\n\n" +
-          "Soni\nList(Card = 1 || green, Card = 2 || green, Card = 3 || green)"))
       }
     }
   }

@@ -16,51 +16,67 @@ class TUI (controller: controller) extends Observer {
 
   controller.add(this)
 
-  //val input = readLine("Create new Player?: ")
-
   def processInputLine(input: String): Unit = {
 
-    /*val playername1 = "Konstantin"
-    val playername2 = "Soni"
-
-    val stack = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-    */val playStack = Card(5, "green")
-
-
     val is: Array[String] = input.split(" ")
-
-    //val playerList = controller.playerToList(controller.createPlayer(playername1), controller.createPlayer(playername2))
 
     is(0) match {
 
       case "s" => {
-        controller.getCard(playerList, stack)
+        println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+        controller.getCard()
       }
       case "r" => {
-        controller.removeCard(playerList, playStack, is(1).toInt)
+        if ((controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack.color) ||
+          controller.playerList(0).playerCards(is(1).toInt).number == controller.playStack.number) {
+          controller.removeCard(is(1).toInt)
+        }
+        else {
+          println("Wrong Card!")
+        }
       }
       case "u" => {
-        controller.callUno(playerList, stack, playStack, is(1).toInt)
+        if(controller.playerList(0).playerCards.size == 2) {
+          println("\n--Handcards:\t" + controller.playerList(0).removePlayerCards(is(1).toInt).playerCards)
+          controller.removeCard(is(1).toInt)
+        }
+        else if(controller.playerList(0).playerCards.size == 1) {
+          println("UNO - UNO!")
+          println("Player " + controller.playerList(0).name.toUpperCase() + " wins!")
+          System.exit(0)
+        }
+        else {
+          println("To many Cards")
+          println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+          controller.getCard()
+        }
+
       }
       case "q" => {
-        controller.exitGame()
-      }
-      case "t" => {
-        controller.printGameStats(playerList,stack,playStack)
-      }
-      case "q" => {
-        controller.exitGame()
-      }
-      case "n" => {
-        controller.exitGame()
-      }
-      case "try" => {
-        controller.testStart()
+        println("Game exit")
       }
     }
   }
+
+
+
   override def update: Unit = {
-    controller.playerToString
-    println("updated")
+    print("\n" + "_"*50 + "\nPLAYER " + controller.playerList(0).name.toUpperCase() +
+      "\n\nHandcards: \t" + controller.playerList(0).playerCards +
+      "\n\n\nPlayStack: \t" + controller.playStack +
+      "\nStackCard: \t" + controller.stackCard + "\n" )
+
   }
 }
+
+//TODO
+/*
+    In Remove einfügen falls man vergisst uno zu rufen
+
+            if(controller.playerList(0).playerCards.size <= 2) {
+            println("Call Uno!")
+            println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+            controller.getCard()
+          }
+
+ */

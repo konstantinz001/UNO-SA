@@ -13,12 +13,11 @@ import scala.collection.mutable.ListBuffer
 object UnoGame {
   val controller = new controller()
   val tui = new TUI(controller)
-  controller.notifyObservers()
 
   def main(args: Array[String]): Unit = {
-    println("_________________")
+    printf("_"*50 + "\n")
     println("UNO! ")
-    println("_________________\n\n")
+    printf("_"*50 + "\n")
 
     println("Possible instructions:")
     printf("\tq = Quit\n")
@@ -26,12 +25,12 @@ object UnoGame {
     printf("\ts = Take a new Card from Stack\n")
     printf("\tr = Put a Card from Hand into GameBoard\n")
     printf("\tu = Call UNO/ UNO-UNO\n")
+    printf("_"*50 + "\n")
 
-    printf("Instruction: ")
-
+    controller.notifyObservers()
     var input: String = ""
     do{
-      input = readLine()
+      input = readLine("\nInstruction: ")
       tui.processInputLine(input)
     } while (input != "q")
 
