@@ -14,6 +14,11 @@ class PlayerSpec extends WordSpec with Matchers {
         ("List(Card = 1 || green, Card = 2 || red, Card = 3 || blue, " +
           "Card = 4 || blue, Card = 5 || yellow)")
       }
+      "have a String" in {
+        player.toString should be
+        ("Bob" + "\n" + "List(Card = 1 || green, Card = 2 || red, Card = 3 || blue, " +
+          "Card = 4 || blue, Card = 5 || yellow)" + "\n")
+      }
     }
     "pull new Card" should {
       val playertmp = Player("Bob",Player.startHand())

@@ -21,7 +21,6 @@ object UnoGame {
 
     println("Possible instructions:")
     printf("\tq = Quit\n")
-    printf("\tt = GameStats\n")
     printf("\ts = Take a new Card from Stack\n")
     printf("\tr = Put a Card from Hand into GameBoard\n")
     printf("\tu = Call UNO/ UNO-UNO\n")
