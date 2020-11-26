@@ -1,4 +1,3 @@
-https://travis-ci.com/konstantinz001/UNO.svg?branch=master
 # UNO
 
 The classic game but in Scala.
