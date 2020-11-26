@@ -9,7 +9,7 @@ class TuiSpec extends WordSpec with Matchers {
   "A TUI" should {
     val controller = new controller()
     val tui = new TUI(controller)
-    controller.notifyObservers("")
+    controller.notifyObservers()
 
       "TUI input 't'" in {
         tui.processInputLine("t") should be

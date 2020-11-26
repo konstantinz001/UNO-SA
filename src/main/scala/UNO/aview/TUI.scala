@@ -20,16 +20,16 @@ class TUI (controller: controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
 
-    val playername1 = "Konstantin"
+    /*val playername1 = "Konstantin"
     val playername2 = "Soni"
 
     val stack = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-    val playStack = Card(5, "green")
+    */val playStack = Card(5, "green")
 
 
     val is: Array[String] = input.split(" ")
 
-    val playerList = controller.playerToList(controller.createPlayer(playername1), controller.createPlayer(playername2))
+    //val playerList = controller.playerToList(controller.createPlayer(playername1), controller.createPlayer(playername2))
 
     is(0) match {
 
@@ -54,7 +54,13 @@ class TUI (controller: controller) extends Observer {
       case "n" => {
         controller.exitGame()
       }
+      case "try" => {
+        controller.testStart()
+      }
     }
   }
-  override def update: Unit = controller.playerToString
+  override def update: Unit = {
+    controller.playerToString
+    println("updated")
+  }
 }

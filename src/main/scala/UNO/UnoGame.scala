@@ -13,7 +13,7 @@ import scala.collection.mutable.ListBuffer
 object UnoGame {
   val controller = new controller()
   val tui = new TUI(controller)
-  controller.notifyObservers("")
+  controller.notifyObservers()
 
   def main(args: Array[String]): Unit = {
     println("_________________")

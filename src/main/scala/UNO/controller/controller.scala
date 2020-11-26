@@ -8,6 +8,13 @@ import scala.io.StdIn.readLine
 
 class controller extends Observable {
 
+  val playername1 = "Konstantin"
+  val playername2 = "Soni"
+
+  val stack = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
+  val playStack = Card(5, "green")
+  val playerList = playerToList(createPlayer(playername1), createPlayer(playername2))
+
   def createPlayer(printerName: String): Player = {
     //val printerName = readLine("Please enter your name:")
 
@@ -30,11 +37,12 @@ class controller extends Observable {
 
   def getCard(playerList: List[Player], stackCard: List[Card]): Unit = {
     println(playerList(0).setPlayerCards(stackCard(0)))
-    //val l = List(playerList(0 + 1), playerList(0).setPlayerCards(stackCard(0)))
+    val l = List(playerList(1), playerList(0).setPlayerCards(stackCard(0)))
     var stack = List[Card]()
     for (i <- 1 until stackCard.size) {
       stack = stackCard(i) :: stack
     }
+    notifyObservers()
     //playGame(l, s, playStack, 0)
   }
 
@@ -43,7 +51,7 @@ class controller extends Observable {
     if ((currentcard.color == playStack.color) || currentcard.number == playStack.number) {
       println(playerList(0).removePlayerCards(handindex.toInt))
       val newPlayStack = currentcard
-      val l = List(playerList(0 + 1), playerList(0).removePlayerCards(handindex.toInt))
+      val l = List(playerList(1), playerList(0).removePlayerCards(handindex.toInt))
       //playGame(l, stackCard, c, 0)
     } else {
       println("Wrong Card!")
@@ -75,6 +83,10 @@ class controller extends Observable {
     //val input = readLine("Instruction: ")
     print("\n\n")
     print(playerList(0) + "\n" + playerList(1))
+  }
+
+  def testStart(): Unit = {
+    notifyObservers()
   }
 
   def playerToString: String = Player.toString()
