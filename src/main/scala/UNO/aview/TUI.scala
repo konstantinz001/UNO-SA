@@ -27,8 +27,7 @@ class TUI (controller: controller) extends Observer {
         controller.getCard()
       }
       case "r" => {
-        if ((controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack.color) ||
-          controller.playerList(0).playerCards(is(1).toInt).number == controller.playStack.number) {
+        if ((controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack.color) || controller.playerList(0).playerCards(is(1).toInt).number == controller.playStack.number) {
           controller.removeCard(is(1).toInt)
         }
         else {
@@ -37,13 +36,13 @@ class TUI (controller: controller) extends Observer {
       }
       case "u" => {
         if(controller.playerList(0).playerCards.size == 2) {
+          println("UNO")
           println("\n--Handcards:\t" + controller.playerList(0).removePlayerCards(is(1).toInt).playerCards)
           controller.removeCard(is(1).toInt)
         }
         else if(controller.playerList(0).playerCards.size == 1) {
           println("UNO - UNO!")
           println("Player " + controller.playerList(0).name.toUpperCase() + " wins!")
-          System.exit(0)
         }
         else {
           println("To many Cards")
