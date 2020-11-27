@@ -1,8 +1,8 @@
 name := "UNO"
 
-version := "0.1"
+version := "0.6.0"
 
-scalaVersion := "2.13.3"
+scalaVersion := "2.12.7"
 
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.8"

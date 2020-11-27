@@ -1,12 +1,5 @@
 package UNO.aview
 
-import UNO.model.{Card, Player}
-import UNO.model.Player
-import org.graalvm.compiler.graph.Node.Input
-
-import scala.io.StdIn.readLine
-import scala.util.control.Breaks.{break, breakable}
-
 import UNO.controller.controller
 import UNO.util.Observer
 
@@ -43,6 +36,7 @@ class TUI (controller: controller) extends Observer {
         else if(controller.playerList(0).playerCards.size == 1) {
           println("UNO - UNO!")
           println("Player " + controller.playerList(0).name.toUpperCase() + " wins!")
+
         }
         else {
           println("To many Cards")
