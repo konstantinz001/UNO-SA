@@ -15,6 +15,9 @@ class CardSpec extends WordSpec with Matchers {
       "have a nice String representation" in {
         card.toString should be("Card = 3 || red")
       }
+      "Card" in {
+        card should be (Card(3, "red"))
+      }
     }
   }
 }

@@ -27,26 +27,16 @@ object UnoGame {
     printf("_"*50 + "\n")
 
     controller.notifyObservers()
-    var input: String = ""
-    do{
-      input = readLine("\nInstruction: ")
-      tui.processInputLine(input)
-    } while (input != "q")
 
 
-
-
-
-
-    /*val stackcard = List(Card(1, "green"), Card(2,"green"),Card(3,"green"))
-    val playStack = Card(5, "green")
-    val tui = new TUI
-    val pL = List(tui.createGame("y"), tui.createGame("y"))
-    tui.playGame("r 0", pL,stackcard,playStack,0)
-    //tui.playGame("r 0", pL, card, 0)
-
-    //def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-
-     */
+    if (args.length == 0) {
+      var input1: String = ""
+      do {
+        input1 = readLine("\nInstruction: ")
+        tui.processInputLine(input1)
+      } while (input1 != "q")
+    }
+    else
+      tui.processInputLine(args(0))
   }
 }
