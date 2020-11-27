@@ -41,6 +41,8 @@ class controllerSpec extends WordSpec with Matchers{
         val playStack = Card(5, "green")
         controller.removeCard(0) should be
         (println("Konstantin\nList(Card = 2 || green, Card = 3 || green)"))
+        (controller.playerList(0).playerCards(0).color == controller.playStack.color) should be (false)
+        (controller.playerList(0).playerCards(0).number == controller.playStack.number) should be (true)
       }
     }
   }
