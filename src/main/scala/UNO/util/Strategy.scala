@@ -2,22 +2,17 @@ package UNO.util
 
 import UNO.UnoGame.controller
 
-object Strategy {
+trait Event
 
-  var strategy = strategy1
-  def handle(e: Event, index:Int) = {
-    e match {
-      case a:def strategy2 = {
-        controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard(0)))
-        controller.stackCard = controller.stackCard diff List(controller.stackCard(0))
-      }
-        ca
-    }
-    def strategy1: Unit = {}
+case class strategyEvent1() extends Event {
+  def strategy1 = {
+    controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard(0)))
+    controller.stackCard = controller.stackCard diff List(controller.stackCard(0))
+  }
+}
 
-
-
-  def strategy3(handindex:Int) = {
+case class strategyEvent2(handindex:Int) extends Event {
+  def strategy2 = {
     val currentcard = controller.playerList(0).playerCards(handindex)
     if ((currentcard.color == controller.playStack.color) || currentcard.number == controller.playStack.number) {
       controller.playStack = controller.playerList(0).playerCards(handindex)
@@ -25,5 +20,3 @@ object Strategy {
     }
   }
 }
-
-Strategy.strategy

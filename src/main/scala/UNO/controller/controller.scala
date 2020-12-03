@@ -1,10 +1,8 @@
 package UNO.controller
 
 import UNO.model.{Card, Player}
-import UNO.util.Observable
+import UNO.util.{Observable, ChooseStrategy,strategyEvent1, strategyEvent2}
 import UNO.controller.GameStatus._
-
-import scala.io.StdIn.readLine
 
 
 class controller extends Observable {
@@ -29,23 +27,14 @@ class controller extends Observable {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
   def getCard(): Unit = {
-    playerList = List(playerList(1), playerList(0).setPlayerCards(stackCard(0)))
-    stackCard = stackCard diff List(stackCard(0))
+    ChooseStrategy.choose(strategyEvent1())
     notifyObservers()
   }
 
   def removeCard(handindex: Int) {
-    val currentcard = playerList(0).playerCards(handindex)
-    if ((currentcard.color == playStack.color) || currentcard.number == playStack.number) {
-      playStack = playerList(0).playerCards(handindex)
-      playerList = List(playerList(1), playerList(0).removePlayerCards(handindex))
-    }
+    ChooseStrategy.choose(strategyEvent2(handindex), handindex)
     notifyObservers()
   }
-
 }
 
