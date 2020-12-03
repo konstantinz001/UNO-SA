@@ -10,7 +10,6 @@ class SetCommand(controller: controller) extends Command {
   }
 
   override def undoStep: Unit = {
-    println("kkkkkk")
     controller.stackCard = controller.playerList(1).playerCards(0) :: controller.stackCard
     controller.playerList = List(controller.playerList(1).removePlayerCards(0), controller.playerList(0))
   }
