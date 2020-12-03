@@ -1,8 +1,12 @@
 package UNO.controller
 
+import UNO.UnoGame.controller
 import UNO.model.{Card, Player}
-import UNO.util.{Observable, ChooseStrategy,strategyEvent1, strategyEvent2}
+import UNO.util.{Observable, UndoManager}
 import UNO.controller.GameStatus._
+import scala.collection.mutable._
+
+
 
 
 class controller extends Observable {
@@ -13,6 +17,9 @@ class controller extends Observable {
   var stackCard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
   var playStack = Card(5, "green")
   var playerList = playerToList(createPlayer(playername1), createPlayer(playername2))
+  var playStack2:List[Card] = List(playStack)
+
+  private val undoManager = new UndoManager
 
 
   def createPlayer(printerName: String): Player = {
@@ -28,13 +35,22 @@ class controller extends Observable {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
-    ChooseStrategy.choose(strategyEvent1())
+    undoManager.doStep(new SetCommand(this))
     notifyObservers()
   }
-
   def removeCard(handindex: Int) {
-    ChooseStrategy.choose(strategyEvent2(handindex), handindex)
+    undoManager.doStep(new RemoveCommand(handindex:Int, this))
     notifyObservers()
   }
-}
+  def undoGet: Unit = {
+    undoManager.undoStep
+    notifyObservers()
+  }
 
+  def redoGet: Unit = {
+    undoManager.redoStep
+    notifyObservers()
+  }
+
+
+}

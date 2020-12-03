@@ -2,7 +2,7 @@ package UNO.util
 
 import UNO.UnoGame.controller
 
-trait Event
+trait Eventt
 
 case class strategyEvent1() extends Event {
   def strategy1 = {

@@ -48,6 +48,34 @@ class TUI (controller: controller) extends Observer {
         System.exit(0)
 
       }
+
+
+      case "s-" => {
+        controller.undoGet
+        println(controller.stackCard)
+        println(controller.playerList)
+      }
+      case "s--" => {
+        controller.redoGet
+        println(controller.stackCard)
+        println(controller.playerList)
+      }
+      case "r-" => {
+        println(controller.playStack2)
+        println(controller.playStack)
+        controller.undoGet
+        println(controller.playStack2)
+        println(controller.playStack)
+        println(controller.playerList)
+      }
+      case "r--" => {
+        println(controller.playStack2)
+        println(controller.playStack)
+        controller.redoGet
+        println(controller.playStack2)
+        println(controller.playStack)
+        println(controller.playerList)
+      }
     }
   }
 

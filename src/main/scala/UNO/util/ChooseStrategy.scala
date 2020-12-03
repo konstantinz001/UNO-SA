@@ -5,12 +5,12 @@ object ChooseStrategy{
 
   var strategy = {}
 
-  def choose(e: Event, index: Int) = {
+  def choose2(e: Eventt, index: Int) = {
     e match {
       case a: strategyEvent2 => strategy = strategyEvent2(index).strategy2
     }
   }
-  def choose(e: Event) = {
+  def choose1(e: Eventt) = {
     e match {
       case a: strategyEvent1 => strategy = strategyEvent1().strategy1
     }
