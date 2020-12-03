@@ -2,12 +2,14 @@ package UNO.controller
 
 import UNO.model.{Card, Player}
 import UNO.util.Observable
+import UNO.controller.GameStatus._
 
 import scala.io.StdIn.readLine
 
 
 class controller extends Observable {
 
+  var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
   var stackCard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
@@ -26,8 +28,9 @@ class controller extends Observable {
     return List(createPlayer(player1.name), createPlayer(player2.name))
   }
 
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
   def getCard(): Unit = {
     playerList = List(playerList(1), playerList(0).setPlayerCards(stackCard(0)))

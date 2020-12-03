@@ -2,7 +2,8 @@ package UNO.aview
 
 import UNO.controller.controller
 import UNO.util.Observer
-
+import UNO.util.{State,setPlayerCardEvent,removeFalseCardEvent,
+  callFirstUnoEvent,callSecondUnoEvent,toManyCardsEvent,removePlayerCardEvent,exitGameEvent}
 
 
 class TUI (controller: controller) extends Observer {
@@ -16,37 +17,36 @@ class TUI (controller: controller) extends Observer {
     is(0) match {
 
       case "s" => {
-        println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+        State.handle(setPlayerCardEvent())
         controller.getCard()
       }
       case "r" => {
         if ((controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack.color) || controller.playerList(0).playerCards(is(1).toInt).number == controller.playStack.number) {
           controller.removeCard(is(1).toInt)
+          State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
         }
         else {
-          println("Wrong Card!")
+          State.handle(removeFalseCardEvent())
         }
       }
       case "u" => {
         if(controller.playerList(0).playerCards.size == 2) {
-          println("UNO")
-          println("\n--Handcards:\t" + controller.playerList(0).removePlayerCards(is(1).toInt).playerCards)
+          State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
           controller.removeCard(is(1).toInt)
         }
         else if(controller.playerList(0).playerCards.size == 1) {
-          println("UNO - UNO!")
-          println("Player " + controller.playerList(0).name.toUpperCase() + " wins!")
-
+          State.handle(callSecondUnoEvent())
+          System.exit(0)
         }
         else {
-          println("To many Cards")
-          println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+          State.handle(toManyCardsEvent())
           controller.getCard()
         }
-
       }
       case "q" => {
-        println("Game exit")
+        State.handle(exitGameEvent())
+        System.exit(0)
+
       }
     }
   }
@@ -54,10 +54,6 @@ class TUI (controller: controller) extends Observer {
 
 
   override def update: Boolean = {
-    print("\n" + "_"*50 + "\nPLAYER " + controller.playerList(0).name.toUpperCase() +
-      "\n\nHandcards: \t" + controller.playerList(0).playerCards +
-      "\n\n\nPlayStack: \t" + controller.playStack +
-      "\nStackCard: \t" + controller.stackCard + "\n" )
     true
   }
 }
