@@ -36,7 +36,6 @@ class TUI (controller: controller) extends Observer {
         }
         else if(controller.playerList(0).playerCards.size == 1) {
           State.handle(callSecondUnoEvent())
-          System.exit(0)
         }
         else {
           State.handle(toManyCardsEvent())
@@ -45,11 +44,10 @@ class TUI (controller: controller) extends Observer {
       }
       case "q" => {
         State.handle(exitGameEvent())
-        System.exit(0)
 
       }
 
-
+//TODO Tests
       case "s-" => {
         controller.undoGet
         println(controller.stackCard)
