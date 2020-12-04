@@ -29,7 +29,7 @@ case class gameStatsEvent() extends Event {
   def gameStats: Unit = {
     print("\n" + "_" * 50 + "\nPLAYER " + controller.playerList(0).name.toUpperCase() +
       "\n\nHandcards: \t" + controller.playerList(0).playerCards +
-      "\n\n\nPlayStack: \t" + controller.playStack +
+      "\n\n\nPlayStack: \t" + controller.playStack2(0) +
       "\nStackCard: \t" + controller.stackCard + "\n")
   }
 }
@@ -39,7 +39,7 @@ case class exitGameEvent() extends Event {
 }
 
 case class setPlayerCardEvent() extends Event {
-  def setPlayerCard = println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+  def setPlayerCard = println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
 }
 
 case class removePlayerCardEvent(index:Int) extends Event {
@@ -70,7 +70,7 @@ case class callSecondUnoEvent() extends Event {
 case class toManyCardsEvent() extends Event {
   def toManyCards = {
     println("To many Cards")
-    println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+    println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
   }
 }
 

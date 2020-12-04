@@ -1,3 +1,5 @@
+import UNO.model.{Card, color}
+
 def hand(): String = {
 
   val CardNumber = 7

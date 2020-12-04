@@ -3,7 +3,8 @@ package UNO
 import scala.io.StdIn.readLine
 import aview.TUI
 import UNO.controller.controller
-import UNO.util.{State, gameStartEvent, instructionEvent,gameStatsEvent}
+import UNO.util.{State, gameStartEvent, gameStatsEvent, instructionEvent}
+import UNO.model.{Card, Stack}
 
 object UnoGame {
   val controller = new controller()
@@ -11,9 +12,7 @@ object UnoGame {
 
   def main(args: Array[String]): Unit = {
     State.handle(instructionEvent())
-
     controller.notifyObservers()
-
 
     if (args.length == 0) {
       var input1: String = ""

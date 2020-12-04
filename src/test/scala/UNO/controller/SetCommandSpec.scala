@@ -9,7 +9,7 @@ class SetCommandSpec extends WordSpec with Matchers {
   "SetCommand" should {
     val undoManager = new UndoManager
     //controller.playerList = List(controller.createPlayer("Konstantin"), controller.createPlayer("Konstantin"))
-    controller.stackCard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
+    controller.stackCard = List(Card("1", "red"), Card("2", "green"), Card("3", "green"))
     println(controller.stackCard.size)
     println(controller.stackCard)
     "doStep" in {

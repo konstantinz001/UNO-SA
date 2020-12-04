@@ -5,9 +5,9 @@ import org.scalatest._
 class CardSpec extends WordSpec with Matchers {
   "A Card" when {
     "new" should {
-      val card = Card(3, "red")
+      val card = Card("3", "red")
       "have a number" in {
-        card.number should be(3)
+        card.value should be(3)
       }
       "have a color" in {
         card.color should be("red")
@@ -16,7 +16,7 @@ class CardSpec extends WordSpec with Matchers {
         card.toString should be("Card = 3 || red")
       }
       "Card" in {
-        card should be (Card(3, "red"))
+        card should be (Card("3", "red"))
       }
     }
   }

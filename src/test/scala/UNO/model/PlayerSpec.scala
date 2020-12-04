@@ -22,7 +22,7 @@ class PlayerSpec extends WordSpec with Matchers {
     }
     "pull new Card" should {
       val playertmp = Player("Bob",Player.startHand())
-      val card = new Card(1, "red")
+      val card = new Card("1", "red")
       val player = playertmp.setPlayerCards(card)
       "have a name" in {
         player.name should be("Bob")
@@ -52,7 +52,7 @@ class PlayerSpec extends WordSpec with Matchers {
         h.size should be(3)
       }
       "have a Card" in {
-        h(0) should be(Card(1, "green"))
+        h(0) should be(Card("1", "green"))
       }
     }
   }

@@ -17,7 +17,7 @@ class TuiSpec extends WordSpec with Matchers {
     "PlayGame input 'r'" in {
       tui.processInputLine("r 0")
       ((controller.playerList(0).playerCards(0).color == controller.playStack.color) ||
-        controller.playerList(0).playerCards(0).number == controller.playStack.number) should be(true)
+        controller.playerList(0).playerCards(0).value == controller.playStack.value) should be(true)
       State.handle(removePlayerCardEvent(0), 0) should be
       (println("\n--Handcards:\t" + controller.playerList(0).removePlayerCards(0).playerCards))
     }

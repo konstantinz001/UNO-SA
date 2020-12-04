@@ -21,7 +21,9 @@ class TUI (controller: controller) extends Observer {
         controller.getCard()
       }
       case "r" => {
-        if ((controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack.color) || controller.playerList(0).playerCards(is(1).toInt).number == controller.playStack.number) {
+        if (controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack2(0).color ||
+          controller.playerList(0).playerCards(is(1).toInt).value == controller.playStack2(0).value ||
+          controller.playerList(0).playerCards(is(1).toInt).color == "schwarz") {
           controller.removeCard(is(1).toInt)
           State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
         }
@@ -60,18 +62,18 @@ class TUI (controller: controller) extends Observer {
       }
       case "r-" => {
         println(controller.playStack2)
-        println(controller.playStack)
+        println(controller.playStack2(0))
         controller.undoGet
         println(controller.playStack2)
-        println(controller.playStack)
+        println(controller.playStack2(0))
         println(controller.playerList)
       }
       case "r--" => {
         println(controller.playStack2)
-        println(controller.playStack)
+        println(controller.playStack2(0))
         controller.redoGet
         println(controller.playStack2)
-        println(controller.playStack)
+        println(controller.playStack2(0))
         println(controller.playerList)
       }
     }

@@ -1,7 +1,7 @@
 package UNO.controller
 
 import UNO.UnoGame.controller
-import UNO.model.{Card, Player}
+import UNO.model.{Card, Player,Stack}
 import UNO.util.{Observable, UndoManager}
 import UNO.controller.GameStatus._
 import scala.collection.mutable._
@@ -14,13 +14,17 @@ class controller extends Observable {
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
-  var stackCard = List(Card(1, "red"), Card(2, "green"), Card(3, "green"))
-  var playStack = Card(5, "green")
+
+  var stackCard = Stack(List(new Card("",""))).initStack()
+  var playStack2:List[Card] = List(stackCard.getCardFromStack())
+  stackCard =stackCard.removeCard()
+  var activActionCard = true
+  //var stackCard = List(Card("1", "red"), Card("2", "green"), Card("3", "green"))
+  //var playStack = Card
   var playerList = playerToList(createPlayer(playername1), createPlayer(playername2))
-  var playStack2:List[Card] = List(playStack)
+
 
   private val undoManager = new UndoManager
-
 
   def createPlayer(printerName: String): Player = {
     //val printerName = readLine("Please enter your name:")
