@@ -1,9 +1,9 @@
 package UNO.aview
 
 import UNO.controller.controller
+import UNO.model.Card
 import UNO.util.Observer
-import UNO.util.{State,setPlayerCardEvent,removeFalseCardEvent,
-  callFirstUnoEvent,callSecondUnoEvent,toManyCardsEvent,removePlayerCardEvent,exitGameEvent}
+import UNO.util.{State, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 
 
 class TUI (controller: controller) extends Observer {

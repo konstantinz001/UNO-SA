@@ -2,14 +2,22 @@ package UNO.controller
 
 
 import UNO.controller.controller
+import scala.io.StdIn.readLine
+import UNO.model.Card
 import UNO.util.Command
 
 
 class RemoveCommand(handindex: Int, controller: controller) extends Command {
   override def doStep: Unit = {
     controller.activActionCard = true
+    if (controller.playerList(0).playerCards(handindex).color == "schwarz") {
+      val getColor = readLine("Set color: ")
+      controller.playStack2 = Card("", getColor) :: controller.playStack2
+    }
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
+
     controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(handindex))
+
     if (controller.playStack2(0).value == "+2" && controller.activActionCard == true) {
       for (i <- 1 to 2) {
         println("Take two Cards")
