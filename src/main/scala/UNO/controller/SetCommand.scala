@@ -8,28 +8,33 @@ class SetCommand(controller: controller) extends Command {
   override def doStep: Unit = {
     controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
     controller.stackCard = controller.stackCard.removeCard()
-    if (controller.playStack2(0).value == "+2") {
+    if (controller.playStack2(0).value == "+2" && controller.activActionCard == true) {
       for (i <- 1 to 2) {
         println("Take two Cards")
-        //controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
-        //controller.stackCard = controller.stackCard.removeCard()
+        controller.playerList = List( controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()),controller.playerList(1))
+        controller.stackCard = controller.stackCard.removeCard()
+        controller.activActionCard = false
       }
     }
     if (controller.playStack2(0).value == "+4") {
       for (i <- 1 to 4) {
         println("Take four Cards")
-        //controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
-        //controller.stackCard = controller.stackCard.removeCard()
+        controller.playerList = List( controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()),controller.playerList(1))
+        controller.stackCard = controller.stackCard.removeCard()
+        controller.activActionCard = false
       }
     }
     if (controller.playStack2(0).value == "<-->") {
       println("Retour")
-      //controller.playerList = controller.playerList.reverse
+      controller.playerList = controller.playerList.reverse
+      controller.activActionCard = false
     }
     if (controller.playStack2(0).value == "Ø") {
       println("Supose")
-      //controller.playerList = List(controller.playerList(0), controller.playerList(1))
+      controller.playerList = List(controller.playerList(1), controller.playerList(0))
+      controller.activActionCard = false
     }
+    println(controller.playStack2(0))
   }
 
   override def undoStep: Unit = {
