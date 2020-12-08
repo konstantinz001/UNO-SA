@@ -27,11 +27,11 @@ case class Player (name: String, playerCards:List[Card]) {
     return copy(playerCards = tmp.reverse)
   }
 }
-
+/*
 object Player {
   def startHand(): List[Card] = {
-    //val c = Card(1, "green") :: Card(2, "green") :: Card(3, "green") :: Card(4, "green") :: Card(5, "green") :: Nil
-    val starthand = Card("+4", "schwarz") :: Card("2", "green") :: Card("3", "green") :: Nil
+    val starthand = Card("Ø", "green") :: Card("2", "green") :: Card("3", "green") :: Nil
     return starthand
   }
 }
+*/

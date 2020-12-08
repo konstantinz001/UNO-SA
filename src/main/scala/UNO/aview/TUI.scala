@@ -2,9 +2,8 @@ package UNO.aview
 
 import UNO.controller.controller
 import UNO.model.Card
-import UNO.util.Observer
-import UNO.util.{State, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
-
+import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, forgotCallUnoEvent, callSecondUnoEvent, exitGameEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.util.{removeCardEvent}
 
 class TUI (controller: controller) extends Observer {
 
@@ -13,7 +12,6 @@ class TUI (controller: controller) extends Observer {
   def processInputLine(input: String): Unit = {
 
     val is: Array[String] = input.split(" ")
-
     is(0) match {
 
       case "s" => {
@@ -21,16 +19,23 @@ class TUI (controller: controller) extends Observer {
         controller.getCard()
       }
       case "r" => {
-        if (controller.playerList(0).playerCards(is(1).toInt).color == controller.playStack2(0).color ||
-          controller.playerList(0).playerCards(is(1).toInt).value == controller.playStack2(0).value ||
-          controller.playerList(0).playerCards(is(1).toInt).color == "schwarz") {
+        if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
           controller.removeCard(is(1).toInt)
           State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
-        }
-        else {
+        } else if (!Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
           State.handle(removeFalseCardEvent())
+        } else {
+          State.handle(forgotCallUnoEvent())
+          //TODO in SetCommand implementieren
+          for (i <- 1 to 2) {
+            controller.playerList = List(controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()), controller.playerList(1))
+            controller.stackCard = controller.stackCard.removeCard()
+          }
+          controller.playerList = List(controller.playerList(1), controller.playerList(0))
         }
       }
+
+
       case "u" => {
         if(controller.playerList(0).playerCards.size == 2) {
           State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
@@ -41,7 +46,12 @@ class TUI (controller: controller) extends Observer {
         }
         else {
           State.handle(toManyCardsEvent())
-          controller.getCard()
+          //TODO in SetCommand implementieren
+          for (i <- 1 to 2) {
+            controller.playerList = List(controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()), controller.playerList(1))
+            controller.stackCard = controller.stackCard.removeCard()
+          }
+          controller.playerList = List(controller.playerList(1), controller.playerList(0))
         }
       }
       case "q" => {
@@ -85,15 +95,3 @@ class TUI (controller: controller) extends Observer {
     true
   }
 }
-
-//TODO
-/*
-    In Remove einfügen falls man vergisst uno zu rufen
-
-            if(controller.playerList(0).playerCards.size <= 2) {
-            println("Call Uno!")
-            println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
-            controller.getCard()
-          }
-
- */

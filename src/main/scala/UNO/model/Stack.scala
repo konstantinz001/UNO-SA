@@ -32,11 +32,16 @@ case class Stack(stackCards: List[Card]){
   }
 
   def removeCard(): Stack = {
-    copy(stackCards diff List(stackCards(0)))
+    copy(stackCards.tail)
   }
 
   def pullCards(playerStack:List[Card]): Stack = {
     copy(stackCards ::: playerStack)
+  }
+  def reversePullCards(playerStack:List[Card]): Stack = {
+    var stackCards2 = stackCards.reverse
+    stackCards2 = stackCards2 ::: playerStack
+    copy(stackCards2.reverse)
   }
 
   def getCardFromStack(): Card = {

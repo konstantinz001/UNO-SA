@@ -20,6 +20,7 @@ object State {
       case f: gameStartEvent => state = gameStartEvent().gameStart
       case g: gameStatsEvent => state = gameStatsEvent().gameStats
       case h: exitGameEvent => state = exitGameEvent().exitGame
+      case i: forgotCallUnoEvent => state = forgotCallUnoEvent().forgotCallUno
     }
     state
   }
