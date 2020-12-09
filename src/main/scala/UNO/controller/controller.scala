@@ -12,19 +12,26 @@ class controller extends Observable {
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
+  private val undoManager = new UndoManager
 
   var stackCard = Stack(List(new Card("",""))).initStack()
-  var playStack2:List[Card] = List(stackCard.getCardFromStack())
-  stackCard =stackCard.removeCard()
-
   var playerList = createPlayer()
+  var playStack2 = initStack()
 
-  private val undoManager = new UndoManager
+
+  //Methods to init PlayerList and Stacks
+  def initStack() : List[Card] = {
+
+    while (stackCard.getCardFromStack().color == "black") {
+      stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
+      stackCard = stackCard.removeCard()
+    }
+    return List(stackCard.getCardFromStack())
+  }
 
   def createPlayer(): List[Player] = {
     return List(Player(playername1,startHand()),Player(playername2,startHand()))
   }
-
 
   def startHand(): List[Card] = {
     var starthand = List(Card("",""))

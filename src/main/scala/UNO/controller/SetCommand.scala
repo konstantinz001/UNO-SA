@@ -16,5 +16,7 @@ class SetCommand(controller: controller) extends Command {
   }
 
   override def redoStep: Unit = {
+    controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
+    controller.stackCard = controller.stackCard.removeCard()
     }
 }

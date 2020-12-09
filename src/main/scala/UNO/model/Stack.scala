@@ -22,9 +22,9 @@ case class Stack(stackCards: List[Card]){
       Card("4","yellow"), Card("5","yellow"), Card("6","yellow"), Card("7","yellow"), Card("8","yellow"),
       Card("9","yellow"), Card("+2","yellow"), Card("<-->","yellow"), Card("Ø","yellow"))
 
-    val black = List(Card("ColorSwitch", "Black"), Card("4+ ColorSwitch", "Black"))
+    val black = List(Card("ColorSwitch", "black"), Card("4+ ColorSwitch", "black"))
 
-    copy(green ::: green ::: red ::: red :::  blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
+    copy( green ::: green ::: red ::: red :::  blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
   }
 
   def shuffleCards(): Stack = {

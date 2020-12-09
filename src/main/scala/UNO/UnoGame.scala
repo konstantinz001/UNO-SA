@@ -11,18 +11,19 @@ object UnoGame {
   val tui = new TUI(controller)
 
   def main(args: Array[String]): Unit = {
-    State.handle(instructionEvent())
+    print(State.handle(instructionEvent()))
     controller.notifyObservers()
 
     if (args.length == 0) {
       var input1: String = ""
       do {
-        State.handle(gameStatsEvent())
+        print(State.handle(gameStatsEvent()))
         input1 = readLine("\nInstruction: ")
-        tui.processInputLine(input1)
+        print(tui.processInputLine(input1))
       } while (input1 != "q")
     }
     else
       tui.processInputLine(args(0))
   }
 }
+
