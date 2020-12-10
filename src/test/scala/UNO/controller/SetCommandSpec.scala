@@ -12,17 +12,17 @@ class SetCommandSpec extends WordSpec with Matchers {
     "doStep" in {
       undoManager.doStep(new SetCommand( controller))
       controller.notifyObservers()
-      controller.stackCard.stackCards.size should be(93)  //108 - Playercards(7 Cards) multiply with 2
+      controller.stackCard.stackCards.size should be(71)  //108 - Playercards(7 Cards) multiply with 2
     }
     "undoStep" in {
       undoManager.undoStep
       controller.notifyObservers()
-      controller.stackCard.stackCards.size should be(94)
+      controller.stackCard.stackCards.size should be(72)
     }
     "redoStep" in {
       undoManager.redoStep
       controller.notifyObservers()
-      controller.stackCard.stackCards.size should be(93)
+      controller.stackCard.stackCards.size should be(71)
     }
   }
 }
