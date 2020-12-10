@@ -25,10 +25,13 @@ class TUI (controller: controller) extends Observer {
           return State.handle(removeFalseCardEvent())
 
         } else {
+          //TODO Remove Card => if you have forgot to Call UNO you have to take 2 Cards: 1 Card Remove, 2 Cards Get
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
           return State.handle(forgotCallUnoEvent())
+
+
         }
       }
       case "u" => {

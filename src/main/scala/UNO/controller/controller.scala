@@ -35,10 +35,10 @@ class controller extends Observable {
 
   def startHand(): List[Card] = {
     var starthand = List(Card("",""))
-    for (i <- 1 to 7) {
+    (1 to 7).foreach((i)=>{
       starthand = stackCard.getCardFromStack() :: starthand
       stackCard = stackCard.removeCard()
-    }
+    })
     return starthand.init.reverse
   }
 

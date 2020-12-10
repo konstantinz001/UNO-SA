@@ -6,7 +6,7 @@ import UNO.util.UndoManager
 import org.scalatest.{Matchers, WordSpec}
 
 class removeCommandSpec extends WordSpec with Matchers {
-  "SetCommand" should {
+  "RemoveCommand" should {
     val undoManager = new UndoManager
     "doStep" in {
       undoManager.doStep(new RemoveCommand(0, controller))
@@ -23,5 +23,6 @@ class removeCommandSpec extends WordSpec with Matchers {
       controller.notifyObservers()
       controller.playStack2.size should be(2)
     }
+
   }
 }

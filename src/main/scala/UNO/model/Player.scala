@@ -1,5 +1,5 @@
 package UNO.model
-import scala.util.control.Breaks.{break, breakable}
+import scala.util.{Try,Failure, Success}
 
 
 
@@ -9,29 +9,22 @@ case class Player (name: String, playerCards:List[Card]) {
   }
 
   def setPlayerCards(setCard: Card): Player = {
-    val temporarily  = setCard :: playerCards
+    val temporarily = setCard :: playerCards
     return copy(playerCards = temporarily)
   }
 
   def removePlayerCards(index: Int): Player = {
-    var tmp = List[Card]()
-    for (i <- 0 until playerCards.size) {
-      breakable {
-        if (i == index) {
-          break
-        } else {
-          tmp = playerCards(i) :: tmp
-        }
-      }
+    tryRemovePlayerCards(index) match {
+      case Some(player) => player
+      case None => throw new Exception("Es konnte keine Karte ausgewählt werden!\n")
     }
-    return copy(playerCards = tmp.reverse)
+  }
+
+  def tryRemovePlayerCards(index: Int): Option[Player] = {
+    Try(playerCards diff List(playerCards(index))) match {
+      case Success(list) => Some(copy(playerCards = list))
+      case Failure(_) =>
+        None
+    }
   }
 }
-/*
-object Player {
-  def startHand(): List[Card] = {
-    val starthand = Card("Ø", "green") :: Card("2", "green") :: Card("3", "green") :: Nil
-    return starthand
-  }
-}
-*/

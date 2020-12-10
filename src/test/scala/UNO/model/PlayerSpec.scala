@@ -1,9 +1,12 @@
-//package UNO.model
+package UNO.model
 
 import UNO.UnoGame.controller
-import UNO.model.Player
-import UNO.model.Card
+
+import scala.util.{Failure, Success, Try}
 import org.scalatest._
+import play.api.libs.json.JsResult.Exception
+
+import scala.None
 
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when {
@@ -36,6 +39,13 @@ class PlayerSpec extends WordSpec with Matchers {
       "have a hand" in {
         player.playerCards.size should be (6)
       }
+      /*"remove Card None" should {
+        val playertmp = Player("Bob", controller.startHand())
+        val player = playertmp.removePlayerCards(5000)
+        "None" in {
+          player should be (None)
+        }
+      }*/
     }
   }
 }
