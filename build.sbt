@@ -2,7 +2,7 @@ name := "UNO"
 
 version := "0.1"
 
-//To use Travis: scalaVersion = 2.12.7
+///To use Travis: scalaVersion = 2.12.7
 scalaVersion := "2.12.7"
 
 ////To use ScalaTest: scalaVersion = 2.13.3
