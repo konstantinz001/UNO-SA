@@ -1,4 +1,6 @@
-package UNO.model
+//package UNO.model
+
+import UNO.model.Card
 
 import org.scalatest._
 
@@ -7,7 +9,7 @@ class CardSpec extends WordSpec with Matchers {
     "new" should {
       val card = Card("3", "red")
       "have a number" in {
-        card.value should be(3)
+        card.value.toInt should be(3)
       }
       "have a color" in {
         card.color should be("red")

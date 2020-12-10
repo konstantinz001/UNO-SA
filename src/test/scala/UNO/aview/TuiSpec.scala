@@ -1,103 +1,70 @@
-package UNO.aview
+package aview
 
 import UNO.UnoGame.controller
 import UNO.aview.TUI
 import UNO.controller.controller
 import UNO.model.{Card, Player}
-import UNO.util._
+import UNO.util.State.handle
+import UNO.util.{State, _}
 import org.scalatest._
 
 class TuiSpec extends WordSpec with Matchers {
-  "A TUI" should {
+  "First TUI" should {
     val controller = new controller()
     val tui = new TUI(controller)
     controller.notifyObservers()
-
-    //def playGame(pL:List[Player], stackCard: List[Card], playStack:Card, idx:Int): Unit = {
-    "PlayGame input 'r'" in {
-      tui.processInputLine("r 0")
-      ((controller.playerList(0).playerCards(0).color == controller.playStack.color) ||
-        controller.playerList(0).playerCards(0).value == controller.playStack.value) should be(true)
-      State.handle(removePlayerCardEvent(0), 0) should be
-      (println("\n--Handcards:\t" + controller.playerList(0).removePlayerCards(0).playerCards))
+    "PlayGame input 'r 0' first" in {
+      tui.processInputLine("r 0") should be (State.handle(removePlayerCardEvent(0),0))
     }
-    "PlayGame input 's'" in {
-      tui.processInputLine("s")
-      State.handle(removePlayerCardEvent(0), 0) should be
-      (println("\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards))
+    "PlayGame input 'u 0' first" in {
+      tui.processInputLine("u 0") should be (State.handle(toManyCardsEvent()))
     }
-    "PlayGame input 'u' many Cards" in {
-      tui.processInputLine("u 0")
-      State.handle(toManyCardsEvent()) should be
-      (println("To many Cards") + "\n\n--Handcards:\t" + controller.playerList(0).setPlayerCards(controller.stackCard(0)).playerCards)
+    "PlayGame input 's' first" in {
+      tui.processInputLine("s") should be (State.handle(setPlayerCardEvent()))
     }
-
-    "A 2nd TUI" should {
-      val controller = new controller()
-      val tui = new TUI(controller)
-      controller.notifyObservers()
-
-
-      "PlayGame input 'u' 2st " in {
-        tui.processInputLine("u 0")
-        State.handle(callSecondUnoEvent()) should be
-        print("UNO - UNO!\nPlayer KONSTANTIN:You won")
-      }
+    "PlayGame input 's-' first" in {
+      tui.processInputLine("s-") should be ("S-undo")
     }
-    "A 3nd TUI" should {
-      val controller = new controller()
-      val tui = new TUI(controller)
-      controller.notifyObservers()
-
-      "PlayGame input 'q' " in {
-        tui.processInputLine("q")
-        State.handle(exitGameEvent()) should be
-        (print("Game exit"))
-      }
-
-      }
+    "PlayGame input 's--' first" in {
+      tui.processInputLine("s--") should be ("S-redo")
     }
-    "A 4nd TUI" should {
-      val controller = new controller()
-      val tui = new TUI(controller)
-      controller.notifyObservers()
+    "PlayGame input 'r-' first" in {
+      tui.processInputLine("r-") should be ("R-undo")
+    }
+    "PlayGame input 'r--' first" in {
+      tui.processInputLine("r--") should be ("R-redo")
+    }
+    "PlayGame input 'q' first" in {
+      tui.processInputLine("q") should be (State.handle(exitGameEvent()))
+    }
+  }
+  "Second TUI" should {
+    val controller = new controller()
+    val tui = new TUI(controller)
+    controller.notifyObservers()
+    for (i <- 1 to 7)
+      controller.playerList = List(controller.playerList(0).removePlayerCards(0), controller.playerList(1).removePlayerCards(0))
+    for(i <- 1 to 2)
+      controller.playerList = List(controller.playerList(0).setPlayerCards(Card("1","green")),controller.playerList(1).setPlayerCards(Card("1","green")))
+    "PlayGame input 'u 0' Second" in {
 
-      "PlayGame input 'r' " in {
-        tui.processInputLine("r 0")
-        State.handle(exitGameEvent()) should be
-        (print("Wrong Card"))
-      }
+      tui.processInputLine("u 0") should be(State.handle(callFirstUnoEvent(0),0))
+    }
+    "PlayGame input 'u 0' Second2" in {
+      tui.processInputLine("r 0") //should be (State.handle(forgotCallUnoEvent()))
+      tui.processInputLine("u 0") should be(State.handle(callSecondUnoEvent()))
+    }
+  }
+  "Third TUI" should {
+    val controller = new controller()
+    val tui = new TUI(controller)
+    controller.notifyObservers()
+    for (i <- 1 to 7)
+      controller.playerList = List(controller.playerList(0).removePlayerCards(0), controller.playerList(1).removePlayerCards(0))
+    for(i <- 1 to 2)
+      controller.playerList = List(controller.playerList(0).setPlayerCards(Card("1","green")),controller.playerList(1).setPlayerCards(Card("1","red")))
+    "PlayGame input 'r 0' Third" in {
+      tui.processInputLine("r 0") should be (State.handle(forgotCallUnoEvent()))
+    }
   }
 }
-    /*
-        /*"PlayGame input 'u' Player1 wins" in {
-          tui.processInputLine("u 0") should be
-          (println("To many Cards"))
-        }*/
-        /*"PlayGame input 'q' Player1" in {
-          tui.processInputLine("q") should be (println("Game exit"))
-        }*/
-      }
-      "A 2nd TUI" should {
-        val controller = new controller()
-        val tui = new TUI(controller)
-        controller.notifyObservers()
-        "Input 's' Player1" in {
-          tui.processInputLine("s")
-          controller.playerList(1).playerCards.size should be(4)
-          controller.playerList(0).playerCards.size should be(3)
-        }
-        "Input 's' Player2" in {
-          tui.processInputLine("s")
-          controller.playerList(1).playerCards.size should be(4)
-          controller.playerList(0).playerCards.size should be(4)
-        }
-        "Input 'r 0' Player1 Wrong Card" in {
-          tui.processInputLine("r 0")
-          controller.playerList(1).playerCards.size should be(4)
-          controller.playerList(0).playerCards.size should be(4)
-        }
-        "Input 'q' Player2" in {
-          tui.processInputLine("q") should be (println("Game exit"))
-        }
-*/

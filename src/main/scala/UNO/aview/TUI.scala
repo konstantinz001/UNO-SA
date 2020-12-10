@@ -1,7 +1,6 @@
 package UNO.aview
 
 import UNO.controller.controller
-import UNO.model.Card
 import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 
 class TUI (controller: controller) extends Observer {
@@ -54,19 +53,19 @@ class TUI (controller: controller) extends Observer {
 
       case "s-" => {
         controller.undoGet
-        return ""
+        return "S-undo"
       }
       case "s--" => {
         controller.redoGet
-        return " "
+        return "S-redo"
       }
       case "r-" => {
         controller.undoGet
-        return ""
+        return "R-undo"
       }
       case "r--" => {
         controller.redoGet
-        return ""
+        return "R-redo"
       }
     }
   }

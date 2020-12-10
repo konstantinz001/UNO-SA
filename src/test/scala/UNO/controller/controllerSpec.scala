@@ -1,12 +1,17 @@
 package UNO.controller
 
-import UNO.model.{Card, Player}
+import UNO.controller.GameStatus.{GameStatus, IDLE}
+import UNO.controller.controller
+import UNO.model.{Card, Player, Stack}
 import UNO.util.Observer
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{Matchers, WordSpec, color}
 
-class controllerSpec extends WordSpec with Matchers{
+class controllerSpec extends WordSpec with Matchers {
   "A Controller" when {
     "new" should {
+      var gameStatus: GameStatus = IDLE
+      var playername1 = "Konstantin"
+      var playername2 = "Soni"
       val controller = new controller()
       val observer = new Observer {
         var updated: Boolean = false
@@ -17,32 +22,83 @@ class controllerSpec extends WordSpec with Matchers{
           true
         }
       }
-      val player = controller.createPlayer("Konstantin")
-      "a new Player" in {
-        player.name should be ("Konstantin")
-      }
-      val pL = controller.playerToList(controller.createPlayer("Konstantin"),
-        controller.createPlayer("Soni"))
-      "a PlayerList" in {
-        pL.size should be (2)
-        pL(0).name should be ("Konstantin")
-        pL(1).name should be ("Soni")
-      }
+      var stackCard = Stack(List(new Card("", ""))).initStack()
+      var playStack2 = controller.initStack()
+      var playerList = controller.createPlayer()
       "a Player get a Card from Stack" in {
-        val pL = controller.playerToList(controller.createPlayer("Konstantin"),
-          controller.createPlayer("Soni"))
-        val stackcard = List(Card("1", "red"), Card("2", "green"), Card("3", "green"))
-        controller.getCard() should be
-        (println("Konstantin\nList(Card = 1 || red, Card = 1 || green, Card = 2 || green, Card = 3 || green)"))
+        val cardSizeBefor = controller.playerList(0).playerCards.size
+        controller.getCard()
+        val cardSizeAfter = controller.playerList(1).playerCards.size
+        cardSizeAfter should be(cardSizeBefor + 1)
       }
       "a Player put a Card into Playstack" in {
-        val pL = controller.playerToList(controller.createPlayer("Konstantin"),
-          controller.createPlayer("Soni"))
-        val playStack = Card("5", "green")
-        controller.removeCard(0) should be
-        (println("Konstantin\nList(Card = 2 || green, Card = 3 || green)"))
-        (controller.playerList(0).playerCards(0).color == controller.playStack.color) should be (false)
-        (controller.playerList(0).playerCards(0).value == controller.playStack.value) should be (true)
+        val cardSizeBefor = controller.playerList(0).playerCards.size
+        controller.removeCard(0)
+        val cardSizeAfter = controller.playerList(1).playerCards.size
+        cardSizeAfter should be(cardSizeBefor - 1)
+      }
+    }
+  }
+  "A 2nd Controller" when {
+    "new" should {
+      var gameStatus: GameStatus = IDLE
+      var playername1 = "Konstantin"
+      var playername2 = "Soni"
+      val controller = new controller()
+      val observer = new Observer {
+        var updated: Boolean = false
+
+        def isUpdated: Boolean = updated
+
+        override def update: Boolean = {
+          true
+        }
+      }
+      var stackCard = Stack(List(new Card("", ""))).initStack()
+      var playStack2 = controller.initStack()
+      var playerList = controller.createPlayer()
+
+      "a Player undo" in {
+        controller.removeCard(0)
+        val cardSizeBefor = controller.playerList(0).playerCards.size
+        controller.undoGet
+        val cardSizeAfter = controller.playerList(0).playerCards.size
+        cardSizeAfter should be(cardSizeBefor)
+      }
+      "a Player redo" in {
+        controller.removeCard(0)
+        val cardSizeBefor = controller.playerList(0).playerCards.size
+        controller.redoGet
+        val cardSizeAfter = controller.playerList(1).playerCards.size
+        cardSizeAfter should be(cardSizeBefor - 1)
+      }
+    }
+  }
+  "A 3d Controller" when {
+    "new" should {
+      var gameStatus: GameStatus = IDLE
+      var playername1 = "Konstantin"
+      var playername2 = "Soni"
+      val controller = new controller()
+      val observer = new Observer {
+        var updated: Boolean = false
+
+        def isUpdated: Boolean = updated
+
+        override def update: Boolean = {
+          true
+        }
+      }
+      var stackCard = Stack(List(new Card("", ""))).initStack()
+      stackCard = stackCard.reversePullCards(List(Card("", "black")))
+      println(stackCard)
+      //var playStack2 = controller.initStack()
+      var playerList = controller.createPlayer()
+
+      "a playerstack" in {
+        var playStack2 = controller.initStack()
+        var color = playStack2(0).color
+        color shouldNot be("black")
       }
     }
   }

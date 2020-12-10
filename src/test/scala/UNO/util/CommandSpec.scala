@@ -1,5 +1,6 @@
 package UNO.util
 
+import UNO.util.Command
 import org.scalatest.{Matchers, WordSpec}
 
 class incrCommand extends Command{
