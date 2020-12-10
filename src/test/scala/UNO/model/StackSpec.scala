@@ -1,4 +1,4 @@
-//package UNO.model
+package UNO.model
 import UNO.model.Stack
 import UNO.model.Card
 

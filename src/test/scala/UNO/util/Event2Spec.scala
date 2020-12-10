@@ -10,7 +10,7 @@ class Event2Spec extends WordSpec with Matchers {
       removeCardEvent should be (removeCardEvent)
       (controller.playerList(0).playerCards(0).color == controller.playStack2(0).color ||
         controller.playerList(0).playerCards(0).value == controller.playStack2(0).value ||
-        controller.playerList(0).playerCards(0).color == "black") should be (false)
+        controller.playerList(0).playerCards(0).color == "black") should be (true)
     }
   }
 }

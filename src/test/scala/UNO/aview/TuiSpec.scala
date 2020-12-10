@@ -1,4 +1,4 @@
-package aview
+package UNO.aview
 
 import UNO.UnoGame.controller
 import UNO.aview.TUI
