@@ -23,8 +23,7 @@ case class Player (name: String, playerCards:List[Card]) {
   def tryRemovePlayerCards(index: Int): Option[Player] = {
     Try(playerCards diff List(playerCards(index))) match {
       case Success(list) => Some(copy(playerCards = list))
-      case Failure(_) =>
-        None
+      case Failure(_) => None
     }
   }
 }

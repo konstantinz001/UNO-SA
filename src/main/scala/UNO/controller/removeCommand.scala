@@ -11,7 +11,8 @@ class RemoveCommand(handindex: Int, controller: controller) extends Command {
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
     cardDiff
   }
-
+  //TODO println to State
+//TODO Cleaning: If -> Match-Case and take to Strategy
   override def undoStep: Unit = {
     if (controller.playStack2(1).color == "black") {
       controller.playerList = List(controller.playerList(1).setPlayerCards(controller.playStack2(1)), controller.playerList(0))
@@ -72,12 +73,12 @@ class RemoveCommand(handindex: Int, controller: controller) extends Command {
     }
     else if (controller.playerList(0).playerCards(handindex).value == "<-->") {
       println("Retour")
-      controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(0))
+      controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(handindex))
       controller.playerList = controller.playerList.reverse
     }
     else if (controller.playerList(0).playerCards(handindex).value == "Ø") {
       println("Supose")
-      controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(0))
+      controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(handindex))
       controller.playerList = controller.playerList.tail ::: List(controller.playerList.head) ::: Nil
     }
     else {

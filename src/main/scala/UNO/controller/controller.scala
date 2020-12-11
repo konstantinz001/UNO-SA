@@ -9,6 +9,7 @@ import UNO.controller.GameStatus._
 
 class controller extends Observable {
 
+  //TODO more Player and take to GameState
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
@@ -17,7 +18,6 @@ class controller extends Observable {
   var stackCard = Stack(List(new Card("",""))).initStack()
   var playerList = createPlayer()
   var playStack2 = initStack()
-
 
   //Methods to init PlayerList and Stacks
   def initStack() : List[Card] = {

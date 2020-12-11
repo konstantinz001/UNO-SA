@@ -24,7 +24,7 @@ case class Stack(stackCards: List[Card]){
 
     val black = List(Card("ColorSwitch", "black"), Card("4+ ColorSwitch", "black"))
 
-    copy( green ::: green ::: red ::: red :::  blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
+    copy(green ::: green ::: red ::: red :::  blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
   }
 
   def shuffleCards(): Stack = {
