@@ -3,9 +3,12 @@ package UNO.aview
 import UNO.controller.controller
 import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 
-class TUI (controller: controller) extends Observer {
+import scala.swing.Reactor
 
-  controller.add(this)
+class TUI (controller: controller) extends Reactor { // extends Observer
+
+  //controller.add(this)
+  listenTo(controller)
 
   def processInputLine(input: String): String = {
 
@@ -74,7 +77,7 @@ class TUI (controller: controller) extends Observer {
   }
 
 
-  override def update: Boolean = {
-    true
-  }
+  //override def update: Boolean = {
+  //  true
+  //}
 }

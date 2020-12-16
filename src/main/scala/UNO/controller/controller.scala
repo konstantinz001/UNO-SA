@@ -1,13 +1,15 @@
 package UNO.controller
 
-import UNO.model.{Card, Player,Stack}
+import UNO.model.{Card, Player, Stack}
 import UNO.util.{Observable, UndoManager}
 import UNO.controller.GameStatus._
 
+import scala.swing.Publisher
 
 
 
-class controller extends Observable {
+
+class controller extends Publisher { // extends Observable
 
   //TODO more Player and take to GameState
   var gameStatus: GameStatus = IDLE
@@ -45,20 +47,24 @@ class controller extends Observable {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     undoManager.doStep(new SetCommand(this))
-    notifyObservers()
+    publish(new stackChanged)
+    //notifyObservers()
   }
   def removeCard(handindex: Int) {
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
-    notifyObservers()
+    publish(new playerhandChanged)
+    //notifyObservers()
   }
   def undoGet: Unit = {
     undoManager.undoStep
-    notifyObservers()
+    publish(new playerhandChanged)
+    //notifyObservers()
   }
 
   def redoGet: Unit = {
     undoManager.redoStep
-    notifyObservers()
+    publish(new playerhandChanged)
+    //notifyObservers()
   }
 
 

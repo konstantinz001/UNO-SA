@@ -1,5 +1,7 @@
 package UNO
 
+import UNO.aview.gui.SwingGui
+
 import scala.io.StdIn.readLine
 import aview.TUI
 import UNO.controller.controller
@@ -9,6 +11,7 @@ import UNO.model.{Card, Stack}
 object UnoGame {
   val controller = new controller()
   val tui = new TUI(controller)
+  val gui = new SwingGui(controller)
 
   def main(args: Array[String]): Unit = {
     print(State.handle(instructionEvent()))
