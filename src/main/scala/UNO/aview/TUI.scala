@@ -1,8 +1,9 @@
 package UNO.aview
 
 import UNO.controller.controller
+import UNO.model.{Card, Stack}
 import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
-
+import UNO.controller._
 import scala.swing.Reactor
 
 class TUI (controller: controller) extends Reactor { // extends Observer
@@ -74,6 +75,20 @@ class TUI (controller: controller) extends Reactor { // extends Observer
         return "R-redo"
       }
     }
+  }
+
+  reactions += {
+    case event: playerhandChanged => print
+    case event: playerturnChanged => print
+    case event: playfieldChanged => print
+    case event: playstackChanged => print
+  }
+
+   def print:Unit= {
+     println(controller.playerList(0).playerCards)
+     println(controller.playerList(1).playerCards)
+     println(controller.stackCard)
+
   }
 
 

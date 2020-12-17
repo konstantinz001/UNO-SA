@@ -47,7 +47,7 @@ class controller extends Publisher { // extends Observable
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     undoManager.doStep(new SetCommand(this))
-    publish(new stackChanged)
+    publish(new playerhandChanged)
     //notifyObservers()
   }
   def removeCard(handindex: Int) {
@@ -57,13 +57,13 @@ class controller extends Publisher { // extends Observable
   }
   def undoGet: Unit = {
     undoManager.undoStep
-    publish(new playerhandChanged)
+    publish(new playfieldChanged)
     //notifyObservers()
   }
 
   def redoGet: Unit = {
     undoManager.redoStep
-    publish(new playerhandChanged)
+    publish(new playfieldChanged)
     //notifyObservers()
   }
 

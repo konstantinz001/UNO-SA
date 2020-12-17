@@ -12,6 +12,11 @@ class SwingGui(controller: controller) extends Frame {
   listenTo(controller)
 
   title = " UNO Game"
+  contents = new FlowPanel{
+    contents += new Label{
+      text = "this"
+    }
+  }
 
   def gamepanel = new GridPanel(3,1) {
     border = LineBorder(java.awt.Color.WHITE, 20)

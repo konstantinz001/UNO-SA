@@ -4,9 +4,8 @@ import UNO.aview.gui.SwingGui
 
 import scala.io.StdIn.readLine
 import aview.TUI
-import UNO.controller.controller
-import UNO.util.{State, gameStartEvent, gameStatsEvent, instructionEvent}
-import UNO.model.{Card, Stack}
+import UNO.controller.{controller, playfieldChanged}
+import UNO.util.{State, gameStatsEvent, instructionEvent}
 
 object UnoGame {
   val controller = new controller()
@@ -15,7 +14,8 @@ object UnoGame {
 
   def main(args: Array[String]): Unit = {
     print(State.handle(instructionEvent()))
-    controller.notifyObservers()
+    //controller.notifyObservers()
+    controller.publish(new playfieldChanged)
 
     if (args.length == 0) {
       var input1: String = ""

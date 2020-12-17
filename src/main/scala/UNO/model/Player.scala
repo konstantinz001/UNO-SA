@@ -4,6 +4,7 @@ import scala.util.{Try,Failure, Success}
 
 
 case class Player (name: String, playerCards:List[Card]) {
+
   override def toString: String = {
     name + "\n" + playerCards + "\n"
   }
