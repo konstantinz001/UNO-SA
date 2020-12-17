@@ -22,10 +22,10 @@ class TUI (controller: controller) extends Reactor { // extends Observer
         return State.handle(setPlayerCardEvent())
       }
       case "r" => {
+        if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
+        controller.colorSet = is(2)
+      }
         if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
-          if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
-            controller.colorSet = is(2)
-          }
           controller.removeCard(is(1).toInt)
           return State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
 
@@ -34,6 +34,7 @@ class TUI (controller: controller) extends Reactor { // extends Observer
 
         } else {
           //TODO Remove Card => if you have forgot to Call UNO you have to take 2 Cards: 1 Card Remove, 2 Cards Get
+          controller.removeCard(is(1).toInt)
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
@@ -43,6 +44,7 @@ class TUI (controller: controller) extends Reactor { // extends Observer
         }
       }
       case "u" => {
+        controller.unoCall = true
         if(controller.playerList(0).playerCards.size == 2) {
           controller.removeCard(is(1).toInt)
           return State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
@@ -82,10 +84,7 @@ class TUI (controller: controller) extends Reactor { // extends Observer
   }
 
   reactions += {
-    case event: playerhandChanged => print1
-    case event: playerturnChanged => print1
-    case event: playfieldChanged => print1
-    case event: playstackChanged => print1
+    case event: updateStates => print1
   }
 
    def print1:Unit= {

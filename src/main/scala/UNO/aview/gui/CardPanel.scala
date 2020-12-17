@@ -12,7 +12,7 @@ import scala.swing
 import scala.swing.BorderPanel.Position
 import scala.swing.Swing.LineBorder
 import scala.swing._
-import scala.swing.event.MouseClicked
+import scala.swing.event.{MouseClicked, MousePressed}
 import scala.swing.{BoxPanel, Button, Color, FlowPanel, Font, Label, Orientation}
 
 class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
@@ -77,14 +77,12 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
         reactions += {
         case event.ButtonClicked(_) =>
           if (Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3) {
-            if (controller.playerList(0).playerCards(index).color == "black") {
-              controller.colorSet = "green"
-            }
             controller.removeCard(index)
           }
+          else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3){}
 
           else {
-            //TODO Remove Card => if you have forgot to Call UNO you have to take 2 Cards: 1 Card Remove, 2 Cards Get
+            controller.removeCard(index)
             controller.getCard()
             controller.playerList = controller.playerList.reverse
             controller.getCard()
@@ -111,17 +109,6 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
     contents += button
     background = java.awt.Color.lightGray
   }
-
-  val colorChange = new BoxPanel(Orientation.Vertical) {
-    val button = new Button("red")
-    button.font = new Font("Verdana", 1, 15)
-    button.preferredSize_=(new Dimension(100,100))
-    button.maximumSize_= (new Dimension(100, 100))
-    button.minimumSize_=(new Dimension(100, 100))
-    button.background = cardColor(mycard(), index)
-    contents += button
-    background = java.awt.Color.lightGray
-  }
-
 }
+
 
