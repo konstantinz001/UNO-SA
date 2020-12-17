@@ -20,6 +20,7 @@ class controller extends Publisher { // extends Observable
   var stackCard = Stack(List(new Card("",""))).initStack()
   var playerList = createPlayer()
   var playStack2 = initStack()
+  var colorSet = "....."
 
   //Methods to init PlayerList and Stacks
   def initStack() : List[Card] = {
@@ -52,7 +53,9 @@ class controller extends Publisher { // extends Observable
   }
   def removeCard(handindex: Int) {
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
+    publish((new blackCard))
     publish(new playerhandChanged)
+    publish(new playstackChanged)
     //notifyObservers()
   }
   def undoGet: Unit = {

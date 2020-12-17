@@ -1,5 +1,6 @@
 package UNO
 
+import UNO.UnoGame.controller
 import UNO.aview.gui.SwingGui
 
 import scala.io.StdIn.readLine
@@ -11,11 +12,15 @@ object UnoGame {
   val controller = new controller()
   val tui = new TUI(controller)
   val gui = new SwingGui(controller)
+  controller.publish(new playfieldChanged)
 
   def main(args: Array[String]): Unit = {
     print(State.handle(instructionEvent()))
     //controller.notifyObservers()
-    controller.publish(new playfieldChanged)
+
+
+
+    gui.open()
 
     if (args.length == 0) {
       var input1: String = ""

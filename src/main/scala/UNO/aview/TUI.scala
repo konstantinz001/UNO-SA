@@ -2,8 +2,9 @@ package UNO.aview
 
 import UNO.controller.controller
 import UNO.model.{Card, Stack}
-import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller._
+
 import scala.swing.Reactor
 
 class TUI (controller: controller) extends Reactor { // extends Observer
@@ -22,6 +23,9 @@ class TUI (controller: controller) extends Reactor { // extends Observer
       }
       case "r" => {
         if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
+          if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
+            controller.colorSet = is(2)
+          }
           controller.removeCard(is(1).toInt)
           return State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
 
@@ -78,16 +82,14 @@ class TUI (controller: controller) extends Reactor { // extends Observer
   }
 
   reactions += {
-    case event: playerhandChanged => print
-    case event: playerturnChanged => print
-    case event: playfieldChanged => print
-    case event: playstackChanged => print
+    case event: playerhandChanged => print1
+    case event: playerturnChanged => print1
+    case event: playfieldChanged => print1
+    case event: playstackChanged => print1
   }
 
-   def print:Unit= {
-     println(controller.playerList(0).playerCards)
-     println(controller.playerList(1).playerCards)
-     println(controller.stackCard)
+   def print1:Unit= {
+     print(State.handle(gameStatsEvent()))
 
   }
 

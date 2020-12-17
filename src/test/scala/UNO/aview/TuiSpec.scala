@@ -12,7 +12,7 @@ class TuiSpec extends WordSpec with Matchers {
   "First TUI" should {
     val controller = new controller()
     val tui = new TUI(controller)
-    controller.notifyObservers()
+    //controller.notifyObservers()
     "PlayGame input 'r 0' first" in {
       tui.processInputLine("r 0") should be (State.handle(removePlayerCardEvent(0),0))
     }
@@ -41,7 +41,7 @@ class TuiSpec extends WordSpec with Matchers {
   "Second TUI" should {
     val controller = new controller()
     val tui = new TUI(controller)
-    controller.notifyObservers()
+    //controller.notifyObservers()
     for (i <- 1 to 7)
       controller.playerList = List(controller.playerList(0).removePlayerCards(0), controller.playerList(1).removePlayerCards(0))
     for(i <- 1 to 2)
@@ -58,7 +58,7 @@ class TuiSpec extends WordSpec with Matchers {
   "Third TUI" should {
     val controller = new controller()
     val tui = new TUI(controller)
-    controller.notifyObservers()
+    //controller.notifyObservers()
     for (i <- 1 to 7)
       controller.playerList = List(controller.playerList(0).removePlayerCards(0), controller.playerList(1).removePlayerCards(0))
     for(i <- 1 to 2)

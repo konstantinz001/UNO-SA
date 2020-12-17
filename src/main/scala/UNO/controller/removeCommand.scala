@@ -50,8 +50,10 @@ class RemoveCommand(handindex: Int, controller: controller) extends Command {
 
   def cardDiff: Unit = {
     if (controller.playerList(0).playerCards(handindex).color == "black") {
-      val getColor = readLine("Set color: ")
+      val getColor = controller.colorSet
+
       controller.playStack2 = Card("", getColor) :: controller.playStack2
+      controller.colorSet = ""
     }
 
     if (controller.playerList(0).playerCards(handindex).value == "+2") {
