@@ -19,6 +19,7 @@ class SwingGui(controller: controller) extends Frame {
 
   def gamePanel = new GridPanel(3, 1) {
     contents += new GridPanel(1, controller.playerList(1).playerCards.size) {
+      contents+= new Label(controller.playerList(1).name)
       border = LineBorder(java.awt.Color.lightGray,50)
       background = java.awt.Color.lightGray
 
@@ -43,6 +44,7 @@ class SwingGui(controller: controller) extends Frame {
 
 
     contents += new GridPanel(1, controller.playerList(0).playerCards.size) { //1 Zeile 20 Felder hinzufügen
+      contents+= new Label(controller.playerList(0).name)
       border = LineBorder(java.awt.Color.lightGray, 50)
       background = java.awt.Color.lightGray
 
@@ -75,7 +77,4 @@ class SwingGui(controller: controller) extends Frame {
 
   visible = true
   redraw
-
-
-
 }
