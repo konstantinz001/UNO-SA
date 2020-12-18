@@ -20,7 +20,8 @@ class controller extends Publisher { // extends Observable
   var stackCard = Stack(List(new Card("",""))).initStack()
   var playerList = createPlayer()
   var playStack2 = initStack()
-  var colorSet = "....."
+  var colorSet = ""
+  var unoCall = false
 
   //Methods to init PlayerList and Stacks
   def initStack() : List[Card] = {
@@ -45,29 +46,36 @@ class controller extends Publisher { // extends Observable
     return starthand.init.reverse
   }
 
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     undoManager.doStep(new SetCommand(this))
-    publish(new playerhandChanged)
+    publish(new updateStates)
     //notifyObservers()
   }
   def removeCard(handindex: Int) {
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
-    publish((new blackCard))
-    publish(new playerhandChanged)
-    publish(new playstackChanged)
+    changeStack(handindex)
+    unoCall = false
+    publish(new updateStates)
+
     //notifyObservers()
   }
   def undoGet: Unit = {
     undoManager.undoStep
-    publish(new playfieldChanged)
+    publish(new updateStates)
     //notifyObservers()
   }
 
   def redoGet: Unit = {
     undoManager.redoStep
-    publish(new playfieldChanged)
+    publish(new updateStates)
     //notifyObservers()
+  }
+  def changeStack(handindex:Int): Unit = {
+    if (playStack2(0) == Card("","")) {
+      playStack2 = Card("", colorSet) :: playStack2
+    }
   }
 
 
