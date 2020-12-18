@@ -9,7 +9,7 @@ import scala.swing.Publisher
 
 
 
-class controller extends Publisher { // extends Observable
+class controller extends Publisher {
 
   //TODO more Player and take to GameState
   var gameStatus: GameStatus = IDLE
@@ -51,26 +51,21 @@ class controller extends Publisher { // extends Observable
   def getCard(): Unit = {
     undoManager.doStep(new SetCommand(this))
     publish(new updateStates)
-    //notifyObservers()
   }
   def removeCard(handindex: Int) {
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
     changeStack(handindex)
     unoCall = false
     publish(new updateStates)
-
-    //notifyObservers()
   }
   def undoGet: Unit = {
     undoManager.undoStep
     publish(new updateStates)
-    //notifyObservers()
   }
 
   def redoGet: Unit = {
     undoManager.redoStep
     publish(new updateStates)
-    //notifyObservers()
   }
   def changeStack(handindex:Int): Unit = {
     if (playStack2(0) == Card("","")) {

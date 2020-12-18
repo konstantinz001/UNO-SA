@@ -1,18 +1,11 @@
 
 package UNO.aview.gui
 
-import UNO.UnoGame.controller
 import UNO.controller.controller
 import UNO.model.Card
-import UNO.util.{State, Strategy, forgotCallUnoEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent}
+import UNO.util.{Strategy, removeCardEvent}
 
-import java.awt
-import javax.swing.GroupLayout.Alignment
-import scala.swing
-import scala.swing.BorderPanel.Position
-import scala.swing.Swing.LineBorder
 import scala.swing._
-import scala.swing.event.{MouseClicked, MousePressed}
 import scala.swing.{BoxPanel, Button, Color, FlowPanel, Font, Label, Orientation}
 
 class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{

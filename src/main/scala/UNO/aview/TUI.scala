@@ -1,15 +1,13 @@
 package UNO.aview
 
 import UNO.controller.controller
-import UNO.model.{Card, Stack}
-import UNO.util.{Observer, State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller._
 
 import scala.swing.Reactor
 
-class TUI (controller: controller) extends Reactor { // extends Observer
+class TUI (controller: controller) extends Reactor {
 
-  //controller.add(this)
   listenTo(controller)
 
   def processInputLine(input: String): String = {
@@ -33,7 +31,6 @@ class TUI (controller: controller) extends Reactor { // extends Observer
           return State.handle(removeFalseCardEvent())
 
         } else {
-          //TODO Remove Card => if you have forgot to Call UNO you have to take 2 Cards: 1 Card Remove, 2 Cards Get
           controller.removeCard(is(1).toInt)
           controller.getCard()
           controller.playerList = controller.playerList.reverse
@@ -91,9 +88,4 @@ class TUI (controller: controller) extends Reactor { // extends Observer
      print(State.handle(gameStatsEvent()))
 
   }
-
-
-  //override def update: Boolean = {
-  //  true
-  //}
 }

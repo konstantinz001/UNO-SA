@@ -23,7 +23,7 @@ class SwingGui(controller: controller) extends Frame {
       for (i <- 1 to controller.playerList(1).playerCards.length) {
 
         val cardPanel = new CardPanel(1, i - 1, controller)
-        contents += cardPanel.card //////////////TODO
+        contents += cardPanel.card
       }
     }
 
@@ -43,7 +43,7 @@ class SwingGui(controller: controller) extends Frame {
       }
     }
 
-    contents += new GridPanel(1, controller.playerList(0).playerCards.size) { //1 Zeile 20 Felder hinzufügen
+    contents += new GridPanel(1, controller.playerList(0).playerCards.size) {
       border = LineBorder(java.awt.Color.lightGray, 50)
       background = java.awt.Color.lightGray
 
@@ -82,19 +82,6 @@ class SwingGui(controller: controller) extends Frame {
           controller.colorSet = "green"
       }
     }
-
-
-   /* contents += new GridPanel(1, 5) {
-      border = LineBorder(java.awt.Color.lightGray, 50)
-      background = java.awt.Color.lightGray
-
-      for (i <- 1 to 4) {
-        val cardPanel = new CardPanel(5, i - 1, controller)
-        contents += cardPanel.card
-      }
-    }
-
-    */
   }
 
   contents = new BorderPanel {

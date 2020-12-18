@@ -1,9 +1,6 @@
 package UNO.util
 
 import UNO.UnoGame.controller
-import UNO.model.Card
-
-import scala.io.StdIn.readLine
 
 trait Event2
 

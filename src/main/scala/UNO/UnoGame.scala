@@ -1,6 +1,5 @@
 package UNO
 
-import UNO.UnoGame.controller
 import UNO.aview.gui.SwingGui
 
 import scala.io.StdIn.readLine
@@ -16,9 +15,6 @@ object UnoGame {
 
   def main(args: Array[String]): Unit = {
     print(State.handle(instructionEvent()))
-    //controller.notifyObservers()
-
-
 
     gui.open()
 
