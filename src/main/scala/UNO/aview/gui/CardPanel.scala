@@ -12,17 +12,10 @@ import scala.swing._
 import scala.swing.{BoxPanel, Button, Color, FlowPanel, Font, Label, Orientation}
 
 class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
-  val bluecolor = new Color(0,0,255)
-  val redcolor = new Color(255,0,0)
-  val greencolor = new Color(0,255,0)
-  val yellowcolor = new Color(255,255,0)
-  val darkcolor = new Color(105,105,105)
-
-
 
   def mycard():List[Card] = {
     list match{
-      case 0 => controller.playerList(0).playerCards
+      case 0 => controller.playerList.head.playerCards
       case 1 => controller.playerList(1).playerCards
       case 3 => controller.playStack2
       case 4 => controller.stackCard.stackCards
@@ -67,8 +60,8 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
   }
 
 
-  val card = new BoxPanel(Orientation.Vertical) {
-    val button = new Button(if (list == 1) {
+  val card: BoxPanel = new BoxPanel(Orientation.Vertical) {
+    val button: Button = new Button(if (list == 1) {
       "UNO"
     } else if (list == 4) {
       "Stack"
@@ -79,11 +72,11 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
       if (list == 0) {
         reactions += {
         case event.ButtonClicked(_) =>
-          if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 4 && !controller.unoCall)
-          || controller.playerList(0).playerCards.size == 3 && controller.unoCall == true) { //unoCall = true überprüfen
+          if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList.head.playerCards.size >= 4 && !controller.unoCall)
+                    || controller.playerList.head.playerCards.size == 3 && controller.unoCall) { //unoCall = true überprüfen
             controller.removeCard(index)
           }
-          else if (controller.playerList(0).playerCards.size == 1 && controller.unoCall) {
+          else if (controller.playerList.head.playerCards.size == 1 && controller.unoCall) {
             System.exit(0)
           }
           //else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3 && !controller.unoCall){}

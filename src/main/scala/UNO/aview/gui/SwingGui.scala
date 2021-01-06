@@ -52,6 +52,7 @@ class SwingGui(controller: controller) extends Frame {
       reactions += {
         case ButtonClicked(`unoCall`) =>
           controller.unoCall = true
+          unoCall.background = java.awt.Color.RED
       }
     }
 
@@ -86,22 +87,27 @@ class SwingGui(controller: controller) extends Frame {
     buttonGroup.buttons ++= List(red,blue,green,yellow)
     buttonGroup.select(red)
     contents ++= List(red,blue,green,yellow)
-    listenTo(red,green,blue,green)
+    listenTo(red,green,blue,green,yellow)
     reactions += {
-      case ButtonClicked(`yellow`) =>
+      case ButtonClicked(`yellow`) => {
         controller.colorSet = "yellow"
-      case ButtonClicked(`red`) =>
+        yellow.background = java.awt.Color.YELLOW
+      }
+      case ButtonClicked(`red`) => {
         controller.colorSet = "red"
-      case ButtonClicked(`blue`) =>
+        red.background = java.awt.Color.RED
+      }
+      case ButtonClicked(`blue`) => {
         controller.colorSet = "blue"
-      case ButtonClicked(`green`) =>
+        blue.background = java.awt.Color.BLUE
+      }
+      case ButtonClicked(`green`) => {
         controller.colorSet = "green"
+        green.background = java.awt.Color.GREEN
+      }
     }
   }
 }
-
-
-
   contents = new BorderPanel {
     add(gamePanel, Position.Center)
   }
