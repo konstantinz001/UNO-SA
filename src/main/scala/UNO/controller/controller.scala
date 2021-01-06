@@ -9,17 +9,21 @@ import scala.swing.Publisher
 
 class controller extends Publisher {
 
-  //TODO more Player and take to GameState
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
   private val undoManager = new UndoManager
-
+//TODO Game runs, but Stack should init again for more Cards
   var stackCard = Stack(List(new Card("",""))).initStack()
+  (1 to 100).foreach((i)=>{
+    stackCard = stackCard.shuffleCards()
+  })
+
   var playerList = createPlayer()
   var playStack2 = initStack()
   var colorSet = ""
   var unoCall = false
+  var showCards = false
 
   //Methods to init PlayerList and Stacks
   def initStack() : List[Card] = {

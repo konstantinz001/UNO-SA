@@ -72,8 +72,8 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
       if (list == 0) {
         reactions += {
         case event.ButtonClicked(_) =>
-          if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList.head.playerCards.size >= 4 && !controller.unoCall)
-                    || controller.playerList.head.playerCards.size == 3 && controller.unoCall) { //unoCall = true überprüfen
+          if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList.head.playerCards.size >= 3 && !controller.unoCall)
+                    || controller.playerList.head.playerCards.size == 2 && controller.unoCall) { //unoCall = true überprüfen
             controller.removeCard(index)
           }
           else if (controller.playerList.head.playerCards.size == 1 && controller.unoCall) {
@@ -99,7 +99,7 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
     //button.font = new Font("Verdana", 1, 15)
     button.preferredSize_=(new Dimension(97,100))
     button.maximumSize_= (new Dimension(97, 100))
-    button.minimumSize_=(new Dimension(97, 100))
+    button.minimumSize_=(new Dimension(77, 80))
     button.background = java.awt.Color.DARK_GRAY
     if (list == 1) {
       button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
@@ -116,8 +116,7 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
       }
     }
     else {
-
-      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(),index),
+      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
         110, 100)
     }
     contents += button

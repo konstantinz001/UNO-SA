@@ -2,7 +2,7 @@ package UNO.aview.gui
 
 import UNO.controller.{controller, updateStates}
 
-import java.awt.{Graphics, Image}
+import java.awt.{Color, Graphics, Image}
 import java.awt.image.{ImageObserver, ImageProducer}
 import javax.swing.ImageIcon
 import scala.swing.BorderPanel.Position
@@ -16,12 +16,11 @@ class SwingGui(controller: controller) extends Frame {
   title = " UNO Game"
   peer.setPreferredSize(new Dimension(1200, 900))
   peer.setResizable(true)
-  val img = scaledImageIcon("src\\main\\Pics\\Holz.png",1000,1000)
 
 
 
 
-  def gamePanel = new GridPanel(4, 1) {
+  def gamePanel = new GridPanel(5, 1) {
 
 
     contents += new GridPanel(1, controller.playerList(1).playerCards.size) {
@@ -107,6 +106,18 @@ class SwingGui(controller: controller) extends Frame {
       }
     }
   }
+    contents += new GridPanel(2, 1) {
+      border = LineBorder(java.awt.Color.DARK_GRAY, 50)
+      background = java.awt.Color.DARK_GRAY
+      val showButton = new Button ("Show me my Cards!")
+      val label = new Label {
+        text = "Player: " + controller.playerList(0).name
+        font = new Font("Arial Black", java.awt.Font.BOLD, 20)
+        foreground = java.awt.Color.WHITE
+      }
+
+      contents += label
+    }
 }
   contents = new BorderPanel {
     add(gamePanel, Position.Center)
@@ -116,7 +127,6 @@ class SwingGui(controller: controller) extends Frame {
     contents = new BorderPanel {
       add(gamePanel, BorderPanel.Position.Center)
     }
-    repaint
   }
 
 
