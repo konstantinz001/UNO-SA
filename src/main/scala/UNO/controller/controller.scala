@@ -7,8 +7,6 @@ import UNO.controller.GameStatus._
 import scala.swing.Publisher
 
 
-
-
 class controller extends Publisher {
 
   //TODO more Player and take to GameState
@@ -17,7 +15,7 @@ class controller extends Publisher {
   var playername2 = "Soni"
   private val undoManager = new UndoManager
 
-  var stackCard = Stack(List(new Card("",""))).initStack()
+  var stackCard = Stack(List(new Card("",""))).initStack().shuffleCards().shuffleCards()
   var playerList = createPlayer()
   var playStack2 = initStack()
   var colorSet = ""
@@ -46,7 +44,7 @@ class controller extends Publisher {
     return starthand.init.reverse
   }
 
-
+//TODO Problems with Card <-->!!!!!!!!!!!!!!!!!
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     undoManager.doStep(new SetCommand(this))
@@ -67,10 +65,13 @@ class controller extends Publisher {
     undoManager.redoStep
     publish(new updateStates)
   }
-  def changeStack(handindex:Int): Unit = {
-    if (playStack2(0) == Card("","")) {
-      playStack2 = Card("", colorSet) :: playStack2
-    }
+  def changeStack(handindex:Int): List[Card] = {
+    if (playerList(0).playerCards(handindex) == "black" ) {
+      Card("", colorSet) :: playStack2
+    }else
+      playStack2
+
+
   }
 
 

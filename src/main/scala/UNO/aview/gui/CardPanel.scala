@@ -5,6 +5,9 @@ import UNO.controller.controller
 import UNO.model.Card
 import UNO.util.{Strategy, removeCardEvent}
 
+import java.awt.Image
+import javax.swing.ImageIcon
+import javax.swing.text.html.ImageView
 import scala.swing._
 import scala.swing.{BoxPanel, Button, Color, FlowPanel, Font, Label, Orientation}
 
@@ -28,33 +31,40 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
   }
 
   def cardValue(cardList:List[Card], cardIndex: Int) : String = {
-    return cardList(cardIndex).value
+    if (cardList(cardIndex).value == "<-->")
+      return "Reverse.png"
+    else if (cardList(cardIndex).value == "Ø")
+      return "Skip.png"
+    else if (cardList(cardIndex).value == "")
+      return "Radio.png"
+    else
+      return cardList(cardIndex).value + ".png"
   }
 
-  def cardColor(cardList:List[Card], cardIndex: Int) : Color = {
+  def cardColor(cardList:List[Card], cardIndex: Int) : String = {
     if(cardList(cardIndex).color == "red") {
-      redcolor
+      "Red_"
     }
+
     else if (cardList(cardIndex).color == "blue") {
-      bluecolor
+      "Blue_"
     }
     else if (cardList(cardIndex).color == "yellow") {
-      yellowcolor
+      "Yellow_"
     }
     else if (cardList(cardIndex).color == "green") {
-      greencolor
+      "Red_"
     }
     else {
-      darkcolor
+      "Black_"
     }
   }
 
-  /*val label =
-    new Label {
-      text = cardValue(controller.playerList(index).playerCards, index)
-      font = new Font("Verdana", 1, 36) //TODO
-    }
-   */
+  def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon = {
+    val orig = new ImageIcon(path)
+    val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
+    new ImageIcon(scaledImage)
+  }
 
 
   val card = new BoxPanel(Orientation.Vertical) {
@@ -69,13 +79,18 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
       if (list == 0) {
         reactions += {
         case event.ButtonClicked(_) =>
-          if (Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3) {
+          if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 4 && !controller.unoCall)
+          || controller.playerList(0).playerCards.size == 3 && controller.unoCall == true) { //unoCall = true überprüfen
             controller.removeCard(index)
           }
-          else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3){}
+          else if (controller.playerList(0).playerCards.size == 1 && controller.unoCall) {
+            System.exit(0)
+          }
+          else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3 && !controller.unoCall){}
 
           else {
             controller.removeCard(index)
+            controller.playerList = controller.playerList.reverse
             controller.getCard()
             controller.playerList = controller.playerList.reverse
             controller.getCard()
@@ -87,20 +102,22 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
         }
       }
     }
-    button.font = new Font("Verdana", 1, 15)
-    button.preferredSize_=(new Dimension(100,100))
-    button.maximumSize_= (new Dimension(100, 100))
-    button.minimumSize_=(new Dimension(100, 100))
+    //button.font = new Font("Verdana", 1, 15)
+    button.preferredSize_=(new Dimension(97,100))
+    button.maximumSize_= (new Dimension(97, 100))
+    button.minimumSize_=(new Dimension(97, 100))
+    button.background = java.awt.Color.DARK_GRAY
     if (list == 1) {
-      button.background = new Color(0,0,0)
+      button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
     } else if (list == 4) {
-      button.background = new Color(255,165,0)
+      button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
     }
     else {
-      button.background = cardColor(mycard(), index)
+      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(),index),
+        110, 100)
     }
     contents += button
-    background = java.awt.Color.lightGray
+    background = java.awt.Color.DARK_GRAY
   }
 }
 
