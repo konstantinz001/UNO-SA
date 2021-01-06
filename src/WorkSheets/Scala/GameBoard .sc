@@ -1,4 +1,4 @@
-import UNO.model.{Card, color}
+import UNO.model.color
 
 def hand(): String = {
 

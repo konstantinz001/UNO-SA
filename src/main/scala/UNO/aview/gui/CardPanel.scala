@@ -2,7 +2,7 @@
 package UNO.aview.gui
 
 import UNO.controller.controller
-import UNO.model.Card
+import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
 
 import java.awt.Image

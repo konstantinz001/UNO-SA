@@ -2,7 +2,8 @@ package UNO.controller
 
 import UNO.controller.GameStatus.{GameStatus, IDLE}
 import UNO.controller.controller
-import UNO.model.{Card, Player, Stack}
+import UNO.model.PlayerComponent.playerBaseImp.Player
+import UNO.model.cardComponent.cardBaseImp.{Card, Stack}
 import UNO.util.Observer
 import org.scalatest.{Matchers, WordSpec, color}
 

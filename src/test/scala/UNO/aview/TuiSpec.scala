@@ -3,7 +3,8 @@ package UNO.aview
 import UNO.UnoGame.controller
 import UNO.aview.TUI
 import UNO.controller.controller
-import UNO.model.{Card, Player}
+import UNO.model.PlayerComponent.playerBaseImp.Player
+import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.State.handle
 import UNO.util.{State, _}
 import org.scalatest._

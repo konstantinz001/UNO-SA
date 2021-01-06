@@ -1,6 +1,8 @@
 package UNO.model
 
 import UNO.UnoGame.controller
+import UNO.model.PlayerComponent.playerBaseImp.Player
+import UNO.model.cardComponent.cardBaseImp.Card
 
 import scala.util.{Failure, Success, Try}
 import org.scalatest._

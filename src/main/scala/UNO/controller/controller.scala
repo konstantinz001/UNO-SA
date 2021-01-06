@@ -1,8 +1,9 @@
 package UNO.controller
 
-import UNO.model.{Card, Player, Stack}
 import UNO.util.{Observable, UndoManager}
 import UNO.controller.GameStatus._
+import UNO.model.PlayerComponent.playerBaseImp.Player
+import UNO.model.cardComponent.cardBaseImp.{Card, Stack}
 
 import scala.swing.Publisher
 
