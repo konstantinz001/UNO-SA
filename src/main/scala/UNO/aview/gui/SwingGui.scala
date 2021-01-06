@@ -73,16 +73,16 @@ class SwingGui(controller: controller) extends Frame {
     val buttonGroup = new ButtonGroup
     val red = new RadioButton("")
     red.background = java.awt.Color.DARK_GRAY
-    //red.icon = scaledImageIcon("src\\main\\Pics\\Red_Radio.png", 110, 100)
+    red.icon = scaledImageIcon("src\\main\\Pics\\Red_Radio.png", 110, 100)
     val blue = new RadioButton("")
     blue.background = java.awt.Color.DARK_GRAY
-    //blue.icon = scaledImageIcon("src\\main\\Pics\\Blue_Radio.png", 110, 100)
+    blue.icon = scaledImageIcon("src\\main\\Pics\\Blue_Radio.png", 110, 100)
     val green = new RadioButton("")
     green.background = java.awt.Color.DARK_GRAY
-    //green.icon = scaledImageIcon("src\\main\\Pics\\Green_Radio.png", 110, 100)
+    green.icon = scaledImageIcon("src\\main\\Pics\\Green_Radio.png", 110, 100)
     val yellow = new RadioButton("")
     yellow.background = java.awt.Color.DARK_GRAY
-    //yellow.icon = scaledImageIcon("src\\main\\Pics\\Yellow_Radio.png", 110, 100)
+    yellow.icon = scaledImageIcon("src\\main\\Pics\\Yellow_Radio.png", 110, 100)
     buttonGroup.buttons ++= List(red,blue,green,yellow)
     buttonGroup.select(red)
     contents ++= List(red,blue,green,yellow)

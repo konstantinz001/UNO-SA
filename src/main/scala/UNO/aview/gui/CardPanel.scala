@@ -86,7 +86,7 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
           else if (controller.playerList(0).playerCards.size == 1 && controller.unoCall) {
             System.exit(0)
           }
-          else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3 && !controller.unoCall){}
+          //else if (!Strategy.handle(removeCardEvent(index),index) && controller.playerList(0).playerCards.size >= 3 && !controller.unoCall){}
 
           else {
             controller.removeCard(index)
@@ -102,6 +102,7 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
         }
       }
     }
+
     //button.font = new Font("Verdana", 1, 15)
     button.preferredSize_=(new Dimension(97,100))
     button.maximumSize_= (new Dimension(97, 100))
@@ -112,7 +113,17 @@ class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
     } else if (list == 4) {
       button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
     }
+    else if (list == 3) {
+      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(),index),
+        110, 100)
+      if (cardColor(mycard(), index) == "Black_") {
+        button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
+          110, 100)
+        controller.colorSet = ""
+      }
+    }
     else {
+
       button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(),index),
         110, 100)
     }

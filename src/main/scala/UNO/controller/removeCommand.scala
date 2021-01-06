@@ -53,7 +53,7 @@ class RemoveCommand(handindex: Int, controller: controller) extends Command {
       val getColor = controller.colorSet
 
       controller.playStack2 = Card("", getColor) :: controller.playStack2
-      controller.colorSet = ""
+      //controller.colorSet = ""
     }
 
     if (controller.playerList(0).playerCards(handindex).value == "+2") {

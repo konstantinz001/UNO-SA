@@ -15,7 +15,7 @@ class controller extends Publisher {
   var playername2 = "Soni"
   private val undoManager = new UndoManager
 
-  var stackCard = Stack(List(new Card("",""))).initStack().shuffleCards().shuffleCards()
+  var stackCard = Stack(List(new Card("",""))).initStack()
   var playerList = createPlayer()
   var playStack2 = initStack()
   var colorSet = ""
@@ -52,7 +52,7 @@ class controller extends Publisher {
   }
   def removeCard(handindex: Int) {
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
-    changeStack(handindex)
+    //changeStack(handindex)
     unoCall = false
     publish(new updateStates)
   }
