@@ -1,8 +1,7 @@
 package UNO.controller
 
-import UNO.controller.GameStatus.{GameStatus, _}
-import UNO.util.Observer
-import org.scalatest.{Matchers, WordSpec, color}
+import UNO.controller.GameStatus._
+import org.scalatest.{Matchers, WordSpec}
 
 class GameStatusSpec extends WordSpec with Matchers {
   "A GameStatus" when {

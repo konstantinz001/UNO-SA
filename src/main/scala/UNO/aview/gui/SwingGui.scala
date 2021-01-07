@@ -1,16 +1,16 @@
 package UNO.aview.gui
 
-import UNO.controller.{controller, updateStates}
+import UNO.controller.controllerComponent.controllerBaseImp.{controller, updateStates}
+import UNO.controller.controllerComponent.controllerInterface
 
-import java.awt.{Color, Graphics, Image}
-import java.awt.image.{ImageObserver, ImageProducer}
+import java.awt.{Image}
 import javax.swing.ImageIcon
 import scala.swing.BorderPanel.Position
 import scala.swing._
 import scala.swing.Swing.LineBorder
-import scala.swing.event.{BackgroundChanged, ButtonClicked}
+import scala.swing.event.ButtonClicked
 
-class SwingGui(controller: controller) extends Frame {
+class SwingGui(controller: controllerInterface) extends Frame {
 
   listenTo(controller)
   title = " UNO Game"

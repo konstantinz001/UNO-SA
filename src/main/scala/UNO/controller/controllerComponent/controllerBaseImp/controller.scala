@@ -1,19 +1,23 @@
-package UNO.controller
+package UNO.controller.controllerComponent.controllerBaseImp
 
-import UNO.util.{Observable, UndoManager}
+
+
 import UNO.controller.GameStatus._
+import UNO.controller.controllerComponent._
 import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.{Card, Stack}
+import UNO.model.cardComponent.cardBaseImp.Card
+import UNO.model.stackComponent.stackBaseImp.Stack
+import UNO.util.UndoManager
 
 import scala.swing.Publisher
 
 
-class controller extends Publisher {
-
+class controller extends controllerInterface with Publisher {
+//TODO Asking for Playername
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
   var playername2 = "Soni"
-  private val undoManager = new UndoManager
+  private val undoManager = new UndoManager ////COMPONENT NOT SURE
 //TODO Game runs, but Stack should init again for more Cards
   var stackCard = Stack(List(new Card("",""))).initStack()
   (1 to 100).foreach((i)=>{
@@ -24,7 +28,6 @@ class controller extends Publisher {
   var playStack2 = initStack()
   var colorSet = ""
   var unoCall = false
-  var showCards = false
 
   //Methods to init PlayerList and Stacks
   def initStack() : List[Card] = {
@@ -75,9 +78,5 @@ class controller extends Publisher {
       Card("", colorSet) :: playStack2
     }else
       playStack2
-
-
   }
-
-
 }

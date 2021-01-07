@@ -1,9 +1,11 @@
-package UNO.model.cardComponent.cardBaseImp
+package UNO.model.stackComponent.stackBaseImp
 
-import UNO.model.cardComponent.CardInterface
+import UNO.model.cardComponent.cardBaseImp.Card
+import UNO.model.stackComponent.StackInterface
+
 import scala.util.Random
 
-case class Stack(stackCards: List[Card]) extends CardInterface {
+case class Stack(stackCards: List[Card]) extends StackInterface {
   def initStack(): Stack = {
 
 
@@ -49,8 +51,4 @@ case class Stack(stackCards: List[Card]) extends CardInterface {
   def getCardFromStack(): Card = {
     stackCards(0)
   }
-
-  override def value: String = ???
-
-  override def color: String = ???
 }

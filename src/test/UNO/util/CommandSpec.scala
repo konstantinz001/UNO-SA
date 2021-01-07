@@ -1,16 +1,8 @@
 package UNO.util
 
-import UNO.util.Command
 import org.scalatest.{Matchers, WordSpec}
 
-class incrCommand extends Command{
-  var state: Int = 0
 
-  override def doStep: Unit = state +=1
-  override def undoStep: Unit = state -=1
-  override def redoStep: Unit = state +=1
-
-}
 
 class CommandSpec extends WordSpec with Matchers{
   "A command" should {

@@ -1,12 +1,11 @@
-package UNO.controller
+package UNO.controller.controllerComponent.controllerBaseImp
 
+import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
-
-import scala.io.StdIn.readLine
 import UNO.util.Command
 
 
-class RemoveCommand(handindex: Int, controller: controller) extends Command {
+class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command {
   override def doStep: Unit = {
 
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2

@@ -1,6 +1,5 @@
 package UNO.util
 
-import UNO.util.UndoManager
 import org.scalatest._
 
 class UndoManagerSpec extends WordSpec with Matchers {

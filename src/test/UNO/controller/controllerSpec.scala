@@ -1,11 +1,11 @@
 package UNO.controller
 
 import UNO.controller.GameStatus.{GameStatus, IDLE}
-import UNO.controller.controller
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.{Card, Stack}
+import UNO.controller.controllerComponent.controllerBaseImp.controller
+import UNO.model.cardComponent.cardBaseImp.Card
+import UNO.model.stackComponent.stackBaseImp.Stack
 import UNO.util.Observer
-import org.scalatest.{Matchers, WordSpec, color}
+import org.scalatest.{Matchers, WordSpec}
 
 class controllerSpec extends WordSpec with Matchers {
   "A Controller" when {
@@ -71,7 +71,7 @@ class controllerSpec extends WordSpec with Matchers {
         val cardSizeBefor = controller.playerList(0).playerCards.size
         controller.redoGet
         val cardSizeAfter = controller.playerList(1).playerCards.size
-        cardSizeAfter should be(cardSizeBefor - 1)
+        cardSizeAfter should be(cardSizeBefor-1)
       }
     }
   }

@@ -3,12 +3,7 @@ package UNO.model
 import UNO.UnoGame.controller
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-
-import scala.util.{Failure, Success, Try}
 import org.scalatest._
-import play.api.libs.json.JsResult.Exception
-
-import scala.None
 
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when {

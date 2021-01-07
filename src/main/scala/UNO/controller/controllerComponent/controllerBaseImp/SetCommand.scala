@@ -1,10 +1,10 @@
-package UNO.controller
+package UNO.controller.controllerComponent.controllerBaseImp
 
-import UNO.UnoGame.controller
+import UNO.controller.controllerComponent.controllerInterface
 import UNO.util.Command
 
 
-class SetCommand(controller: controller) extends Command {
+class SetCommand(controller: controllerInterface) extends Command {
   override def doStep: Unit = {
     controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
     controller.stackCard = controller.stackCard.removeCard()

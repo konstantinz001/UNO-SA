@@ -1,17 +1,16 @@
 
 package UNO.aview.gui
 
-import UNO.controller.controller
+import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
 
 import java.awt.Image
 import javax.swing.ImageIcon
-import javax.swing.text.html.ImageView
 import scala.swing._
-import scala.swing.{BoxPanel, Button, Color, FlowPanel, Font, Label, Orientation}
+import scala.swing.{BoxPanel, Button, FlowPanel, Orientation}
 
-class CardPanel(list:Int, index: Int ,controller:controller) extends FlowPanel{
+class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends FlowPanel{
 
   def mycard():List[Card] = {
     list match{

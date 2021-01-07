@@ -4,7 +4,6 @@ import UNO.UnoGame.controller
 import UNO.controller.GameStatus
 import UNO.controller.GameStatus.WON
 import org.scalatest.{Matchers, WordSpec}
-import UNO.util._
 
 class EventSpec extends WordSpec with Matchers {
   "Event" should {

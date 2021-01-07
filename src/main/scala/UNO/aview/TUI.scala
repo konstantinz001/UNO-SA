@@ -1,12 +1,12 @@
 package UNO.aview
 
-import UNO.controller.controller
+import UNO.controller.controllerComponent.controllerBaseImp.updateStates
 import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
-import UNO.controller._
+import UNO.controller.controllerComponent.controllerInterface
 
 import scala.swing.Reactor
 
-class TUI (controller: controller) extends Reactor {
+class TUI (controller: controllerInterface) extends Reactor {
 
   listenTo(controller)
 

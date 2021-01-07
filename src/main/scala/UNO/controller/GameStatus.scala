@@ -1,7 +1,5 @@
 package UNO.controller
 
-import UNO.model.PlayerComponent.playerBaseImp.Player
-
 
 object GameStatus extends Enumeration {
   type GameStatus = Value
