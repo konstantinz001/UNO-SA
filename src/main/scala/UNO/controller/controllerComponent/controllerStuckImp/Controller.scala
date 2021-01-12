@@ -1,4 +1,4 @@
-package UNO.controller.controllerComponent.controllerStubImp
+package UNO.controller.controllerComponent.controllerStuckImp
 
 import UNO.controller.GameStatus.{GameStatus, IDLE}
 import UNO.controller.controllerComponent.controllerInterface
@@ -6,7 +6,9 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 
-//To Testing Special Cards
+//TODO STUB
+
+
 class Controller extends controllerInterface{
   override var gameStatus: GameStatus = IDLE
 
@@ -26,7 +28,7 @@ class Controller extends controllerInterface{
 
   override def initPlayStack(): List[Card] = List(Card("","blue"))
 
-  override def createPlayer(): List[Player] = List(Player(playername1,List(Card("<-->", "blue"), Card("Ø", "blue"), Card("+2", "blue"))))
+  override def createPlayer(): List[Player] = List(Player(playername1,List(Card("","red"))))
 
   override def startHand(): List[Card] = List(Card("","blue"))
 
