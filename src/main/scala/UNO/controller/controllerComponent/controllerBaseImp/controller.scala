@@ -24,19 +24,30 @@ class controller extends controllerInterface with Publisher {
     stackCard = stackCard.shuffleCards()
   })
 
+
   var playerList = createPlayer()
-  var playStack2 = initStack()
+  var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
 
   //Methods to init PlayerList and Stacks
-  def initStack() : List[Card] = {
+  def initPlayStack() : List[Card] = {
 
     while (stackCard.getCardFromStack().color == "black") {
       stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
       stackCard = stackCard.removeCard()
     }
     return List(stackCard.getCardFromStack())
+  }
+
+  def stackEmpty(): Stack = {
+    if (stackCard.stackCards.length <= 5) {
+      stackCard = stackCard.reversePullCards(playStack2).shuffleCards()
+      (1 to 100).foreach((i)=>{
+        stackCard = stackCard.shuffleCards()
+      })
+    }
+    return stackCard
   }
 
   def createPlayer(): List[Player] = {
@@ -55,10 +66,12 @@ class controller extends controllerInterface with Publisher {
 //TODO Problems with Card <-->!!!!!!!!!!!!!!!!!
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
+    stackCard = stackEmpty()
     undoManager.doStep(new SetCommand(this))
     publish(new updateStates)
   }
   def removeCard(handindex: Int) {
+    stackCard = stackEmpty()
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
     //changeStack(handindex)
     unoCall = false

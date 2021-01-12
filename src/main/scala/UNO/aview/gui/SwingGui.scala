@@ -109,7 +109,6 @@ class SwingGui(controller: controllerInterface) extends Frame {
     contents += new GridPanel(2, 1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
-      val showButton = new Button ("Show me my Cards!")
       val label = new Label {
         text = "Player: " + controller.playerList(0).name
         font = new Font("Arial Black", java.awt.Font.BOLD, 20)

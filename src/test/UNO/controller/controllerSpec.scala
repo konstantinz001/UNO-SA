@@ -24,7 +24,7 @@ class controllerSpec extends WordSpec with Matchers {
         }
       }
       var stackCard = Stack(List(new Card("", ""))).initStack()
-      var playStack2 = controller.initStack()
+      var playStack2 = controller.initPlayStack()
       var playerList = controller.createPlayer()
       "a Player get a Card from Stack" in {
         val cardSizeBefor = controller.playerList(0).playerCards.size
@@ -56,7 +56,7 @@ class controllerSpec extends WordSpec with Matchers {
         }
       }
       var stackCard = Stack(List(new Card("", ""))).initStack()
-      var playStack2 = controller.initStack()
+      var playStack2 = controller.initPlayStack()
       var playerList = controller.createPlayer()
 
       "a Player undo" in {
@@ -97,7 +97,7 @@ class controllerSpec extends WordSpec with Matchers {
       var playerList = controller.createPlayer()
 
       "a playerstack" in {
-        var playStack2 = controller.initStack()
+        var playStack2 = controller.initPlayStack()
         var color = playStack2(0).color
         color shouldNot be("black")
       }

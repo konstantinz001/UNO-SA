@@ -17,7 +17,7 @@ trait controllerInterface extends Publisher{
   var playStack2: List[Card]
   var colorSet: String
   var unoCall: Boolean
-  def initStack() : List[Card]
+  def initPlayStack() : List[Card]
   def createPlayer(): List[Player]
   def startHand(): List[Card]
   def getCard(): Unit
@@ -25,6 +25,7 @@ trait controllerInterface extends Publisher{
   def undoGet: Unit
   def redoGet: Unit
   def changeStack(handindex:Int): List[Card]
+  def stackEmpty(): Stack
 
 
 

@@ -6,7 +6,7 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 
-
+//TODO STUB
 
 
 class Controller extends controllerInterface{
@@ -26,7 +26,7 @@ class Controller extends controllerInterface{
 
   override var unoCall: Boolean = false
 
-  override def initStack(): List[Card] = List(Card("","blue"))
+  override def initPlayStack(): List[Card] = List(Card("","blue"))
 
   override def createPlayer(): List[Player] = List(Player(playername1,List(Card("","red"))))
 
@@ -41,4 +41,6 @@ class Controller extends controllerInterface{
   override def redoGet: Unit = {}
 
   override def changeStack(handindex: Int): List[Card] = List(Card("","blue"))
+
+  override def stackEmpty(): Stack = stackCard
 }
