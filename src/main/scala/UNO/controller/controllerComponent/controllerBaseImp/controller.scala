@@ -2,12 +2,15 @@ package UNO.controller.controllerComponent.controllerBaseImp
 
 
 
+import UNO.UnoGameModule
+import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
-import UNO.util.UndoManager
+import UNO.util.{State, UndoManager, instructionEvent}
+import com.google.inject.Guice
 
 import scala.swing.Publisher
 
@@ -18,6 +21,7 @@ class controller extends controllerInterface with Publisher {
   var playername1 = "Konstantin"
   var playername2 = "Soni"
   private val undoManager = new UndoManager ////COMPONENT NOT SURE
+  val injector = Guice.createInjector(new UnoGameModule)
 //TODO Game runs, but Stack should init again for more Cards
   var stackCard = Stack(List(new Card("",""))).initStack()
   (1 to 100).foreach((i)=>{
@@ -29,6 +33,11 @@ class controller extends controllerInterface with Publisher {
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
+  val gui = new SwingGui(this)
+  this.publish(new updateStates)
+  print(State.handle(instructionEvent()))
+
+  gui.open()
 
   //Methods to init PlayerList and Stacks
   def initPlayStack() : List[Card] = {
