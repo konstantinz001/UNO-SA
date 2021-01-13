@@ -1,7 +1,7 @@
 package UNO.aview
 
 import UNO.controller.controllerComponent.controllerBaseImp.updateStates
-import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, instructionEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
 
 import scala.swing.Reactor
@@ -66,18 +66,24 @@ class TUI (controller: controllerInterface) extends Reactor {
         return "S-undo"
       }
       case "s--" => {
-        //controller.redoGet
-        controller.save
+        controller.redoGet
         return "S-redo"
       }
       case "r-" => {
-        //controller.undoGet
-        controller.load
+        controller.undoGet
         return "R-undo"
       }
       case "r--" => {
         controller.redoGet
         return "R-redo"
+      }
+      case "load" => {
+        controller.load
+        return "Loading Game!"
+      }
+      case "save" => {
+        controller.save
+        return "Saved Game!"
       }
     }
   }

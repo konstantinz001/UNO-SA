@@ -6,7 +6,7 @@ import UNO.controller.controllerComponent.controllerInterface
 
 import scala.io.StdIn.readLine
 import aview.TUI
-import UNO.util.{State, instructionEvent}
+import UNO.util.{State, gameStatsEvent, instructionEvent}
 import com.google.inject.Guice
 
 object UnoGame {
@@ -17,6 +17,8 @@ object UnoGame {
 
   def main(args: Array[String]): Unit = {
 
+    print(State.handle(instructionEvent()))
+    print(State.handle(gameStatsEvent()))
 
     if (args.length == 0) {
       var input1: String = ""

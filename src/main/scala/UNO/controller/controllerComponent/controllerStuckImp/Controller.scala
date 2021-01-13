@@ -1,5 +1,6 @@
 package UNO.controller.controllerComponent.controllerStuckImp
 
+import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus.{GameStatus, IDLE}
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.PlayerComponent.playerBaseImp.Player
@@ -42,7 +43,11 @@ class Controller extends controllerInterface{
 
   override def stackEmpty(): Stack = stackCard
 
-  override def save: Unit = ???
+  override def save: Unit = {}
 
-  override def load: Unit = ???
+  override def load: Unit = {}
+
+  override val gui: SwingGui = new SwingGui(this)
+
+  override def newGame(): Unit = {}
 }

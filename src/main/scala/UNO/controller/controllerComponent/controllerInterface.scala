@@ -1,5 +1,6 @@
 package UNO.controller.controllerComponent
 
+import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus.GameStatus
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
@@ -17,6 +18,7 @@ trait controllerInterface extends Publisher{
   var playStack2: List[Card]
   var colorSet: String
   var unoCall: Boolean
+  val gui: SwingGui
   def initPlayStack() : List[Card]
   def createPlayer(): List[Player]
   def startHand(): List[Card]
@@ -27,6 +29,7 @@ trait controllerInterface extends Publisher{
   def stackEmpty(): Stack
   def save: Unit
   def load: Unit
+  def newGame() : Unit
 
 
 

@@ -38,10 +38,26 @@ class controller extends controllerInterface with Publisher{
   var gameState: GameState = new GameState(playerList, playStack2)
   val gui = new SwingGui(this)
   this.publish(new updateStates)
-  print(State.handle(instructionEvent()))
   publish(new updateStates)
-
   gui.open()
+
+  def newGame() : Unit = {
+    gameStatus = IDLE
+    playername1 = "Konstantin"
+    playername2 = "Soni"
+    //TODO Game runs, but Stack should init again for more Cards
+    stackCard = Stack(List(new Card("",""))).initStack()
+    /*(1 to 100).foreach((i)=>{
+      stackCard = stackCard.shuffleCards()
+    })*/
+    playerList = createPlayer()
+    playStack2 = initPlayStack()
+    colorSet = ""
+    unoCall = false
+    gameState = new GameState(playerList, playStack2)
+    this.publish(new updateStates)
+    publish(new updateStates)
+  }
 
   //Methods to init PlayerList and Stacks
   def initPlayStack() : List[Card] = {

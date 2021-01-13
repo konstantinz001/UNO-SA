@@ -4,6 +4,7 @@ package UNO.aview.gui
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
+import UNO.aview.gui.SwingGui
 
 import java.awt.Image
 import javax.swing.ImageIcon
@@ -72,11 +73,11 @@ class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends Fl
         reactions += {
         case event.ButtonClicked(_) =>
           if ((Strategy.handle(removeCardEvent(index),index) && controller.playerList.head.playerCards.size >= 3 && !controller.unoCall)
-                    || controller.playerList.head.playerCards.size == 2 && controller.unoCall) { //unoCall = true überprüfen
+                    || controller.playerList.head.playerCards.size == 2 && controller.unoCall) {
             controller.removeCard(index)
           }
           else if (controller.playerList.head.playerCards.size == 1 && controller.unoCall) {
-            System.exit(0)
+            controller.gui.redraw2
           }
           else if (!Strategy.handle(removeCardEvent(index),index)){}
 
