@@ -10,7 +10,8 @@ class UnoGameModule extends AbstractModule with ScalaModule{
   override def configure() = {
     bind[controllerInterface].to[controllerBaseImp.controller]
     //bind[controllerInterface].to[controllerStubImp.Controller]
-    bind[FileIOTrait].to[fileIOXmlImp.FileIO]
+    bind[FileIOTrait].to[fileIOJsonImp.FileIO]
+    //bind[FileIOTrait].to[fileIOXmlImp.FileIO]
   }
 
 

@@ -23,3 +23,5 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.0.0-M2"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "1.1.1"
 
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
+

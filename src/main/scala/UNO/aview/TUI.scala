@@ -66,11 +66,13 @@ class TUI (controller: controllerInterface) extends Reactor {
         return "S-undo"
       }
       case "s--" => {
-        controller.redoGet
+        //controller.redoGet
+        controller.save
         return "S-redo"
       }
       case "r-" => {
-        controller.undoGet
+        //controller.undoGet
+        controller.load
         return "R-undo"
       }
       case "r--" => {

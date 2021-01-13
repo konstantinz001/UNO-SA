@@ -27,18 +27,19 @@ class controller extends controllerInterface with Publisher{
   val injector = Guice.createInjector(new UnoGameModule)
 //TODO Game runs, but Stack should init again for more Cards
   var stackCard = Stack(List(new Card("",""))).initStack()
-  (1 to 100).foreach((i)=>{
+  /*(1 to 100).foreach((i)=>{
     stackCard = stackCard.shuffleCards()
-  })
+  })*/
   var playerList = createPlayer()
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
   val fileIo = injector.instance[FileIOTrait]
-  var gameState: GameState = new GameState(playerList,stackCard, playStack2)
+  var gameState: GameState = new GameState(playerList, playStack2)
   val gui = new SwingGui(this)
   this.publish(new updateStates)
   print(State.handle(instructionEvent()))
+  publish(new updateStates)
 
   gui.open()
 
@@ -99,14 +100,14 @@ class controller extends controllerInterface with Publisher{
   }
 
   override def save: Unit = {
-    fileIo.save(GameState(playerList,stackCard, playStack2))
+    fileIo.save(GameState(playerList, playStack2))
   }
 
   override def load: Unit = {
-    //gameState = fileIo.load
-    playerList = gameState.getplayerList()
+    gameState = fileIo.load
+    playerList = gameState.playerList
     stackCard = gameState.getstackCard()
-    playStack2 = gameState.getplayStack()
+    playStack2 = gameState.playStack
     publish(new updateStates)
   }
 }

@@ -4,7 +4,7 @@ import UNO.model.GameState
 
 trait FileIOTrait {
 
-  def load: Unit
+  def load: GameState
 
   def save(gameState:GameState): Unit
 
