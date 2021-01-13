@@ -24,8 +24,9 @@ trait controllerInterface extends Publisher{
   def removeCard(handindex: Int)
   def undoGet: Unit
   def redoGet: Unit
-  def changeStack(handindex:Int): List[Card]
   def stackEmpty(): Stack
+  def save: Unit
+  def load: Unit
 
 
 

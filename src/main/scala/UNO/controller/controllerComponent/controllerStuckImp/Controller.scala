@@ -40,7 +40,9 @@ class Controller extends controllerInterface{
 
   override def redoGet: Unit = {}
 
-  override def changeStack(handindex: Int): List[Card] = List(Card("","blue"))
-
   override def stackEmpty(): Stack = stackCard
+
+  override def save: Unit = ???
+
+  override def load: Unit = ???
 }

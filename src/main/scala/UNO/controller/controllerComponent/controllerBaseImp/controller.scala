@@ -6,16 +6,19 @@ import UNO.UnoGameModule
 import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
+import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 import UNO.util.{State, UndoManager, instructionEvent}
+import UNO.model.fileIOComponent.FileIOTrait
 import com.google.inject.Guice
+import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 
 import scala.swing.Publisher
 
 
-class controller extends controllerInterface with Publisher {
+class controller extends controllerInterface with Publisher{
 //TODO Asking for Playername
   var gameStatus: GameStatus = IDLE
   var playername1 = "Konstantin"
@@ -27,12 +30,12 @@ class controller extends controllerInterface with Publisher {
   (1 to 100).foreach((i)=>{
     stackCard = stackCard.shuffleCards()
   })
-
-
   var playerList = createPlayer()
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
+  val fileIo = injector.instance[FileIOTrait]
+  var gameState: GameState = new GameState(playerList,stackCard, playStack2)
   val gui = new SwingGui(this)
   this.publish(new updateStates)
   print(State.handle(instructionEvent()))
@@ -82,7 +85,6 @@ class controller extends controllerInterface with Publisher {
   def removeCard(handindex: Int) {
     stackCard = stackEmpty()
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
-    //changeStack(handindex)
     unoCall = false
     publish(new updateStates)
   }
@@ -95,10 +97,16 @@ class controller extends controllerInterface with Publisher {
     undoManager.redoStep
     publish(new updateStates)
   }
-  def changeStack(handindex:Int): List[Card] = {
-    if (playerList(0).playerCards(handindex) == "black" ) {
-      Card("", colorSet) :: playStack2
-    }else
-      playStack2
+
+  override def save: Unit = {
+    fileIo.save(GameState(playerList,stackCard, playStack2))
+  }
+
+  override def load: Unit = {
+    //gameState = fileIo.load
+    playerList = gameState.getplayerList()
+    stackCard = gameState.getstackCard()
+    playStack2 = gameState.getplayStack()
+    publish(new updateStates)
   }
 }
