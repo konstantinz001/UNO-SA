@@ -147,29 +147,32 @@ class SwingGui(controller: controllerInterface) extends Frame {
 
   def endGamePanel = new GridPanel(2, 1) {
 
-    contents += new GridPanel(1, 1) {
+    contents += new GridPanel(2, 1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
 
-      val winLabel = new Label("YOU ARE WIN!")
+      val winLabel = new Label(controller.playerList(0).name.toUpperCase +": YOU ARE WINNING!")
+      winLabel.foreground = java.awt.Color.WHITE
+      winLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 50)
+      val againLabel = new Label("Play Again?")
+      againLabel.foreground = java.awt.Color.WHITE
+      againLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 20)
       contents += winLabel
+      contents += againLabel
     }
 
-    contents += new GridPanel(1, 3) {
+    contents += new GridPanel(1, 2) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
 
-      val againLabel = new Label("Play Again?")
       val yesButton = new Button("YES")
-      yesButton.background = java.awt.Color.DARK_GRAY
       val noButton = new Button("NO")
-      noButton.background = java.awt.Color.DARK_GRAY
-      contents += againLabel
       contents += yesButton
       contents += noButton
       listenTo(yesButton, noButton)
       reactions += {
         case ButtonClicked(`yesButton`) => {
+          close()
           controller.setDefault()
         }
         case ButtonClicked(`noButton`) => {
