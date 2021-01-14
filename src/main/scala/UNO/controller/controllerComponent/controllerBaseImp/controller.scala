@@ -2,6 +2,7 @@ package UNO.controller.controllerComponent.controllerBaseImp
 
 
 
+import UNO.UnoGame.controller
 import UNO.UnoGameModule
 import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus._
@@ -10,63 +11,56 @@ import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
-import UNO.util.{State, UndoManager, instructionEvent}
+import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
-import com.google.inject.Guice
+import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 
+import scala.io.StdIn.readLine
 import scala.swing.Publisher
 
 
-class controller extends controllerInterface with Publisher{
-//TODO Asking for Playername
+class controller @Inject() extends controllerInterface with Publisher{
+
   var gameStatus: GameStatus = IDLE
-  var playername1 = "Konstantin"
+  var playername1 = ""
   var playername2 = "Soni"
-  private val undoManager = new UndoManager ////COMPONENT NOT SURE
-  val injector = Guice.createInjector(new UnoGameModule)
-//TODO Game runs, but Stack should init again for more Cards
-  var stackCard = Stack(List(new Card("",""))).initStack()
-  /*(1 to 100).foreach((i)=>{
-    stackCard = stackCard.shuffleCards()
-  })*/
-  var playerList = createPlayer()
+  var stackCard = initStackCard()
+  var playerList = initPlayerList()
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
-  val fileIo = injector.instance[FileIOTrait]
+
+  private val undoManager = new UndoManager
   var gameState: GameState = new GameState(playerList, playStack2)
   val gui = new SwingGui(this)
-  this.publish(new updateStates)
+  val injector = Guice.createInjector(new UnoGameModule)
+  val fileIo = injector.instance[FileIOTrait]
   publish(new updateStates)
   gui.open()
 
-  def newGame() : Unit = {
-    gameStatus = IDLE
-    playername1 = "Konstantin"
-    playername2 = "Soni"
-    //TODO Game runs, but Stack should init again for more Cards
-    stackCard = Stack(List(new Card("",""))).initStack()
-    /*(1 to 100).foreach((i)=>{
-      stackCard = stackCard.shuffleCards()
-    })*/
-    playerList = createPlayer()
+  def setDefault(): Unit = {
+    stackCard = initStackCard()
+    playerList = initPlayerList()
     playStack2 = initPlayStack()
-    colorSet = ""
-    unoCall = false
-    gameState = new GameState(playerList, playStack2)
-    this.publish(new updateStates)
     publish(new updateStates)
   }
 
-  //Methods to init PlayerList and Stacks
+  def initStackCard() : Stack = {
+    var stackCards =Stack(List(new Card("",""))).initStack()
+    /*(1 to 100).foreach((i)=>{
+      stackCard = stackCard.shuffleCards()
+    })*/
+    stackCards
+  }
+
   def initPlayStack() : List[Card] = {
 
     while (stackCard.getCardFromStack().color == "black") {
       stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
       stackCard = stackCard.removeCard()
     }
-    return List(stackCard.getCardFromStack())
+    List(stackCard.getCardFromStack())
   }
 
   def stackEmpty(): Stack = {
@@ -76,23 +70,21 @@ class controller extends controllerInterface with Publisher{
         stackCard = stackCard.shuffleCards()
       })
     }
-    return stackCard
+    stackCard
   }
 
-  def createPlayer(): List[Player] = {
-    return List(Player(playername1,startHand()),Player(playername2,startHand()))
+  def initPlayerList(): List[Player] = {
+    def startHand(): List[Card] = {
+      var starthand = List(Card("",""))
+      (1 to 7).foreach((i)=>{
+        starthand = stackCard.getCardFromStack() :: starthand
+        stackCard = stackCard.removeCard()
+      })
+      starthand.init.reverse
+    }
+    List(Player(playername1,startHand()),Player(playername2,startHand()))
   }
 
-  def startHand(): List[Card] = {
-    var starthand = List(Card("",""))
-    (1 to 7).foreach((i)=>{
-      starthand = stackCard.getCardFromStack() :: starthand
-      stackCard = stackCard.removeCard()
-    })
-    return starthand.init.reverse
-  }
-
-//TODO Problems with Card <-->!!!!!!!!!!!!!!!!!
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     stackCard = stackEmpty()

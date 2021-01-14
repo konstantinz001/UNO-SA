@@ -119,6 +119,8 @@ class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends Fl
       button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
         110, 100)
     }
+
+
     contents += button
     background = java.awt.Color.DARK_GRAY
   }

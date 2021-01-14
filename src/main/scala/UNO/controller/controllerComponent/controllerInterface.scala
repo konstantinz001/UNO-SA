@@ -10,9 +10,9 @@ import scala.swing.Publisher
 
 
 trait controllerInterface extends Publisher{
-  var gameStatus: GameStatus
   var playername1: String
-  var playername2: String
+  var playername2 : String
+  var gameStatus: GameStatus
   var stackCard: Stack
   var playerList: List[Player]
   var playStack2: List[Card]
@@ -20,8 +20,7 @@ trait controllerInterface extends Publisher{
   var unoCall: Boolean
   val gui: SwingGui
   def initPlayStack() : List[Card]
-  def createPlayer(): List[Player]
-  def startHand(): List[Card]
+  def initPlayerList(): List[Player]
   def getCard(): Unit
   def removeCard(handindex: Int)
   def undoGet: Unit
@@ -29,7 +28,7 @@ trait controllerInterface extends Publisher{
   def stackEmpty(): Stack
   def save: Unit
   def load: Unit
-  def newGame() : Unit
+  def setDefault(): Unit
 
 
 

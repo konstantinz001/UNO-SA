@@ -117,7 +117,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
       contents += new Menu("File") {
         mnemonic = Key.F
         contents += new MenuItem(Action("New") {
-          controller.newGame()
+          controller.setDefault()
         }) //TODO
         contents += new MenuItem(Action("Save") {
           controller.save
@@ -170,7 +170,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
       listenTo(yesButton, noButton)
       reactions += {
         case ButtonClicked(`yesButton`) => {
-          controller.newGame()
+          controller.setDefault()
         }
         case ButtonClicked(`noButton`) => {
           System.exit(0)
@@ -181,7 +181,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
       contents += new Menu("File") {
         mnemonic = Key.F
         contents += new MenuItem(Action("New") {
-          controller.newGame()
+          controller.setDefault()
         }) //TODO
         contents += new MenuItem(Action("Save") {
           controller.save

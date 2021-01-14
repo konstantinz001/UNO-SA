@@ -11,15 +11,15 @@ import UNO.model.stackComponent.stackBaseImp.Stack
 
 
 class Controller extends controllerInterface{
+
+  override var playername1 = "Konstantin"
+  override var playername2 = "Soni"
+
   override var gameStatus: GameStatus = IDLE
-
-  override var playername1: String = "Player1"
-
-  override var playername2: String = "Player2"
 
   override var stackCard: Stack = Stack(List(new Card("",""))).initStack()
 
-  override var playerList: List[Player] = List(Player(playername1,List(Card("","red"))))
+  override var playerList: List[Player] = List(Player("Testy",List(Card("","red"))))
 
   override var playStack2: List[Card] = List(Card("","blue"))
 
@@ -29,9 +29,7 @@ class Controller extends controllerInterface{
 
   override def initPlayStack(): List[Card] = List(Card("","blue"))
 
-  override def createPlayer(): List[Player] = List(Player(playername1,List(Card("","red"))))
-
-  override def startHand(): List[Card] = List(Card("","blue"))
+  override def initPlayerList(): List[Player] = List(Player("Testy",List(Card("","red"))))
 
   override def getCard(): Unit = {}
 
@@ -49,5 +47,6 @@ class Controller extends controllerInterface{
 
   override val gui: SwingGui = new SwingGui(this)
 
-  override def newGame(): Unit = {}
+  override def setDefault(): Unit = {}
+
 }
