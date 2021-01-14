@@ -1,7 +1,10 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
+
+
+import UNO.UnoGame.controller
 import UNO.UnoGameModule
-import UNO.aview.gui.SwingGui
+import UNO.aview.gui.{NameGui, SwingGui}
 import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
 import UNO.model.GameState
@@ -12,16 +15,17 @@ import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
+
+import scala.io.StdIn.readLine
 import scala.swing.Publisher
 
 
 class controller @Inject() extends controllerInterface with Publisher{
 
-  val gui = new SwingGui(this)
-  publish(new WelcomeStates)
   var gameStatus: GameStatus = IDLE
-  var playername1 = "1"
-  var playername2 = "2"
+  var playername1 = ""
+  var playername2 = ""
+  initPlayerName()
   var stackCard = initStackCard()
   var playerList = initPlayerList()
   var playStack2 = initPlayStack()
@@ -30,9 +34,11 @@ class controller @Inject() extends controllerInterface with Publisher{
 
   private val undoManager = new UndoManager
   var gameState: GameState = new GameState(playerList, playStack2)
-
+  val gui = new SwingGui(this)
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
+  publish(new updateStates)
+  gui.open()
 
   def setDefault(): Unit = {
     stackCard = initStackCard()
@@ -79,6 +85,16 @@ class controller @Inject() extends controllerInterface with Publisher{
     }
     List(Player(playername1,startHand()),Player(playername2,startHand()))
   }
+
+  def initPlayerName(): Unit = {
+    val gui1 = new NameGui(this)
+
+    while (playername1.length == 0 && playername2.length == 0) {
+      gui1.open()
+    }
+    gui1.close()
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     stackCard = stackEmpty()
