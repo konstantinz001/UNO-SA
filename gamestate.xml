@@ -1,7 +1,7 @@
 <gamestate>
-    <playerName1> Konstantin </playerName1>
-    <playerName2> Soni </playerName2>
-    <playerCardValue1> 3 4 5 </playerCardValue1>
+    <playerName1> A </playerName1>
+    <playerName2> B </playerName2>
+    <playerCardValue1> 4 5 6 </playerCardValue1>
     <playerCardColor1> green green green </playerCardColor1>
     <playerCardValue2> +2 &lt;--&gt; Ø </playerCardValue2>
     <playerCardColor2> green green green </playerCardColor2>
