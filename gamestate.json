@@ -1,10 +1,10 @@
 {
   "gameState" : {
-    "playerListName" : [ "Soni", "Konstantin" ],
-    "playerCardsValue1" : [ "+2" ],
+    "playerListName" : [ "B", "A" ],
+    "playerCardsValue1" : [ "<-->" ],
     "playerCardsColor1" : [ "green" ],
-    "playerCardsValue2" : [ "5", "4" ],
-    "playerCardsColor2" : [ "green", "green" ],
+    "playerCardsValue2" : [ "4", "5", "6" ],
+    "playerCardsColor2" : [ "green", "green", "green" ],
     "playStackValue" : "Ø",
     "playStackColor" : "green"
   }
