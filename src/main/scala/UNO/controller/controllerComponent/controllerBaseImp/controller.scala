@@ -1,7 +1,5 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
-
-
 import UNO.UnoGameModule
 import UNO.aview.gui.{NameGui, SwingGui}
 import UNO.controller.GameStatus._
@@ -14,6 +12,8 @@ import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
+
+import scala.io.StdIn.readLine
 import scala.swing.Publisher
 
 
@@ -46,9 +46,9 @@ class controller @Inject() extends controllerInterface with Publisher{
 
   def initStackCard() : Stack = {
     var stackCards =Stack(List(new Card("",""))).initStack()
-    (1 to 100).foreach((i)=>{
-      stackCards = stackCards.shuffleCards()
-    })
+    /*(1 to 100).foreach((i)=>{
+      stackCard = stackCard.shuffleCards()
+    })*/
     stackCards
   }
 
@@ -87,6 +87,15 @@ class controller @Inject() extends controllerInterface with Publisher{
     val gui1 = new NameGui(this)
 
     while (playername1.length == 0 && playername2.length == 0) {
+      var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
+      val is: Array[String] = input.split(" ")
+      is(0) match {
+
+        case _ => {
+          playername1 = readLine("Player1: Please Enter your Name\n")
+          playername2 = readLine("Player2: Please Enter your Name\n")
+        }
+      }
       gui1.open()
     }
     gui1.close()
