@@ -172,8 +172,9 @@ class SwingGui(controller: controllerInterface) extends Frame {
       listenTo(yesButton, noButton)
       reactions += {
         case ButtonClicked(`yesButton`) => {
-          close()
           controller.setDefault()
+          //close()
+
         }
         case ButtonClicked(`noButton`) => {
           System.exit(0)
