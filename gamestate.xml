@@ -1,0 +1,12 @@
+<gamestate>
+    <playerName1> A </playerName1>
+    <playerName2> B </playerName2>
+    <playerCardValue1> 4 5 6 </playerCardValue1>
+    <playerCardColor1> green green green </playerCardColor1>
+    <playerCardValue2> +2 &lt;--&gt; Ø </playerCardValue2>
+    <playerCardColor2> green green green </playerCardColor2>
+    <playStack>
+        <playStackColor> green </playStackColor>
+        <playStackValue> 0 </playStackValue>
+    </playStack>
+</gamestate>
