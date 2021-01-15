@@ -1,8 +1,5 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
-
-
-import UNO.UnoGame.controller
 import UNO.UnoGameModule
 import UNO.aview.gui.{NameGui, SwingGui}
 import UNO.controller.GameStatus._
@@ -90,6 +87,15 @@ class controller @Inject() extends controllerInterface with Publisher{
     val gui1 = new NameGui(this)
 
     while (playername1.length == 0 && playername2.length == 0) {
+      var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
+      val is: Array[String] = input.split(" ")
+      is(0) match {
+
+        case _ => {
+          playername1 = readLine("Player1: Please Enter your Name\n")
+          playername2 = readLine("Player2: Please Enter your Name\n")
+        }
+      }
       gui1.open()
     }
     gui1.close()
