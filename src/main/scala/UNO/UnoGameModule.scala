@@ -13,7 +13,4 @@ class UnoGameModule extends AbstractModule with ScalaModule{
     bind[FileIOTrait].to[fileIOJsonImp.FileIO]
     //bind[FileIOTrait].to[fileIOXmlImp.FileIO]
   }
-
-
-
 }
