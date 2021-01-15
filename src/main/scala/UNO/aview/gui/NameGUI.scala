@@ -59,8 +59,6 @@ class NameGui(controller: controllerInterface) extends  Frame{
         case ButtonClicked(`enterButton`) => {
           controller.playername1 = player1tf.text
           controller.playername2 = player2tf.text
-          println(controller.playername1)
-          println(controller.playername2)
           close()
         }
         case ButtonClicked(`exitButton`) => {
