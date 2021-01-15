@@ -86,19 +86,19 @@ class controller @Inject() extends controllerInterface with Publisher{
   def initPlayerName(): Unit = {
     val gui1 = new NameGui(this)
 
+    var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
+    val is: Array[String] = input.split(" ")
     while (playername1.length == 0 && playername2.length == 0) {
       var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
       val is: Array[String] = input.split(" ")
       is(0) match {
-
-        case _ => {
-          playername1 = readLine("Player1: Please Enter your Name\n")
-          playername2 = readLine("Player2: Please Enter your Name\n")
+        case "n" => {
+          playername1 = "Player1"
+          playername2 = "Player2"
         }
       }
-      gui1.open()
+      publish(new updateStates)
     }
-    gui1.close()
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
