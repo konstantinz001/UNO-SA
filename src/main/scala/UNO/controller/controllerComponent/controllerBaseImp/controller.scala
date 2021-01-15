@@ -2,7 +2,6 @@ package UNO.controller.controllerComponent.controllerBaseImp
 
 
 
-import UNO.UnoGame.controller
 import UNO.UnoGameModule
 import UNO.aview.gui.{NameGui, SwingGui}
 import UNO.controller.GameStatus._
@@ -15,8 +14,6 @@ import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-
-import scala.io.StdIn.readLine
 import scala.swing.Publisher
 
 
@@ -49,9 +46,9 @@ class controller @Inject() extends controllerInterface with Publisher{
 
   def initStackCard() : Stack = {
     var stackCards =Stack(List(new Card("",""))).initStack()
-    /*(1 to 100).foreach((i)=>{
-      stackCard = stackCard.shuffleCards()
-    })*/
+    (1 to 100).foreach((i)=>{
+      stackCards = stackCards.shuffleCards()
+    })
     stackCards
   }
 
