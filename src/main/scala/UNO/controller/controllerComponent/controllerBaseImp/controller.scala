@@ -1,7 +1,7 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
-import UNO.aview.gui.{NameGui, SwingGui}
+import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
 import UNO.model.GameState
@@ -12,17 +12,16 @@ import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-
-import scala.io.StdIn.readLine
 import scala.swing.Publisher
 
 
 class controller @Inject() extends controllerInterface with Publisher{
 
+  val gui = new SwingGui(this)
+  publish(new WelcomeStates)
   var gameStatus: GameStatus = IDLE
-  var playername1 = ""
-  var playername2 = ""
-  initPlayerName()
+  var playername1 = "1"
+  var playername2 = "2"
   var stackCard = initStackCard()
   var playerList = initPlayerList()
   var playStack2 = initPlayStack()
@@ -31,11 +30,9 @@ class controller @Inject() extends controllerInterface with Publisher{
 
   private val undoManager = new UndoManager
   var gameState: GameState = new GameState(playerList, playStack2)
-  val gui = new SwingGui(this)
+
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
-  publish(new welcomeStates)
-  gui.open()
 
   def setDefault(): Unit = {
     stackCard = initStackCard()
@@ -82,25 +79,6 @@ class controller @Inject() extends controllerInterface with Publisher{
     }
     List(Player(playername1,startHand()),Player(playername2,startHand()))
   }
-
-  def initPlayerName(): Unit = {
-    val gui1 = new NameGui(this)
-
-    var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
-    val is: Array[String] = input.split(" ")
-    while (playername1.length == 0 && playername2.length == 0) {
-      var input = readLine("\nPlay an UNO-Game?\nEnter any Key: ")
-      val is: Array[String] = input.split(" ")
-      is(0) match {
-        case "n" => {
-          playername1 = "Player1"
-          playername2 = "Player2"
-        }
-      }
-      publish(new updateStates)
-    }
-  }
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {
     stackCard = stackEmpty()
