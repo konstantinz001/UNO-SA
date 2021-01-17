@@ -1,13 +1,16 @@
 package UNO.controller
 
+import UNO.model.PlayerComponent.playerBaseImp.Player
+import UNO.model.cardComponent.cardBaseImp.Card
+import UNO.model.stackComponent.stackBaseImp.Stack
+
+
 object GameStatus extends Enumeration {
   type GameStatus = Value
-  val IDLE, START, PLAY, WON, LOST = Value
+  val IDLE, WON, LOST = Value
 
   val map = Map[GameStatus, String](
     IDLE -> "",
-    START -> "Game init",
-    PLAY -> "Game playing",
     WON ->"You won",
     LOST ->"You lost")
 

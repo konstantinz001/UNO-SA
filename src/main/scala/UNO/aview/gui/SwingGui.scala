@@ -1,7 +1,6 @@
 package UNO.aview.gui
 
-
-import UNO.controller.controllerComponent.controllerBaseImp.{NameStates, updateStates}
+import UNO.controller.controllerComponent.controllerBaseImp.{controller, updateStates}
 import UNO.controller.controllerComponent.controllerInterface
 
 import java.awt.Image
@@ -56,6 +55,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
           }
       }
     }
+
 
     contents += new GridPanel(1, controller.playerList(0).playerCards.size) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
@@ -217,6 +217,8 @@ class SwingGui(controller: controllerInterface) extends Frame {
       reactions += {
         case ButtonClicked(`yesButton`) => {
           controller.setDefault()
+          //close()
+
         }
         case ButtonClicked(`noButton`) => {
           System.exit(0)
@@ -228,7 +230,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
         mnemonic = Key.F
         contents += new MenuItem(Action("New") {
           controller.setDefault()
-        })
+        }) //TODO
         contents += new MenuItem(Action("Save") {
           controller.save
         })
@@ -302,10 +304,10 @@ class SwingGui(controller: controllerInterface) extends Frame {
   }
 
   reactions += {
-    case a: updateStates => redraw
-    case b: NameStates => redraw3
+    case event: updateStates => redraw
 
   }
+
   visible = true
 
   def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon = {

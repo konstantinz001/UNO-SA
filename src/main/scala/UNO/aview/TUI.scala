@@ -1,10 +1,9 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.controllerBaseImp. updateStates
-import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent,
-  forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent,
-  setPlayerCardEvent, toManyCardsEvent}
+import UNO.controller.controllerComponent.controllerBaseImp.updateStates
+import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
+import scala.io.StdIn.readLine
 
 import scala.swing.Reactor
 
@@ -17,33 +16,27 @@ class TUI (controller: controllerInterface) extends Reactor {
     val is: Array[String] = input.split(" ")
     is(0) match {
 
-      case "n" => {
-        controller.playername1 = is(1)
-        controller.playername2 = is(2)
-        ""
-      }
-
       case "s" => {
         controller.getCard()
-        State.handle(setPlayerCardEvent())
+        return State.handle(setPlayerCardEvent())
       }
       case "r" => {
         if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
-        controller.colorSet = is(2)
-      }
+          controller.colorSet = is(2)
+        }
         if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
           controller.removeCard(is(1).toInt)
-          State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
+          return State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
 
         } else if (!Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
-          State.handle(removeFalseCardEvent())
+          return State.handle(removeFalseCardEvent())
 
         } else {
           controller.removeCard(is(1).toInt)
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
-          State.handle(forgotCallUnoEvent())
+          return State.handle(forgotCallUnoEvent())
 
 
         }
@@ -52,46 +45,46 @@ class TUI (controller: controllerInterface) extends Reactor {
         controller.unoCall = true
         if(controller.playerList(0).playerCards.size == 2) {
           controller.removeCard(is(1).toInt)
-          State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
+          return State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
         }
         else if(controller.playerList(0).playerCards.size == 1) {
-          State.handle(callSecondUnoEvent())
+          return State.handle(callSecondUnoEvent())
         }
         else {
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
-          State.handle(toManyCardsEvent())
+          return State.handle(toManyCardsEvent())
         }
       }
       case "q" => {
-        State.handle(exitGameEvent())
+        return State.handle(exitGameEvent())
 
       }
 
       case "s-" => {
         controller.undoGet
-        "S-undo"
+        return "S-undo"
       }
       case "s--" => {
         controller.redoGet
-        "S-redo"
+        return "S-redo"
       }
       case "r-" => {
         controller.undoGet
-        "R-undo"
+        return "R-undo"
       }
       case "r--" => {
         controller.redoGet
-        "R-redo"
+        return "R-redo"
       }
       case "load" => {
         controller.load
-        "Loading Game!"
+        return "Loading Game!"
       }
       case "save" => {
         controller.save
-        "Saved Game!"
+        return "Saved Game!"
       }
     }
   }
@@ -100,7 +93,8 @@ class TUI (controller: controllerInterface) extends Reactor {
     case event: updateStates => print1
   }
 
-   def print1:Unit= {
-     print(State.handle(gameStatsEvent()))
+  def print1:Unit= {
+    print(State.handle(gameStatsEvent()))
+
   }
 }
