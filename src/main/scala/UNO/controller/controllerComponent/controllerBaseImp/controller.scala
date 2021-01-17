@@ -22,6 +22,7 @@ class controller @Inject() extends controllerInterface with Publisher{
   var gameStatus: GameStatus = IDLE
   var playername1 = ""
   var playername2 = ""
+  initPlayerName()
   var stackCard = initStackCard()
   var playerList = initPlayerList()
   var playStack2 = initPlayStack()
@@ -31,10 +32,10 @@ class controller @Inject() extends controllerInterface with Publisher{
   private val undoManager = new UndoManager
   var gameState: GameState = new GameState(playerList, playStack2)
   val gui = new SwingGui(this)
-  publish(new welcomeStates)
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
-
+  publish(new welcomeStates)
+  gui.open()
 
   def setDefault(): Unit = {
     stackCard = initStackCard()
@@ -82,6 +83,14 @@ class controller @Inject() extends controllerInterface with Publisher{
     List(Player(playername1,startHand()),Player(playername2,startHand()))
   }
 
+  def initPlayerName(): Unit = {
+    val gui1 = new NameGui(this)
+
+    while (playername1.length == 0 && playername2.length == 0) {
+      gui1.open()
+    }
+    gui1.close()
+  }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit = {

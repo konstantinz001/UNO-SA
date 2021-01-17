@@ -1,6 +1,7 @@
 package UNO.aview.gui
 
-import UNO.controller.controllerComponent.controllerBaseImp.{controller, updateStates}
+
+import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
 import UNO.controller.controllerComponent.controllerInterface
 
 import java.awt.Image
@@ -230,7 +231,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
         mnemonic = Key.F
         contents += new MenuItem(Action("New") {
           controller.setDefault()
-        }) //TODO
+        })
         contents += new MenuItem(Action("Save") {
           controller.save
         })
@@ -304,10 +305,9 @@ class SwingGui(controller: controllerInterface) extends Frame {
   }
 
   reactions += {
-    case event: updateStates => redraw
+    case a: updateStates => redraw
 
   }
-
   visible = true
 
   def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon = {
