@@ -57,7 +57,6 @@ class SwingGui(controller: controllerInterface) extends Frame {
       }
     }
 
-
     contents += new GridPanel(1, controller.playerList(0).playerCards.size) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
@@ -304,6 +303,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
 
   reactions += {
     case a: updateStates => redraw
+
   }
   visible = true
 
