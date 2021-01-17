@@ -34,7 +34,7 @@ class controller @Inject() extends controllerInterface with Publisher{
   val gui = new SwingGui(this)
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
-  publish(new updateStates)
+  publish(new welcomeStates)
   gui.open()
 
   def setDefault(): Unit = {
