@@ -1,7 +1,7 @@
 package UNO.controller.controllerComponent.controllerStuckImp
 
 import UNO.aview.gui.SwingGui
-import UNO.controller.GameStatus.{GameStatus, IDLE}
+import UNO.controller.GameStatus.{GameStatus, START}
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
@@ -15,7 +15,7 @@ class Controller extends controllerInterface{
   override var playername1 = "Konstantin"
   override var playername2 = "Soni"
 
-  override var gameStatus: GameStatus = IDLE
+  override var gameStatus: GameStatus = START
 
   override var stackCard: Stack = Stack(List(new Card("",""))).initStack()
 
