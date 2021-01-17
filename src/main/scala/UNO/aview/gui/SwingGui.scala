@@ -1,6 +1,7 @@
 package UNO.aview.gui
 
-import UNO.controller.controllerComponent.controllerBaseImp.{controller, updateStates}
+
+import UNO.controller.controllerComponent.controllerBaseImp.{NameStates, updateStates}
 import UNO.controller.controllerComponent.controllerInterface
 
 import java.awt.Image
@@ -46,8 +47,13 @@ class SwingGui(controller: controllerInterface) extends Frame {
       listenTo(unoCall)
       reactions += {
         case ButtonClicked(`unoCall`) =>
-          controller.unoCall = true
-          unoCall.background = java.awt.Color.RED
+          if (controller.unoCall == true) {
+            unoCall.background = java.awt.Color.DARK_GRAY
+            controller.unoCall = false
+          }else {
+            controller.unoCall = true
+            unoCall.background = java.awt.Color.RED
+          }
       }
     }
 
@@ -87,18 +93,56 @@ class SwingGui(controller: controllerInterface) extends Frame {
         case ButtonClicked(`yellow`) => {
           controller.colorSet = "yellow"
           yellow.background = java.awt.Color.YELLOW
+          reactions += {
+            case ButtonClicked(`yellow`) => {
+              if (controller.colorSet == "yellow") {
+                controller.colorSet = ""
+                yellow.background = java.awt.Color.DARK_GRAY
+              } else {
+                controller.colorSet = "yellow"
+                yellow.background = java.awt.Color.YELLOW
+                red.background = java.awt.Color.DARK_GRAY
+                blue.background = java.awt.Color.DARK_GRAY
+                green.background = java.awt.Color.DARK_GRAY
+              }
+            }
+          }
         }
         case ButtonClicked(`red`) => {
-          controller.colorSet = "red"
-          red.background = java.awt.Color.RED
+          if (controller.colorSet == "red") {
+            controller.colorSet = ""
+            red.background = java.awt.Color.DARK_GRAY
+          } else {
+            controller.colorSet = "red"
+            red.background = java.awt.Color.RED
+            blue.background = java.awt.Color.DARK_GRAY
+            green.background = java.awt.Color.DARK_GRAY
+            yellow.background = java.awt.Color.DARK_GRAY
+          }
         }
         case ButtonClicked(`blue`) => {
-          controller.colorSet = "blue"
-          blue.background = java.awt.Color.BLUE
+          if (controller.colorSet == "blue") {
+            controller.colorSet = ""
+            blue.background = java.awt.Color.DARK_GRAY
+          } else {
+            controller.colorSet = "blue"
+            blue.background = java.awt.Color.BLUE
+            red.background = java.awt.Color.DARK_GRAY
+            green.background = java.awt.Color.DARK_GRAY
+            yellow.background = java.awt.Color.DARK_GRAY
+          }
         }
         case ButtonClicked(`green`) => {
-          controller.colorSet = "green"
-          green.background = java.awt.Color.GREEN
+          if (controller.colorSet == "green") {
+            controller.colorSet = ""
+            green.background = java.awt.Color.DARK_GRAY
+          } else {
+            controller.colorSet = "green"
+            green.background = java.awt.Color.GREEN
+            red.background = java.awt.Color.DARK_GRAY
+            blue.background = java.awt.Color.DARK_GRAY
+            yellow.background = java.awt.Color.DARK_GRAY
+          }
         }
       }
     }
@@ -142,7 +186,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
   }
 
   contents = new BorderPanel {
-    add(gamePanel, Position.Center)
+    add(welcomePanel, Position.Center)
   }
 
   def endGamePanel = new GridPanel(2, 1) {
@@ -173,8 +217,6 @@ class SwingGui(controller: controllerInterface) extends Frame {
       reactions += {
         case ButtonClicked(`yesButton`) => {
           controller.setDefault()
-          //close()
-
         }
         case ButtonClicked(`noButton`) => {
           System.exit(0)
@@ -186,7 +228,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
         mnemonic = Key.F
         contents += new MenuItem(Action("New") {
           controller.setDefault()
-        }) //TODO
+        })
         contents += new MenuItem(Action("Save") {
           controller.save
         })
@@ -209,6 +251,39 @@ class SwingGui(controller: controllerInterface) extends Frame {
     }
   }
 
+  def welcomePanel = new GridPanel(2, 1) {
+
+    contents += new GridPanel(1, 1) {
+      border = LineBorder(java.awt.Color.DARK_GRAY, 50)
+      background = java.awt.Color.DARK_GRAY
+
+      val WelcomeLabel = new Label("Welcome to UNO!")
+      WelcomeLabel.foreground = java.awt.Color.WHITE
+      WelcomeLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 50)
+      contents += WelcomeLabel
+    }
+
+    contents += new GridPanel(1, 2) {
+      border = LineBorder(java.awt.Color.DARK_GRAY, 50)
+      background = java.awt.Color.DARK_GRAY
+
+      val enterButton = new Button("Enter")
+      val exitButton = new Button("Exit")
+      contents += enterButton
+      contents += exitButton
+
+      listenTo(enterButton, exitButton)
+      reactions += {
+        case ButtonClicked(`enterButton`) => {
+          redraw
+        }
+        case ButtonClicked(`exitButton`) => {
+          System.exit(0)
+        }
+      }
+    }
+  }
+
   def redraw = {
     contents = new BorderPanel {
       add(gamePanel, BorderPanel.Position.Center)
@@ -220,14 +295,18 @@ class SwingGui(controller: controllerInterface) extends Frame {
       add(endGamePanel, BorderPanel.Position.Center)
     }
   }
-
-  reactions += {
-    case event: updateStates => redraw
-
+  def redraw3 = {
+    contents = new BorderPanel {
+      add(welcomePanel, BorderPanel.Position.Center)
+    }
   }
 
+  reactions += {
+    case a: updateStates => redraw
+    case b: NameStates => redraw3
+
+  }
   visible = true
-  redraw
 
   def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon = {
     val orig = new ImageIcon(path)

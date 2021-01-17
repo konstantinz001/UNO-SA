@@ -1,7 +1,6 @@
 package UNO
 
-import UNO.aview.gui.SwingGui
-import UNO.controller.controllerComponent.controllerBaseImp.{controller, updateStates}
+
 import UNO.controller.controllerComponent.controllerInterface
 
 import scala.io.StdIn.readLine
@@ -10,6 +9,7 @@ import UNO.util.{State, gameStatsEvent, instructionEvent}
 import com.google.inject.Guice
 
 object UnoGame {
+
   val injector = Guice.createInjector(new UnoGameModule)
   val controller = injector.getInstance(classOf[controllerInterface])
   val tui = new TUI(controller)

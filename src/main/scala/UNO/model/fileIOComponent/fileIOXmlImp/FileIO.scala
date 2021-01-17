@@ -44,7 +44,6 @@ class FileIO extends FileIOTrait{
     val pw = new PrintWriter(new File("gamestate.xml"))
     val prettyPrinter = new PrettyPrinter(200,4)
     val xml = prettyPrinter.format(gameStateToXml(gameState))
-    //val xml = prettyPrinter.format(gameStateToXml(gameState))
     pw.write(xml)
     pw.close()
   }

@@ -76,8 +76,8 @@ case class toManyCardsEvent() extends Event {
 
 case class forgotCallUnoEvent() extends Event {
   def forgotCallUno:String = {
-    ("\nYou have forgot to Call UNO\n" +
-    "\n--Handcards:\t" + controller.playerList(1).playerCards + "\n")
+    "\nYou have forgot to Call UNO\n" +
+    "\n--Handcards:\t" + controller.playerList(1).playerCards + "\n"
   }
 }
 
