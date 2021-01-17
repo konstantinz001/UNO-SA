@@ -1,8 +1,5 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
-
-
-import UNO.UnoGame.controller
 import UNO.UnoGameModule
 import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus._
@@ -23,8 +20,8 @@ import scala.swing.Publisher
 class controller @Inject() extends controllerInterface with Publisher{
 
   var gameStatus: GameStatus = IDLE
-  var playername1 = ""
-  var playername2 = "Soni"
+  var playername1 = "1"
+  var playername2 = "2"
   var stackCard = initStackCard()
   var playerList = initPlayerList()
   var playStack2 = initPlayStack()
@@ -37,7 +34,6 @@ class controller @Inject() extends controllerInterface with Publisher{
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
   publish(new welcomeStates)
-  gui.open()
 
   def setDefault(): Unit = {
     stackCard = initStackCard()
