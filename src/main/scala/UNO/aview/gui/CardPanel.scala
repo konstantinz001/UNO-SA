@@ -4,7 +4,6 @@ package UNO.aview.gui
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
-import UNO.aview.gui.SwingGui
 
 import java.awt.Image
 import javax.swing.ImageIcon
@@ -19,19 +18,18 @@ class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends Fl
       case 1 => controller.playerList(1).playerCards
       case 3 => controller.playStack2
       case 4 => controller.stackCard.stackCards
-      case default => List(Card("","green"), Card("","red"), Card((""),"yellow"), Card((""),"blue"))
     }
   }
 
   def cardValue(cardList:List[Card], cardIndex: Int) : String = {
     if (cardList(cardIndex).value == "<-->")
-      return "Reverse.png"
+      "Reverse.png"
     else if (cardList(cardIndex).value == "Ø")
-      return "Skip.png"
+      "Skip.png"
     else if (cardList(cardIndex).value == "")
-      return "Radio.png"
+      "Radio.png"
     else
-      return cardList(cardIndex).value + ".png"
+      cardList(cardIndex).value + ".png"
   }
 
   def cardColor(cardList:List[Card], cardIndex: Int) : String = {

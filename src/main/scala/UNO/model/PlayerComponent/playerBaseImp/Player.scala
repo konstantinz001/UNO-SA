@@ -12,8 +12,7 @@ case class Player(name: String, playerCards: List[Card]) extends PlayerInterface
   }
 
   def setPlayerCards(setCard: Card): Player = {
-    val temporarily = setCard :: playerCards
-    return copy(playerCards = temporarily)
+    copy(playerCards = setCard :: playerCards)
   }
 
   def removePlayerCards(index: Int): Player = {
