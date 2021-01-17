@@ -94,7 +94,6 @@ class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends Fl
       }
     }
 
-    //button.font = new Font("Verdana", 1, 15)
     button.preferredSize_=(new Dimension(97,100))
     button.maximumSize_= (new Dimension(97, 100))
     button.minimumSize_=(new Dimension(77, 80))

@@ -1,9 +1,10 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.controllerBaseImp.updateStates
-import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.controller.controllerComponent.controllerBaseImp. updateStates
+import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent,
+  forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent,
+  setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
-import scala.io.StdIn.readLine
 
 import scala.swing.Reactor
 
@@ -15,6 +16,12 @@ class TUI (controller: controllerInterface) extends Reactor {
 
     val is: Array[String] = input.split(" ")
     is(0) match {
+
+      case "n" => {
+        controller.playername1 = is(1)
+        controller.playername2 = is(2)
+        ""
+      }
 
       case "s" => {
         controller.getCard()
@@ -95,6 +102,5 @@ class TUI (controller: controllerInterface) extends Reactor {
 
    def print1:Unit= {
      print(State.handle(gameStatsEvent()))
-
   }
 }
