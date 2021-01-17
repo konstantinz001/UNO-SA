@@ -1,6 +1,6 @@
 package UNO.controller.controllerComponent
 
-import UNO.aview.gui.{NameGui, SwingGui}
+import UNO.aview.gui.SwingGui
 import UNO.controller.GameStatus.GameStatus
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
