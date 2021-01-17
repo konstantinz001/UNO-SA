@@ -217,6 +217,8 @@ class SwingGui(controller: controllerInterface) extends Frame {
       reactions += {
         case ButtonClicked(`yesButton`) => {
           controller.setDefault()
+          //close()
+
         }
         case ButtonClicked(`noButton`) => {
           System.exit(0)
@@ -303,6 +305,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
 
   reactions += {
     case a: updateStates => redraw
+
   }
   visible = true
 
