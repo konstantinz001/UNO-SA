@@ -55,14 +55,29 @@ class SwingGui(controller: controllerInterface) extends Frame {
     }
 
 
-    contents += new GridPanel(1, controller.playerList(0).playerCards.size) {
+    contents += new GridPanel(1, controller.playerList(0).playerCards.size+1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
 
+      var cards: List[BoxPanel]  = List.empty
       (1 to controller.playerList(0).playerCards.length).foreach(i => {
         val cardPanel = new CardPanel(0, i - 1, controller)
-        contents += cardPanel.card
+        cards = cardPanel.card :: cards
       })
+
+      cards.map(x=> x.visible = false)
+
+      val showButton = new Button("Show Cards!")
+      listenTo(showButton)
+      reactions += {
+        case ButtonClicked(`showButton`) =>
+          if (cards(0).visible == true)
+            cards.map(x => x.visible = false)
+          else if (cards(0).visible == false)
+            cards.map(x => x.visible = true)
+      }
+      contents ++= cards
+      contents += showButton
     }
 
     contents += new GridPanel(1, 4) {
