@@ -7,8 +7,6 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 
-//TODO STUB
-
 
 class Controller extends controllerInterface{
 

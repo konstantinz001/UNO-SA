@@ -3,7 +3,6 @@ package UNO.aview
 import UNO.controller.controllerComponent.controllerBaseImp.updateStates
 import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
-import scala.io.StdIn.readLine
 
 import scala.swing.Reactor
 
@@ -18,7 +17,7 @@ class TUI (controller: controllerInterface) extends Reactor {
 
       case "s" => {
         controller.getCard()
-        return State.handle(setPlayerCardEvent())
+        State.handle(setPlayerCardEvent())
       }
       case "r" => {
         if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
@@ -26,17 +25,17 @@ class TUI (controller: controllerInterface) extends Reactor {
         }
         if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
           controller.removeCard(is(1).toInt)
-          return State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
+          State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
 
         } else if (!Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
-          return State.handle(removeFalseCardEvent())
+          State.handle(removeFalseCardEvent())
 
         } else {
           controller.removeCard(is(1).toInt)
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
-          return State.handle(forgotCallUnoEvent())
+          State.handle(forgotCallUnoEvent())
 
 
         }
@@ -45,46 +44,46 @@ class TUI (controller: controllerInterface) extends Reactor {
         controller.unoCall = true
         if(controller.playerList(0).playerCards.size == 2) {
           controller.removeCard(is(1).toInt)
-          return State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
+          State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
         }
         else if(controller.playerList(0).playerCards.size == 1) {
-          return State.handle(callSecondUnoEvent())
+          State.handle(callSecondUnoEvent())
         }
         else {
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
-          return State.handle(toManyCardsEvent())
+          State.handle(toManyCardsEvent())
         }
       }
       case "q" => {
-        return State.handle(exitGameEvent())
+        State.handle(exitGameEvent())
 
       }
 
       case "s-" => {
         controller.undoGet
-        return "S-undo"
+        "S-undo"
       }
       case "s--" => {
         controller.redoGet
-        return "S-redo"
+        "S-redo"
       }
       case "r-" => {
         controller.undoGet
-        return "R-undo"
+        "R-undo"
       }
       case "r--" => {
         controller.redoGet
-        return "R-redo"
+        "R-redo"
       }
       case "load" => {
         controller.load
-        return "Loading Game!"
+        "Loading Game!"
       }
       case "save" => {
         controller.save
-        return "Saved Game!"
+        "Saved Game!"
       }
     }
   }

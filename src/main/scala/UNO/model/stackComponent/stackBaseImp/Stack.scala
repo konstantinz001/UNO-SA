@@ -43,9 +43,7 @@ case class Stack(stackCards: List[Card]) extends StackInterface {
   }
 
   def reversePullCards(playerStack: List[Card]): Stack = {
-    var stackCards2 = stackCards.reverse
-    stackCards2 = stackCards2 ::: playerStack
-    copy(stackCards2.reverse)
+    copy((stackCards.reverse ::: playerStack).reverse)
   }
 
   def getCardFromStack(): Card = {

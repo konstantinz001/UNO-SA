@@ -1,4 +1,3 @@
-import UNO.model.color
 
 def hand(): String = {
 
@@ -28,9 +27,9 @@ def playerHand(): Array[String] ={
   val Player = 5
 
   val playerHand = new Array[String](Player)
-  for(x <- 0 until Player) {
-    playerHand(x) = hand()
-  }
+  (0 until Player)foreach(_ =>
+    playerHand(_) = hand()
+    )
   return playerHand
 }
 

@@ -1,9 +1,7 @@
 package UNO.model.fileIOComponent.fileIOJsonImp
 
 import UNO.model.GameState
-import UNO.model.PlayerComponent.PlayerInterface
 import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.CardInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.fileIOComponent.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
@@ -25,14 +23,14 @@ class FileIO extends FileIOTrait {
     val playerColor1 = (json \ "gameState" \ "playerCardsColor1").as[List[String]]
     val playerColor2 = (json \ "gameState" \ "playerCardsColor2").as[List[String]]
     var cards1 = List(Card(playerValue1(0), playerColor1(0)))
-    for (i <- 1 to playerValue1.size - 1) {
+    (1 to playerValue1.size - 1).foreach(i => {
       cards1 = Card(playerValue1(i), playerColor1(i)) :: cards1
-    }
+    })
     var cards2 = List(Card(playerValue2(0), playerColor2(0)))
-    for (i <- 1 to playerValue2.size - 1) {
+    (1 to playerValue2.size - 1).foreach(i => {
       cards2 = Card(playerValue2(i), playerColor2(i)) :: cards2
-    }
-    List(Player(playerName(0), cards1), Player(playerName(1), cards2))
+    })
+    List(Player(playerName(0), cards1.reverse), Player(playerName(1), cards2.reverse))
   }
 
   def setPlayStack (json: JsValue) : List[Card] = {
