@@ -1,6 +1,6 @@
 # UNO
 
-<div style="text-align: center"> 
+<div align="center">
 ![Logo](src/main/Pics/UNO-Logo.png)<br/>
 The classic Uno-Game in a new Version, created in Scala.  
 A project for the course Sofware-Engineering.  
