@@ -38,7 +38,7 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 
 ## GameField
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
-<img src="src/main/Pics/GameField1.PNG" width="200">
+<img src="src/main/Pics/GameField1.PNG" width="500">
 <br/><br/>
 If you are on turn, your cards are invisible. Click on the "show cards" Button, to make your cards visible.
 ![GameField2](src/main/Pics/GameField2.PNG) ![GameField3](src/main/Pics/GameField3.PNG)
