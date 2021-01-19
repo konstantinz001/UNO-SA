@@ -1,10 +1,10 @@
 # UNO
 
-<div align="center">
 ![Logo](src/main/Pics/UNO-Logo.png)<br/>
-The classic Uno-Game in a new Version, created in Scala.  
-A project for the course Sofware-Engineering.  
-By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.
+<div align="center">
+The classic Uno-Game in a new Version, created in Scala. <br/> 
+A project for the course Sofware-Engineering.  <br/>
+By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.<br/>
 </div>
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
