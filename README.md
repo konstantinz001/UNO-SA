@@ -24,7 +24,7 @@ You can also play a Wild card, or a Wild Draw Four card on your turn.<br/>
 
 The game continues until a player has two card left. The moment a player has just two card they must call “UNO!” to put <br/>
 another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty. If a player  <br/>
-call to early "UNO!", that player must also draw to new cards<br/>
+call to early "UNO!", that player must also draw two new cards<br/>
 To wining the game the player with only one card must call "UNO!" again. <br/>
 
 ## Action Cards
@@ -40,9 +40,19 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
 <img src="src/main/Pics/GameField1.PNG" width="500">
 <br/><br/>
-If you are on turn, your cards are invisible. Click on the "show cards" Button, to make your cards visible.
-<img src="src/main/Pics/GameField2.PNG" width="600"> 
-<img src="src/main/Pics/GameField3.PNG" width="600">
+If you are on turn, your cards are invisible. Click on the "show cards" Button on the right site, to make your cards visible.<br/>
+If you want to draw a card from the Draw Pile, you have to click the Draw Pile Button on the left site.
+<img src="src/main/Pics/GameField2.PNG" width="500"> 
+<img src="src/main/Pics/GameField3.PNG" width="500">
+<br/><br/>
+If you want to set a "Wild" Card, you have choose a wishcolor. click one of Color Buttons to set your wishcolor.
+<img src="src/main/Pics/GameField5.PNG" width="500"> 
+<br/><br/>
+If you have only one or two cards and you want to put a card on the Discard Pile, you have to click on the UNO-Button to call "UNO!".
+<img src="src/main/Pics/GameField4.PNG" width="500"> 
+<br/><br/>
+If the game is over, you can play another game with the "yes" Button or close the window with the "no" Button.
+<img src="src/main/Pics/GameField6.PNG" width="500"> 
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
