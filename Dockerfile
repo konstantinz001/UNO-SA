@@ -11,4 +11,4 @@ RUN \
 
 WORKDIR /Sources
 ADD . /Sources
-CMD sbt run Dog
+CMD sbt run UnoGame
