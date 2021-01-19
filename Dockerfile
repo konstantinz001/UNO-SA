@@ -11,4 +11,4 @@ RUN \
 
 WORKDIR /Uno
 ADD . /Uno
-CMD sbt run UnoGame
+CMD sbt run 
