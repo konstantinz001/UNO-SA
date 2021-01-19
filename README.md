@@ -8,8 +8,23 @@ A project for the course Sofware-Engineering.  <br/>
 By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.<br/>
 
 ## Setup
-The game is for 2 player. The pile contains 108 cards. Each player takes seven cards form the pile.<br/> 
-Another card from the pile declarated the first playcard. The players put their handscards on the playcards if it´s possible.<br/> 
+The game is for 2 player. The Draw Pile contains 108 cards. Each player takes seven cards form the Draw Pile.<br/> 
+The top card from the Draw Pile will be placed in the Discard Pile, and the game begins!<br/> 
+
+## Game Play
+You have to match either by the number, color, or the symbol/Action with the  Discard Pile. For example, <br/>
+if the Discard Pile has a red card with the number 8 you have to place either a red card or a card with an 8 on it. <br/>
+You can also play a Wild card (which can alter current color in play).<br/>
+<br/>
+If the player has no matches or they choose not to play any of their cards even though they might have a match, <br/>
+they must draw a card from the Draw pile.<br/>
+<br/>
+If a player put a Card on the Discard Pile or take a card from the Draw Pile, the game moves on to the next person in turn. <br/>
+You can also play a Wild card, or a Wild Draw Four card on your turn.<br/>
+
+The game continues until a player has two card left. The moment a player has just two card they must call “UNO!” to put <br/>
+another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty.  <br/>
+To wining the game the player with only one card must call "UNO!" again. <br/>
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
