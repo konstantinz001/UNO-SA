@@ -15,7 +15,7 @@ object UnoGame {
   val injector = Guice.createInjector(new UnoGameModule)
   val controller = injector.getInstance(classOf[controllerInterface])
   val tui = new TUI(controller)
-  val gui = new SwingGui(controller)
+  //val gui = new SwingGui(controller)
 
 
 
