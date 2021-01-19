@@ -1,7 +1,7 @@
 # UNO
 
 ![Logo](src/main/Pics/UNO-Logo.png)
-The classic game but in Scala.
+\nThe classic game but in Scala.
 A project for the course Sofware-Engineering.
 By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.
 
