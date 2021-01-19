@@ -28,8 +28,6 @@ class controller @Inject() extends controllerInterface with Publisher{
 
   private val undoManager = new UndoManager
   var gameState: GameState = new GameState(playerList, playStack2)
-  val gui = new SwingGui(this)
-  publish(new welcomeStates)
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
 

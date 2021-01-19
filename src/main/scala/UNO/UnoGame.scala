@@ -1,7 +1,10 @@
 package UNO
 
 
+import UNO.aview.gui.SwingGui
+import UNO.controller.controllerComponent.controllerBaseImp.welcomeStates
 import UNO.controller.controllerComponent.controllerInterface
+
 import scala.io.StdIn.readLine
 import aview.TUI
 import UNO.util.{State, gameStatsEvent, instructionEvent}
@@ -11,6 +14,8 @@ object UnoGame {
   val injector = Guice.createInjector(new UnoGameModule)
   val controller = injector.getInstance(classOf[controllerInterface])
   val tui = new TUI(controller)
+  val gui = new SwingGui(controller)
+  controller.publish(new welcomeStates)
 
 
   def main(args: Array[String]): Unit = {
