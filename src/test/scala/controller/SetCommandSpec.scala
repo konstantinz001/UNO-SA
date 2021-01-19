@@ -8,25 +8,24 @@ import UNO.util.UndoManager
 import org.scalatest.{Matchers, WordSpec}
 
 class SetCommandSpec extends WordSpec with Matchers {
+  val undoManager = new UndoManager
+  //To have no Problems with Random-Cards, init Stackcards.
+  controller.stackCard = Stack(List(Card("",""))).initStack()
   "SetCommand" should {
-
-    val undoManager = new UndoManager
-    //To have no Problems with Random-Cards, init Stackcards.
-    controller.stackCard = Stack(List(Card("",""))).initStack()
     "doStep" in {
-      //After SetCommand there are should be 107 -1 Cards. We get a Card from Stack into Handcards.
+      //After SetCommand there are should be 108 -1 Cards. We get a Card from Stack into Handcards.
       undoManager.doStep(new SetCommand( controller))
-      controller.stackCard.stackCards.size should be(106)
+      controller.stackCard.stackCards.size should be(107)
     }
     "undoStep" in {
       undoManager.undoStep
-      //Do the UndoStep = Again 107
-      controller.stackCard.stackCards.size should be(107)
+      //Do the UndoStep = Again 108
+      controller.stackCard.stackCards.size should be(108)
     }
     "redoStep" in {
       undoManager.redoStep
       //Do the RedoStep = Again 106
-      controller.stackCard.stackCards.size should be(106)
+      controller.stackCard.stackCards.size should be(107)
     }
   }
 }
