@@ -11,15 +11,18 @@ import UNO.util.{State, gameStatsEvent, instructionEvent}
 import com.google.inject.Guice
 
 object UnoGame {
+
   val injector = Guice.createInjector(new UnoGameModule)
   val controller = injector.getInstance(classOf[controllerInterface])
   val tui = new TUI(controller)
   val gui = new SwingGui(controller)
-  controller.publish(new welcomeStates)
+
 
 
   def main(args: Array[String]): Unit = {
 
+
+    controller.publish(new welcomeStates)
     print(State.handle(instructionEvent()))
     print(State.handle(gameStatsEvent()))
 
