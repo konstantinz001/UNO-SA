@@ -26,14 +26,14 @@ The game continues until a player has two card left. The moment a player has jus
 another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty.  <br/>
 To wining the game the player with only one card must call "UNO!" again. <br/>
 
-## Cards
-**Reverse:** If going clockwise, switch to counterclockwise. It can only be played on a card that matches by color, or on another Reverse card.<br/>
+## Action Cards
+**Reverse:** If going clockwise, switch to counterclockwise. It can only be played on a card that matches by color, or on another Reverse card.<br/><br/>
 **Skip:** When a player places this card, the next player has to skip their turn. It can only be played on a card that matches by color, <br/>
-or on another Skip card.<br/>
+or on another Skip card.<br/><br/>
 **Draw Two:** When a person places this card, the next player will have to pick up two cards and forfeit his/her turn. It can only be played on<br/>
-a card that matches by color, or on another Draw Two.
-**Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.
-**Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.
+a card that matches by color, or on another Draw Two.<br/><br/>
+**Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.<br/><br/>
+**Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
