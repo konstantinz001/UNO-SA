@@ -41,7 +41,9 @@ To Enter the Game click on "Enter". If you want to close the window click on "Ex
 <img src="src/main/Pics/GameField1.PNG" width="500">
 <br/><br/>
 If you are on turn, your cards are invisible. Click on the "show cards" Button, to make your cards visible.
-![GameField2](src/main/Pics/GameField2.PNG) ![GameField3](src/main/Pics/GameField3.PNG)
+<img src="src/main/Pics/GameField2.PNG" width="500"> 
+<img src="src/main/Pics/GameField3.PNG" width="500">
+
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
 
