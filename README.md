@@ -7,7 +7,7 @@ The classic Uno-Game in a new Version, created in Scala. <br/>
 A project for the course Sofware-Engineering.  <br/>
 By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.<br/>
 
-##Setup
+## Setup
 The game is for 2 player. The pile contains 108 cards. Each player takes seven cards form the pile.<br/> 
 Another card from the pile declarated the first playcard. The players put their handscards on the playcards if it´s possible.<br/> 
 
