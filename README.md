@@ -36,9 +36,8 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 **Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.<br/><br/>
 **Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
 
-##GameField
+## GameField
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
-
 ![GameField1](src/main/Pics/GameField1.PNG)
 
 
