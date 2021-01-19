@@ -1,7 +1,8 @@
 # UNO
 
 ![Logo](src/main/Pics/UNO-Logo.png)<br/>
-The classic game but in Scala.  
+<p align=center>
+The classic Uno-Game in a new Version, created in Scala.  
 A project for the course Sofware-Engineering.  
 By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.  
 
