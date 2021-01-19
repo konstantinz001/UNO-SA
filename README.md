@@ -1,9 +1,9 @@
 # UNO
 
-![Logo](src/main/Pics/UNO-Logo.png)
-\nThe classic game but in Scala.
-A project for the course Sofware-Engineering.
-By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.
+![Logo](src/main/Pics/UNO-Logo.png)<br/>
+The classic game but in Scala.  
+A project for the course Sofware-Engineering.  
+By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.  
 
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
