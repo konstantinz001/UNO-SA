@@ -39,7 +39,7 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 ##GameField
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
 
-![GameField1](src/main/Pics/GameField1.png)
+![GameField1](src/main/Pics/GameField1.PNG)
 
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
