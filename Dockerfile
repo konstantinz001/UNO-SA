@@ -1,7 +1,3 @@
-FROM ubuntu:14.04
-RUN apt-get update && apt-get install -y firefox
-CMD /usr/bin/firefox
-
 FROM openjdk:11 
 ARG SBT_VERSION=1.3.7
 
