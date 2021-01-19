@@ -39,8 +39,9 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 ## GameField
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
 ![GameField1](src/main/Pics/GameField1.PNG)
-
-
+<br/><br/>
+If you are on turn, your cards are invisible. Click on the "show cards" Button, to make your cards visible.
+![GameField2](src/main/Pics/GameField2.PNG) ![GameField3](src/main/Pics/GameField3.PNG)
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
 
