@@ -61,21 +61,13 @@ class TUI (controller: controllerInterface) extends Reactor {
 
       }
 
-      case "s-" => {
+      case "undo" => {
         controller.undoGet
-        "S-undo"
+        "undo"
       }
-      case "s--" => {
+      case "redo" => {
         controller.redoGet
-        "S-redo"
-      }
-      case "r-" => {
-        controller.undoGet
-        "R-undo"
-      }
-      case "r--" => {
-        controller.redoGet
-        "R-redo"
+        "redo"
       }
       case "load" => {
         controller.load
@@ -84,6 +76,9 @@ class TUI (controller: controllerInterface) extends Reactor {
       case "save" => {
         controller.save
         "Saved Game!"
+      }
+      case _ => {
+        "Wrong command!"
       }
     }
   }

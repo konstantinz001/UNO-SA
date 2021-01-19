@@ -76,7 +76,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
           else if (cards(0).visible == false)
             cards.map(x => x.visible = true)
       }
-      contents ++= cards
+      contents ++= cards.reverse
       contents += showButton
     }
 

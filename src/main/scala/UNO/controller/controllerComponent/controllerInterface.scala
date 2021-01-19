@@ -18,6 +18,7 @@ trait controllerInterface extends Publisher{
   var playStack2: List[Card]
   var colorSet: String
   var unoCall: Boolean
+  def initStackCard() : Stack
   def initPlayStack() : List[Card]
   def initPlayerList(): List[Player]
   def getCard(): Unit

@@ -1,4 +1,4 @@
-package UNO.controller
+package controller
 
 import UNO.UnoGame.controller
 import UNO.controller.controllerComponent.controllerBaseImp.RemoveCommand
@@ -10,17 +10,14 @@ class removeCommandSpec extends WordSpec with Matchers {
     val undoManager = new UndoManager
     "doStep" in {
       undoManager.doStep(new RemoveCommand(0, controller))
-      //controller.notifyObservers()
       controller.playStack2.size should be(2)
     }
     "undoStep" in {
       undoManager.undoStep
-      //controller.notifyObservers()
       controller.playStack2.size should be(1)
     }
     "redoStep" in {
       undoManager.redoStep
-      //controller.notifyObservers()
       controller.playStack2.size should be(2)
     }
 

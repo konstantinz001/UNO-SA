@@ -1,6 +1,7 @@
-package UNO.util
+package util
 
 import UNO.UnoGame.controller
+import UNO.util.removeCardEvent
 import org.scalatest.{Matchers, WordSpec}
 
 class Event2Spec extends WordSpec with Matchers {

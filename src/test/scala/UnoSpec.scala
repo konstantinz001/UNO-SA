@@ -1,5 +1,5 @@
-package UNO
 
+import UNO.UnoGame
 import org.scalatest.{Matchers, WordSpec}
 
 class SudokuSpec extends WordSpec with Matchers {

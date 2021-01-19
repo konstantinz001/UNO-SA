@@ -1,4 +1,6 @@
-package UNO.util
+package util
+
+import UNO.util.Command
 
 class incrCommand extends Command {
   var state: Int = 0

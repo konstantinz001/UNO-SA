@@ -1,8 +1,9 @@
-package UNO.util
+package util
 
 import UNO.UnoGame.controller
 import UNO.controller.GameStatus
 import UNO.controller.GameStatus.WON
+import UNO.util.{callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, instructionEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import org.scalatest.{Matchers, WordSpec}
 
 class EventSpec extends WordSpec with Matchers {
@@ -49,7 +50,7 @@ class EventSpec extends WordSpec with Matchers {
     "callFirstUnoEvent" in {
       val index = 0
       callFirstUnoEvent(index) should be
-      ("\nUNO\n" +
+      ("UNO\n" +
         removePlayerCardEvent(index) + "\n")
     }
     "callSecondUno" in {

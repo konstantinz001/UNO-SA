@@ -1,5 +1,3 @@
-package UNO
-
 import UNO.util.{Observable, Observer}
 import org.scalatest.{Matchers, WordSpec}
 

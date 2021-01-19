@@ -1,4 +1,4 @@
-package UNO.util
+package util
 
 import org.scalatest.{Matchers, WordSpec}
 

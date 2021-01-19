@@ -45,4 +45,6 @@ class Controller extends controllerInterface{
 
   override def setDefault(): Unit = {}
 
+  override def initStackCard() : Stack = Stack(List(new Card("",""))).initStack()
+
 }

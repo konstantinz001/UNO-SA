@@ -1,20 +1,19 @@
-package UNO.controller
+//package UNO.controller
 
+import UNO.controller.GameStatus
 import UNO.controller.GameStatus._
 import org.scalatest.{Matchers, WordSpec}
 
 class GameStatusSpec extends WordSpec with Matchers {
+  var gameStatus = IDLE
   "A GameStatus" when {
-    "new" should {
-      var gameStatus = IDLE
-    }
-    "IDLE" in {
+    "have status IDLE" in {
       GameStatus.message(IDLE) should be ("")
     }
-    "WON" in {
+    "have status WON" in {
       GameStatus.message(WON) should be ("You won")
     }
-    "LOST" in {
+    "have status LOST" in {
       GameStatus.message(LOST) should be ("You lost")
     }
   }
