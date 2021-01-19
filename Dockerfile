@@ -9,6 +9,6 @@ RUN \
     apt-get update && \
     apt-get install -y sbt libxrender1 libxtst6 libxi6 openjfx
 
-WORKDIR /Sources
-ADD . /Sources
+WORKDIR /Uno
+ADD . /Uno
 CMD sbt run UnoGame
