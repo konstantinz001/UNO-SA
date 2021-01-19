@@ -23,7 +23,8 @@ If a player put a Card on the Discard Pile or take a card from the Draw Pile, th
 You can also play a Wild card, or a Wild Draw Four card on your turn.<br/>
 
 The game continues until a player has two card left. The moment a player has just two card they must call “UNO!” to put <br/>
-another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty.  <br/>
+another card on the Discard Pile. If they are not calling “Uno”, that player must draw two new cards as a penalty. If a player  <br/>
+call to early "UNO!", that player must also draw to new cards<br/>
 To wining the game the player with only one card must call "UNO!" again. <br/>
 
 ## Action Cards
@@ -36,6 +37,8 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 **Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
 
 ##GameField
+To Enter the Game click on "Enter". If you want to close the window click on "Exit".
+![GameField1](src/main/Pics/GameField1.png)
 
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
