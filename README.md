@@ -36,9 +36,9 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 **Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.<br/><br/>
 **Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
 
-## GameField
+## The Game
 <img src="src/main/Pics/GameField3.PNG"><br/>
-### Introduction
+### Graphical UI
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
 <img src="src/main/Pics/GameField1.PNG" width="500">
 <br/><br/>
@@ -55,6 +55,18 @@ If you have only one or two cards and you want to put a card on the Discard Pile
 <br/><br/>
 If the game is over, you can play another game with the "yes" Button or close the window with the "no" Button.
 <img src="src/main/Pics/GameField6.PNG" width="500"> 
+<br/><br/>
+### Technical UI
+You can write various instructions to play with the TUI.
+<br/>
+**Remove a card from your hand:** r [index] [Optional: WishColor]
+**Get a card from the Draw Pile:** s
+**Remove a card from your hand and call UNO:** u [index]
+**Exit Game:** q
+**Make Undo:** undo
+**Make Redo:** redo
+**Save Game:** save
+**Load Game:** load
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
