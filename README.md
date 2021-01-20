@@ -42,7 +42,7 @@ a card that matches by color, or on another Draw Two.<br/><br/>
 To Enter the Game click on "Enter". If you want to close the window click on "Exit".<br/>
 <img src="src/main/Pics/GameField1.PNG" width="500">
 <br/><br/>
-If you are on turn, your cards are invisible. Click on the "show cards" Button on the right site, to make your cards visible.<br/><br/>
+If you are on turn, your cards are invisible. Click on the "show cards" Button on the right site, to make your cards visible.<br/>
 If you want to draw a card from the Draw Pile, you have to click the Draw Pile Button on the left site.<br/>
 <img src="src/main/Pics/GameField2.PNG" width="500"> 
 <img src="src/main/Pics/GameField3.PNG" width="500">
