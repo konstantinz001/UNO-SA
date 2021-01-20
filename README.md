@@ -28,13 +28,13 @@ call to early "UNO!", that player must also draw two new cards<br/>
 To wining the game the player with only one card must call "UNO!" again. <br/>
 
 ## Action Cards
-**Reverse:** If going clockwise, switch to counterclockwise. It can only be played on a card that matches by color, or on another Reverse card.<br/><br/>
-**Skip:** When a player places this card, the next player has to skip their turn. It can only be played on a card that matches by color, <br/>
+* **Reverse:** If going clockwise, switch to counterclockwise. It can only be played on a card that matches by color, or on another Reverse card.<br/><br/>
+* **Skip:** When a player places this card, the next player has to skip their turn. It can only be played on a card that matches by color, <br/>
 or on another Skip card.<br/><br/>
-**Draw Two:** When a person places this card, the next player will have to pick up two cards and forfeit his/her turn. It can only be played on<br/>
+* **Draw Two:** When a person places this card, the next player will have to pick up two cards and forfeit his/her turn. It can only be played on<br/>
 a card that matches by color, or on another Draw Two.<br/><br/>
-**Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.<br/><br/>
-**Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
+* **Wild:** This card represents all four colors, and can be placed on any card. The player has to state which color it will represent.<br/><br/>
+* **Wild - Draw Four:** This acts just like the wild card except that the next player also has to draw four cards.<br/><br/>
 
 ## The Game
 <img src="src/main/Pics/GameField3.PNG"><br/>
