@@ -59,14 +59,14 @@ If the game is over, you can play another game with the "yes" Button or close th
 ### Technical UI
 You can write various instructions to play with the TUI.
 <br/>
-**Remove a card from your hand:** r [index] [Optional: WishColor]
-**Get a card from the Draw Pile:** s
-**Remove a card from your hand and call UNO:** u [index]
-**Exit Game:** q
-**Make Undo:** undo
-**Make Redo:** redo
-**Save Game:** save
-**Load Game:** load
+* **Remove a card from your hand:** r [index] [Optional: WishColor]
+* **Get a card from the Draw Pile:** s
+* **Remove a card from your hand and call UNO:** u [index]
+* **Exit Game:** q
+* **Make Undo:** undo
+* **Make Redo:** redo
+* **Save Game:** save
+* **Load Game:** load
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
