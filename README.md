@@ -48,7 +48,7 @@ If you want to draw a card from the Draw Pile, you have to click the Draw Pile B
 <img src="src/main/Pics/GameField3.PNG" width="500">
 <br/><br/>
 If you want to set a "Wild" Card, you have choose a wishcolor. click one of Color Buttons to set your wishcolor.
-<img src="src/main/Pics/GameField5.PNG" width="500"> 
+<img src="src/main/Pics/GameField5.PNG" width="500"> <br/>
 <br/><br/>
 If you have only one or two cards and you want to put a card on the Discard Pile, you have to click on the UNO-Button to call "UNO!".
 <img src="src/main/Pics/GameField4.PNG" width="500"> <br/>
