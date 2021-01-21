@@ -51,7 +51,7 @@ If you want to set a "Wild" Card, you have choose a wishcolor. click one of Colo
 <img src="src/main/Pics/GameField5.PNG" width="500"> 
 <br/><br/>
 If you have only one or two cards and you want to put a card on the Discard Pile, you have to click on the UNO-Button to call "UNO!".
-<img src="src/main/Pics/GameField4.PNG" width="500"> 
+<img src="src/main/Pics/GameField4.PNG" width="500"> <br/>
 <br/><br/>
 If the game is over, you can play another game with the "yes" Button or close the window with the "no" Button.
 <img src="src/main/Pics/GameField6.PNG" width="500"> 
@@ -67,6 +67,12 @@ You can write various instructions to play with the TUI.
 * **Make Redo:** redo
 * **Save Game:** save
 * **Load Game:** load
+<br/><br/><br/><br/>
+`INFO:`To clone the repository and play you have to set the enviroment variable. <br/>
+Use UI_TYPE=tui to play only with TUI. Use UI_TYPE=gui to play with GUI and TUI.
+<img src="src/main/Pics/Env.PNG" width="1000"> 
+
+
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
