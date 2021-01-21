@@ -2,8 +2,12 @@ language: scala
 scala:
 - 2.12.7
 
+env:
+-UI_TYPE=tui
+
 script:
 - sbt clean coverage test coverageReport
 
 after_success:
 - sbt coverageReport coveralls
+
