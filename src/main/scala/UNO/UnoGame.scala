@@ -18,19 +18,26 @@ object UnoGame {
   //val gui = new SwingGui(controller)
 
 
+  var UIType: Boolean = if (System.getenv("UI_TYPE").equals("full")) true else false
 
   def main(args: Array[String]): Unit = {
 
-
-    controller.publish(new welcomeStates)
+    //controller.publish(new welcomeStates)
     print(State.handle(instructionEvent()))
     print(State.handle(gameStatsEvent()))
+
 
     if (args.length == 0) {
       var input1: String = ""
       do {
+        if (UIType == true) {
+        val gui = new SwingGui(controller)
         input1 = readLine("\nInstruction: ")
         print(tui.processInputLine(input1))
+      } else {
+        input1 = readLine("\nInstruction: ")
+        print(tui.processInputLine(input1))
+        }
       } while (input1 != "q")
     }
     else

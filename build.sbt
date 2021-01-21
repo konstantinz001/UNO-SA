@@ -1,5 +1,4 @@
 name := "UNO"
-
 version := "0.1"
 
 ///To use Travis: scalaVersion = 2.12.7

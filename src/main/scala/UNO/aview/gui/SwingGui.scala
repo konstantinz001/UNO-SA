@@ -1,6 +1,6 @@
 package UNO.aview.gui
 
-import UNO.controller.controllerComponent.controllerBaseImp. updateStates
+import UNO.controller.controllerComponent.controllerBaseImp.{endStates, updateStates}
 import UNO.controller.controllerComponent.controllerInterface
 
 import java.awt.Image
@@ -18,7 +18,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
   peer.setResizable(true)
   peer.setBackground(java.awt.Color.DARK_GRAY)
 
-  def gamePanel = new GridPanel(5, 1) {
+  def gamePanel: GridPanel = new GridPanel(5, 1) {
 
     contents += new GridPanel(1, controller.playerList(1).playerCards.size) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
@@ -44,7 +44,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
       listenTo(unoCall)
       reactions += {
         case ButtonClicked(`unoCall`) =>
-          if (controller.unoCall == true) {
+          if (controller.unoCall) {
             unoCall.background = java.awt.Color.DARK_GRAY
             controller.unoCall = false
           }else {
@@ -55,12 +55,12 @@ class SwingGui(controller: controllerInterface) extends Frame {
     }
 
 
-    contents += new GridPanel(1, controller.playerList(0).playerCards.size+1) {
+    contents += new GridPanel(1, controller.playerList.head.playerCards.size+1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
 
       var cards: List[BoxPanel]  = List.empty
-      (1 to controller.playerList(0).playerCards.length).foreach(i => {
+      (1 to controller.playerList.head.playerCards.length).foreach(i => {
         val cardPanel = new CardPanel(0, i - 1, controller)
         cards = cardPanel.card :: cards
       })
@@ -71,9 +71,9 @@ class SwingGui(controller: controllerInterface) extends Frame {
       listenTo(showButton)
       reactions += {
         case ButtonClicked(`showButton`) =>
-          if (cards(0).visible == true)
+          if (cards.head.visible)
             cards.map(x => x.visible = false)
-          else if (cards(0).visible == false)
+          else if (!cards.head.visible)
             cards.map(x => x.visible = true)
       }
       contents ++= cards.reverse
@@ -102,11 +102,11 @@ class SwingGui(controller: controllerInterface) extends Frame {
       contents ++= List(red, blue, green, yellow)
       listenTo(red, green, blue, green, yellow)
       reactions += {
-        case ButtonClicked(`yellow`) => {
+        case ButtonClicked(`yellow`) =>
           controller.colorSet = "yellow"
           yellow.background = java.awt.Color.YELLOW
           reactions += {
-            case ButtonClicked(`yellow`) => {
+            case ButtonClicked(`yellow`) =>
               if (controller.colorSet == "yellow") {
                 controller.colorSet = ""
                 yellow.background = java.awt.Color.DARK_GRAY
@@ -117,10 +117,8 @@ class SwingGui(controller: controllerInterface) extends Frame {
                 blue.background = java.awt.Color.DARK_GRAY
                 green.background = java.awt.Color.DARK_GRAY
               }
-            }
           }
-        }
-        case ButtonClicked(`red`) => {
+        case ButtonClicked(`red`) =>
           if (controller.colorSet == "red") {
             controller.colorSet = ""
             red.background = java.awt.Color.DARK_GRAY
@@ -131,8 +129,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
             green.background = java.awt.Color.DARK_GRAY
             yellow.background = java.awt.Color.DARK_GRAY
           }
-        }
-        case ButtonClicked(`blue`) => {
+        case ButtonClicked(`blue`) =>
           if (controller.colorSet == "blue") {
             controller.colorSet = ""
             blue.background = java.awt.Color.DARK_GRAY
@@ -143,8 +140,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
             green.background = java.awt.Color.DARK_GRAY
             yellow.background = java.awt.Color.DARK_GRAY
           }
-        }
-        case ButtonClicked(`green`) => {
+        case ButtonClicked(`green`) =>
           if (controller.colorSet == "green") {
             controller.colorSet = ""
             green.background = java.awt.Color.DARK_GRAY
@@ -155,14 +151,13 @@ class SwingGui(controller: controllerInterface) extends Frame {
             blue.background = java.awt.Color.DARK_GRAY
             yellow.background = java.awt.Color.DARK_GRAY
           }
-        }
       }
     }
     contents += new GridPanel(2, 1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
-      val label = new Label {
-        text = "Player: " + controller.playerList(0).name
+      val label: Label = new Label {
+        text = "Player: " + controller.playerList.head.name
         font = new Font("Arial Black", java.awt.Font.BOLD, 20)
         foreground = java.awt.Color.WHITE
       }
@@ -206,13 +201,13 @@ class SwingGui(controller: controllerInterface) extends Frame {
     add(welcomePanel, Position.Center)
   }
 
-  def endGamePanel = new GridPanel(2, 1) {
+  def endGamePanel: GridPanel = new GridPanel(2, 1) {
 
     contents += new GridPanel(2, 1) {
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
 
-      val winLabel = new Label(controller.playerList(0).name.toUpperCase +": YOU ARE WINNING!")
+      val winLabel = new Label("PLAYER " + controller.playerList.head.name.toUpperCase +": YOU ARE WINNING!")
       winLabel.foreground = java.awt.Color.WHITE
       winLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 50)
       val againLabel = new Label("Play Again?")
@@ -232,12 +227,10 @@ class SwingGui(controller: controllerInterface) extends Frame {
       contents += noButton
       listenTo(yesButton, noButton)
       reactions += {
-        case ButtonClicked(`yesButton`) => {
+        case ButtonClicked(`yesButton`) =>
           controller.setDefault()
-        }
-        case ButtonClicked(`noButton`) => {
+        case ButtonClicked(`noButton`) =>
           System.exit(0)
-        }
       }
     }
     menuBar = new MenuBar {
@@ -291,28 +284,26 @@ class SwingGui(controller: controllerInterface) extends Frame {
 
       listenTo(enterButton, exitButton)
       reactions += {
-        case ButtonClicked(`enterButton`) => {
+        case ButtonClicked(`enterButton`) =>
           redraw
-        }
-        case ButtonClicked(`exitButton`) => {
+        case ButtonClicked(`exitButton`) =>
           System.exit(0)
-        }
       }
     }
   }
 
-  def redraw = {
+  def redraw:Unit = {
     contents = new BorderPanel {
       add(gamePanel, BorderPanel.Position.Center)
     }
   }
 
-  def redraw2 = {
+  def redraw2: Unit = {
     contents = new BorderPanel {
       add(endGamePanel, BorderPanel.Position.Center)
     }
   }
-  def redraw3 = {
+  def redraw3: Unit = {
     contents = new BorderPanel {
       add(welcomePanel, BorderPanel.Position.Center)
     }
@@ -320,6 +311,7 @@ class SwingGui(controller: controllerInterface) extends Frame {
 
   reactions += {
     case event: updateStates => redraw
+    case event: endStates => redraw2
 
   }
 

@@ -2,6 +2,7 @@
 package UNO.aview.gui
 
 import UNO.UnoGame
+import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
@@ -76,7 +77,8 @@ class CardPanel(list:Int, index: Int ,controller:controllerInterface) extends Fl
               controller.removeCard(index)
             }
             else if (controller.playerList.head.playerCards.size == 1 && controller.unoCall) {
-              //UnoGame.gui.redraw2
+              controller.publish(new endStates)
+              // UnoGame.gui.redraw2
             }
             else if (!Strategy.handle(removeCardEvent(index),index)){}
 
