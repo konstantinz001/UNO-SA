@@ -15,14 +15,12 @@ object UnoGame {
   val injector = Guice.createInjector(new UnoGameModule)
   val controller = injector.getInstance(classOf[controllerInterface])
   val tui = new TUI(controller)
-  //val gui = new SwingGui(controller)
 
 
   var UIType: Boolean = if (System.getenv("UI_TYPE").equals("full")) true else false
 
   def main(args: Array[String]): Unit = {
 
-    //controller.publish(new welcomeStates)
     print(State.handle(instructionEvent()))
     print(State.handle(gameStatsEvent()))
 
