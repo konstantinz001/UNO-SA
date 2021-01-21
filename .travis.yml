@@ -2,6 +2,7 @@ language: scala
 scala:
 - 2.12.7
 
+
 env:
 -UI_TYPE=tui
 
