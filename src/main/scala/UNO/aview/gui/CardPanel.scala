@@ -1,7 +1,6 @@
 
 package UNO.aview.gui
 
-import UNO.UnoGame
 import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card

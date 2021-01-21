@@ -312,7 +312,6 @@ class SwingGui(controller: controllerInterface) extends Frame {
   reactions += {
     case event: updateStates => redraw
     case event: endStates => redraw2
-
   }
 
   visible = true

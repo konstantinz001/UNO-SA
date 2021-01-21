@@ -1,7 +1,6 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
-import UNO.aview.gui.{SwingGui}
 import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
 import UNO.model.GameState

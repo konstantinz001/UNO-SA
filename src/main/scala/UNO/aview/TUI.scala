@@ -1,6 +1,6 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.controllerBaseImp.updateStates
+import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
 import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
 
@@ -58,7 +58,6 @@ class TUI (controller: controllerInterface) extends Reactor {
       }
       case "q" => {
         State.handle(exitGameEvent())
-
       }
 
       case "undo" => {
