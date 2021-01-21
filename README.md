@@ -51,7 +51,7 @@ If you want to set a "Wild" Card, you have choose a wishcolor. click one of Colo
 <img src="src/main/Pics/GameField5.PNG" width="500"> 
 <br/><br/>
 If you have only one or two cards and you want to put a card on the Discard Pile, you have to click on the UNO-Button to call "UNO!".
-<img src="src/main/Pics/GameField4.PNG" width="500"> 
+<img src="src/main/Pics/GameField4.PNG" width="500"> <br/>
 <br/><br/>
 If the game is over, you can play another game with the "yes" Button or close the window with the "no" Button.
 <img src="src/main/Pics/GameField6.PNG" width="500"> 
