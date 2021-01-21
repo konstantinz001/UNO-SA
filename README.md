@@ -67,6 +67,12 @@ You can write various instructions to play with the TUI.
 * **Make Redo:** redo
 * **Save Game:** save
 * **Load Game:** load
+<br/><br/><br/><br/>
+`INFO:`To clone the repository and play you have to set the enviroment variable. <br/>
+Use UI_TYPE=tui to play only with TUI. Use UI_TYPE=gui to play with GUI and TUI.
+<img src="src/main/Pics/Env.PNG" width="500"> 
+
+
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=master)](https://travis-ci.com/konstantinz001/UNO)
 [![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
