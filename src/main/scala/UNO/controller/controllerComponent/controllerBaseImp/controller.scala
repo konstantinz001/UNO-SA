@@ -1,7 +1,6 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
-import UNO.controller.GameStatus._
 import UNO.controller.controllerComponent._
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
@@ -16,7 +15,6 @@ import scala.swing.Publisher
 
 class controller @Inject() extends controllerInterface with Publisher{
 
-  var gameStatus: GameStatus = IDLE
   var playername1 = "1"
   var playername2 = "2"
   var stackCard = initStackCard()
@@ -26,7 +24,7 @@ class controller @Inject() extends controllerInterface with Publisher{
   var unoCall = false
 
   private val undoManager = new UndoManager
-  var gameState: GameState = new GameState(playerList, playStack2)
+  var gameState: GameState = GameState(playerList, playStack2)
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo = injector.instance[FileIOTrait]
 

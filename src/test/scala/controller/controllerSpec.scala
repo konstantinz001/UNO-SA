@@ -1,7 +1,6 @@
 package controller
 
-import UNO.UnoGame.{injector}
-import UNO.controller.GameStatus.{IDLE}
+import UNO.UnoGame.injector
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
@@ -18,13 +17,18 @@ class controllerSpec extends WordSpec with Matchers {
   "A Controller" should {
     "have var´s" in {
       //Testing var´s in controller
-      controller.gameStatus should be(IDLE)
       controller.playername1 should be("1")
       controller.playername2 should be("2")
       controller.playerList.size should be(2)
       controller.playStack2.size should be(1)
       controller.colorSet should be("")
       controller.unoCall should be(false)
+    }
+    "have a method initPlayStack" in {
+      List(controller.stackCard.getCardFromStack()) should be (controller.initPlayStack())
+    }
+    "have a method stackEmpty" in {
+      controller.stackCard should be (controller.stackEmpty())
     }
     "have a method getCard" in {
       val cardSizeBefor = controller.playerList(0).playerCards.size
@@ -33,7 +37,6 @@ class controllerSpec extends WordSpec with Matchers {
       val cardSizeAfter = controller.playerList(1).playerCards.size
       cardSizeAfter should be(cardSizeBefor + 1)
     }
-
     "have a method removeCard" in {
       val cardSizeBefor = controller.playerList(0).playerCards.size
       //testing remove a Card from Handcards

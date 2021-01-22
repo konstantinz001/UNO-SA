@@ -8,7 +8,6 @@ import scala.util.Random
 case class Stack(stackCards: List[Card]) extends StackInterface {
   def initStack(): Stack = {
 
-
     val green = List(Card("0", "green"), Card("1", "green"), Card("2", "green"), Card("3", "green"),
       Card("4", "green"), Card("5", "green"), Card("6", "green"), Card("7", "green"), Card("8", "green"),
       Card("9", "green"), Card("+2", "green"), Card("<-->", "green"), Card("Ø", "green"))

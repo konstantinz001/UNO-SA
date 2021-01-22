@@ -52,5 +52,15 @@ class PlayerSpec extends WordSpec with Matchers {
         playerTemporary.playerCards.size should be (2)
       }
     }
+
+    "remove Failure Card" should {
+      "have a name" in {
+        player.tryRemovePlayerCards(100) should be (None)
+      }
+    }
+
+    "have a nice String representation" in {
+      player.toString should be(player.toString)
+    }
   }
 }

@@ -1,8 +1,6 @@
 package UNO.util
 
 import UNO.UnoGame.controller
-import UNO.controller.GameStatus
-import UNO.controller.GameStatus._
 
 trait Event
 
@@ -61,9 +59,8 @@ case class callFirstUnoEvent(index:Int) extends Event {
 
 case class callSecondUnoEvent() extends Event {
   def callSecondUno:String = {
-    controller.gameStatus = WON
     "\nUNO - UNO!\n" +
-      "Player " + controller.playerList(0).name.toUpperCase()+ ":" + GameStatus.message(controller.gameStatus) + "\n"
+      "Player " + controller.playerList(0).name.toUpperCase()+ ": WON\n"
   }
 }
 
