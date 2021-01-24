@@ -75,5 +75,5 @@ Use UI_TYPE=tui to play only with TUI. Use UI_TYPE=gui to play with GUI and TUI.
 
 
 [![Build Status](https://travis-ci.com/konstantinz001/UNO.svg?branch=TestCoverage_GUI)](https://travis-ci.com/konstantinz001/UNO)
-[![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=master)](https://coveralls.io/github/konstantinz001/UNO?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/konstantinz001/UNO/badge.svg?branch=TestCoverage_GUI)](https://coveralls.io/github/konstantinz001/UNO?branch=TestCoverage_GUI)
 
