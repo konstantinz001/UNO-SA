@@ -4,7 +4,7 @@
 <br/>
 <br/>
 The classic Uno-Game in a new Version, created in Scala. <br/> 
-A project for the course Sofware-Engineering.  <br/>**
+A project for the course Software Architecture.  <br/>**
 By **Konstantin Zabaznov** and **Soniesen Ratnaingam**.<br/>
 
 ## Setup
