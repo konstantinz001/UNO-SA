@@ -6,88 +6,66 @@ import UNO.controller.controllerComponent.controllerInterface
 
 import scala.swing.Reactor
 
-class TUI (controller: controllerInterface) extends Reactor {
+class TUI(controller: controllerInterface) extends Reactor:
 
   listenTo(controller)
 
-  def processInputLine(input: String): String = {
+  def processInputLine(input: String): String =
 
     val is: Array[String] = input.split(" ")
-    is(0) match {
+    is(0) match
 
-      case "s" => {
+      case "s" =>
         controller.getCard()
         State.handle(setPlayerCardEvent())
-      }
-      case "r" => {
-        if (controller.playerList(0).playerCards(is(1).toInt).color == "black") {
+      case "r" =>
+        if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
           controller.colorSet = is(2)
-        }
-        if (Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
+        if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
           controller.removeCard(is(1).toInt)
-          State.handle(removePlayerCardEvent(is(1).toInt),is(1).toInt)
-
-        } else if (!Strategy.handle(removeCardEvent(is(1).toInt),is(1).toInt) && controller.playerList(0).playerCards.size >= 3) {
+          State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
+        else if !Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
           State.handle(removeFalseCardEvent())
-
-        } else {
+        else
           controller.removeCard(is(1).toInt)
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
           State.handle(forgotCallUnoEvent())
-
-
-        }
-      }
-      case "u" => {
+      case "u" =>
         controller.unoCall = true
-        if(controller.playerList(0).playerCards.size == 2) {
+        if controller.playerList(0).playerCards.size.equals(2) then
           controller.removeCard(is(1).toInt)
-          State.handle(callFirstUnoEvent(is(1).toInt),is(1).toInt)
-        }
-        else if(controller.playerList(0).playerCards.size == 1) {
+          State.handle(callFirstUnoEvent(is(1).toInt), is(1).toInt)
+        else if controller.playerList(0).playerCards.size.equals(1) then
           State.handle(callSecondUnoEvent())
-        }
-        else {
+        else
           controller.getCard()
           controller.playerList = controller.playerList.reverse
           controller.getCard()
           State.handle(toManyCardsEvent())
-        }
-      }
-      case "q" => {
+      case "q" =>
         State.handle(exitGameEvent())
-      }
 
-      case "undo" => {
+      case "undo" =>
         controller.undoGet
         "undo"
-      }
-      case "redo" => {
+      case "redo" =>
         controller.redoGet
         "redo"
-      }
-      case "load" => {
+      case "load" =>
         controller.load
         "Loading Game!"
-      }
-      case "save" => {
+      case "save" =>
         controller.save
         "Saved Game!"
-      }
-      case _ => {
+      case _ =>
         "Wrong command!"
-      }
-    }
-  }
 
   reactions += {
     case event: updateStates => print1
   }
 
-  def print1:Unit= {
+  def print1: Unit =
     print(State.handle(gameStatsEvent()))
 
-  }
-}
