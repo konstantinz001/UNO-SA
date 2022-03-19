@@ -1,79 +1,60 @@
 package UNO.util
 
-import UNO.UnoGame.controller
+import UNO.UnoGame.Controller
 
 trait Event
 
-case class instructionEvent() extends Event {
-  def instruction: String = {
+case class instructionEvent() extends Event:
+  def instruction: String =
     "\nPossible instructions:\n"+
       "\tq = Quit\n" +
       "\ts = Take a new Card from Stack\n"+
       "\tr = Put a Card from Hand into GameBoard\n"+
       "\tu = Call UNO/ UNO-UNO\n"+
       "\n"+"_" * 50 + "\n"
-  }
-}
 
-case class gameStartEvent() extends Event {
-  def gameStart: String = {
+case class gameStartEvent() extends Event:
+  def gameStart: String =
     "\n"+"_" * 50 + "\n" +
       "\nUNO! "+ "\n" +
       "\n" + "_" * 50 + "\n"
-  }
-}
 
-case class gameStatsEvent() extends Event {
-  def gameStats: String = {
-    "\n" + "_" * 50 + "\nPLAYER " + controller.playerList(0).name.toUpperCase() +
-      "\n\nHandcards: \t" + controller.playerList(0).playerCards +
-      "\n\n\nPlayStack: \t" + controller.playStack2(0) + "\n" +
-      "\nStackCard: \t" + controller.stackCard + "\n\n"
-  }
-}
+case class gameStatsEvent() extends Event:
+  def gameStats: String =
+    "\n" + "_" * 50 + "\nPLAYER " + Controller.playerList(0).name.toUpperCase() +
+      "\n\nHandcards: \t" + Controller.playerList(0).playerCards +
+      "\n\n\nPlayStack: \t" + Controller.playStack2(0) + "\n" +
+      "\nStackCard: \t" + Controller.stackCard + "\n\n"
 
-case class exitGameEvent() extends Event {
+case class exitGameEvent() extends Event:
   def exitGame:String = "\nGame exit\n"
-}
 
-case class setPlayerCardEvent() extends Event {
-  def setPlayerCard:String = "\n--Handcards:\t" + controller.playerList(1).playerCards
-}
+case class setPlayerCardEvent() extends Event:
+  def setPlayerCard:String = "\n--Handcards:\t" + Controller.playerList(1).playerCards
 
-case class removePlayerCardEvent(index:Int) extends Event {
-  def removePlayerCard:String = {
-    "\n\n--Handcards:\t" + controller.playerList(1).playerCards + "\n"
-  }
-}
+case class removePlayerCardEvent(index:Int) extends Event:
+  def removePlayerCard:String =
+    "\n\n--Handcards:\t" + Controller.playerList(1).playerCards + "\n"
 
-case class removeFalseCardEvent() extends Event {
+case class removeFalseCardEvent() extends Event:
   def removeFalseCard:String = "\nWrong Card!\n"
-}
 
-case class callFirstUnoEvent(index:Int) extends Event {
-  def callFirstUno:String = {
+case class callFirstUnoEvent(index:Int) extends Event:
+  def callFirstUno:String =
     "\nUNO\n" +
       removePlayerCardEvent(index) + "\n"
-  }
-}
 
-case class callSecondUnoEvent() extends Event {
-  def callSecondUno:String = {
+case class callSecondUnoEvent() extends Event:
+  def callSecondUno:String =
     "\nUNO - UNO!\n" +
-      "Player " + controller.playerList(0).name.toUpperCase()+ ": WON\n"
-  }
-}
+      "Player " + Controller.playerList(0).name.toUpperCase()+ ": WON\n"
 
-case class toManyCardsEvent() extends Event {
-  def toManyCards:String = {
+case class toManyCardsEvent() extends Event:
+  def toManyCards:String =
     "\nTo many Cards\n"+
-      "\n--Handcards:\t" + controller.playerList(1).playerCards + "\n"
-  }
-}
+      "\n--Handcards:\t" + Controller.playerList(1).playerCards + "\n"
 
-case class forgotCallUnoEvent() extends Event {
-  def forgotCallUno:String = {
+case class forgotCallUnoEvent() extends Event:
+  def forgotCallUno:String =
     "\nYou have forgot to Call UNO\n" +
-      "\n--Handcards:\t" + controller.playerList(1).playerCards + "\n"
-  }
-}
+      "\n--Handcards:\t" + Controller.playerList(1).playerCards + "\n"
