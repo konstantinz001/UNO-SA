@@ -19,7 +19,7 @@ trait controllerInterface extends Publisher{
   def initPlayStack() : List[Card]
   def initPlayerList(): List[Player]
   def getCard(): Unit
-  def removeCard(handindex: Int)
+  def removeCard(handindex: Int): Unit
   def undoGet: Unit
   def redoGet: Unit
   def stackEmpty(): Stack

@@ -1,15 +1,17 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
-import UNO.controller.controllerComponent._
+import UNO.controller.controllerComponent.*
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 import UNO.util.UndoManager
 import UNO.model.fileIOComponent.FileIOTrait
+import UNO.model.fileIOComponent.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
+
 import scala.swing.Publisher
 
 
@@ -26,7 +28,7 @@ class controller @Inject() extends controllerInterface with Publisher{
   private val undoManager = new UndoManager
   var gameState: GameState = GameState(playerList, playStack2)
   val injector = Guice.createInjector(new UnoGameModule)
-  val fileIo = injector.instance[FileIOTrait]
+  val fileIo: FileIO = injector.getInstance(classOf[FileIO])
 
 
   def setDefault(): Unit = {
@@ -82,19 +84,19 @@ class controller @Inject() extends controllerInterface with Publisher{
     undoManager.doStep(new SetCommand(this))
     publish(new updateStates)
   }
-  def removeCard(handindex: Int) {
+  def removeCard(handindex: Int) = {
     stackCard = stackEmpty()
     undoManager.doStep(new RemoveCommand(handindex:Int, this))
     unoCall = false
     publish(new updateStates)
   }
   def undoGet: Unit = {
-    undoManager.undoStep
+    undoManager.undoStep()
     publish(new updateStates)
   }
 
   def redoGet: Unit = {
-    undoManager.redoStep
+    undoManager.redoStep()
     publish(new updateStates)
   }
 

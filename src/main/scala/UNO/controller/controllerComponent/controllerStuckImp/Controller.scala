@@ -7,20 +7,20 @@ import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 
 
-class Controller extends controllerInterface{
+abstract class Controller extends controllerInterface{
 
-  override var playername1 = "Konstantin"
-  override var playername2 = "Soni"
+  override val playername1 = "Konstantin"
+  override val playername2 = "Soni"
 
-  override var stackCard: Stack = Stack(List(new Card("",""))).initStack()
+  override val stackCard: Stack = Stack(List(new Card("",""))).initStack()
 
-  override var playerList: List[Player] = List(Player("Testy",List(Card("","red"))))
+  override val playerList: List[Player] = List(Player("Testy",List(Card("","red"))))
 
-  override var playStack2: List[Card] = List(Card("","blue"))
+  override val playStack2: List[Card] = List(Card("","blue"))
 
-  override var colorSet: String = "yellow"
+  override val colorSet: String = "yellow"
 
-  override var unoCall: Boolean = false
+  override val unoCall: Boolean = false
 
   override def initPlayStack(): List[Card] = List(Card("","blue"))
 

@@ -6,12 +6,12 @@ import UNO.util.Command
 
 
 class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command {
-  override def doStep: Unit = {
+  override def doStep(): Unit = {
 
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
-    cardDiff
+    cardDiff()
   }
-  override def undoStep: Unit = { //TODO: Aussetzen, Richtungswechsel funktionieren noch nicht, weil vorher setPlayercard + Playlist umdrehen
+  override def undoStep(): Unit = { //TODO: Aussetzen, Richtungswechsel funktionieren noch nicht, weil vorher setPlayercard + Playlist umdrehen
     if (controller.playStack2(1).color == "black") {
       controller.playerList = List(controller.playerList(1).setPlayerCards(controller.playStack2(1)), controller.playerList(0))
       controller.playStack2 = controller.playStack2.tail.tail
@@ -40,14 +40,14 @@ class RemoveCommand(handindex: Int, controller: controllerInterface) extends Com
     }
   }
 
-  override def redoStep: Unit = {
+  override def redoStep(): Unit = {
 
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
-    cardDiff
+    cardDiff()
   }
 
 
-  def cardDiff: Unit = {
+  def cardDiff(): Unit = {
     if (controller.playerList(0).playerCards(handindex).color == "black") {
       val getColor = controller.colorSet
       controller.playStack2 = Card("", getColor) :: controller.playStack2
