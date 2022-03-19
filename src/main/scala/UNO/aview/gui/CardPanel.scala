@@ -19,6 +19,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
       case 3 => controller.playStack2
       case 4 => controller.stackCard.stackCards
 
+
   def cardValue(cardList: List[Card], cardIndex: Int): String =
     if cardList(cardIndex).value == "<-->" then
       "Reverse.png"
@@ -28,6 +29,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
       "Radio.png"
     else
       cardList(cardIndex).value + ".png"
+
 
   def cardColor(cardList: List[Card], cardIndex: Int): String =
     if cardList(cardIndex).color == "red" then
@@ -45,7 +47,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
     val orig = new ImageIcon(path)
     val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
     new ImageIcon(scaledImage)
-
+  
   val card: BoxPanel = new BoxPanel(Orientation.Vertical):
     val button: Button = new Button(
       if list == 1 then

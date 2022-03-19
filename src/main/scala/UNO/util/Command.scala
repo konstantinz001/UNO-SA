@@ -1,10 +1,6 @@
 package UNO.util
 
-trait Command {
-
+trait Command:
   def doStep(): Unit
-
   def undoStep(): Unit
-
   def redoStep(): Unit
-}
