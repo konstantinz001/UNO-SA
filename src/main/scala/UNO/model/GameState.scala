@@ -10,7 +10,7 @@ case class GameState(playerList: List[Player], playStack: List[Card]):
     playerList
 
   def getstackCard(): Stack =
-    var stackCard = Stack(List(new Card("",""))).initStack()
+    var stackCard = Stack(List(Card("",""))).initStack()
     /*(1 to 100).foreach((i)=>{
       stackCard = stackCard.shuffleCards()
     })*/

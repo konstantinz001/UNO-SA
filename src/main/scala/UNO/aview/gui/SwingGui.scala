@@ -41,9 +41,9 @@ class SwingGui(controller: controllerInterface) extends Frame :
     contents += new GridPanel(1, 4) :
       border = LineBorder(java.awt.Color.DARK_GRAY, 50)
       background = java.awt.Color.DARK_GRAY
-      val cardStack = new CardPanel(4, 0, controller)
+      val cardStack =  CardPanel(4, 0, controller)
       contents += cardStack.card
-      val playStack = new CardPanel(3, 0, controller)
+      val playStack =  CardPanel(3, 0, controller)
       contents += playStack.card
       val unoCall = new Button("")
       unoCall.background = java.awt.Color.DARK_GRAY
@@ -66,7 +66,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
       background = java.awt.Color.DARK_GRAY
       var cards: List[BoxPanel] = List.empty
       for (i <- (1 to controller.playerList.head.playerCards.length))
-        val cardPanel = new CardPanel(0, i - 1, controller)
+        val cardPanel =  CardPanel(0, i - 1, controller)
         cards = cardPanel.card :: cards
       cards.map(x => x.visible = false)
 

@@ -12,7 +12,7 @@ abstract class Controller extends controllerInterface:
   override val playername1 = "Konstantin"
   override val playername2 = "Soni"
 
-  override val stackCard: Stack = Stack(List(new Card("",""))).initStack()
+  override val stackCard: Stack = Stack(List(Card("",""))).initStack()
 
   override val playerList: List[Player] = List(Player("Testy",List(Card("","red"))))
 
@@ -42,4 +42,4 @@ abstract class Controller extends controllerInterface:
 
   override def setDefault(): Unit = null
 
-  override def initStackCard() : Stack = Stack(List(new Card("",""))).initStack()
+  override def initStackCard() : Stack = Stack(List(Card("",""))).initStack()
