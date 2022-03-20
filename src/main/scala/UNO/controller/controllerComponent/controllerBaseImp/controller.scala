@@ -24,7 +24,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var colorSet = ""
   var unoCall = false
 
-  private val undoManager = new UndoManager
+  private val undoManager =new UndoManager
   var gameState: GameState = GameState(playerList, playStack2)
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val injector = Guice.createInjector(new UnoGameModule)
@@ -37,7 +37,7 @@ class controller @Inject() extends controllerInterface with Publisher:
     publish(new updateStates)
 
   def initStackCard() : Stack =
-    var stackCards =Stack(List(new Card("",""))).initStack()
+    var stackCards =Stack(List(Card("",""))).initStack()
     for(i <- (1 to 100))
       stackCards = stackCards.shuffleCards()
     stackCards
@@ -71,7 +71,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit =
     stackCard = stackEmpty()
-    undoManager.doStep(new SetCommand(this))
+    undoManager.doStep(SetCommand(this))
     publish(new updateStates)
 
   def removeCard(handindex: Int) =
