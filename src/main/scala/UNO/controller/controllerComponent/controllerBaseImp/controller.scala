@@ -44,9 +44,10 @@ class controller @Inject() extends controllerInterface with Publisher:
 
 
   def initPlayStack() : List[Card] =
-    while (stackCard.getCardFromStack().color == "black")
-      stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
-      stackCard = stackCard.removeCard()
+    while stackCard.getCardFromStack().color == "black"
+      do
+        stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
+        stackCard = stackCard.removeCard()
     List(stackCard.getCardFromStack())
 
   def stackEmpty(): Stack =

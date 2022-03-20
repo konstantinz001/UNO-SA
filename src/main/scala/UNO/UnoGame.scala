@@ -1,5 +1,4 @@
 package UNO
-// remove new| control structure
 
 
 import UNO.aview.gui.SwingGui
@@ -16,7 +15,7 @@ object UnoGame:
   val Controller = injector.getInstance(classOf[controllerInterface])
   val tui = TUI(Controller)
 
-  var UIType: Boolean = if (System.getenv("UI_TYPE").equals("gui")) true else false
+  var UIType: Boolean = if System.getenv("UI_TYPE").equals("gui") then true else false
 
   @main def main(): Unit =
 
@@ -27,10 +26,9 @@ object UnoGame:
       val gui = SwingGui(Controller)
 
     var input1: String = ""
-    while (input1 != "q")
+    while input1 != "q"
     do
       input1 = readLine("\nInstruction: ")
       print(tui.processInputLine(input1))
-      if (input1 == "q")
+      if input1 == "q" then
         System.exit(0)
-
