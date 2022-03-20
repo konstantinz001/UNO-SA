@@ -1,8 +1,10 @@
 package UNO.util
 
+
+
 object State:
   var state = gameStartEvent().gameStart
-  def handle(e: Event, index:Int) = 
+  def handle(e: Event, index:Int) =
     e match 
       case a: callFirstUnoEvent => state = callFirstUnoEvent(index).callFirstUno
       case b: removePlayerCardEvent => state = removePlayerCardEvent(index).removePlayerCard

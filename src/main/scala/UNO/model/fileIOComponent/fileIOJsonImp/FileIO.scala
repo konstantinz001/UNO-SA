@@ -8,6 +8,7 @@ import play.api.libs.json.{JsValue, Json}
 
 import scala.io.Source
 
+
 class FileIO extends FileIOTrait:
   override def load: GameState =
     val file: String = Source.fromFile("gamestate.json").getLines.mkString

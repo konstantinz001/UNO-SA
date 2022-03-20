@@ -6,6 +6,11 @@ import UNO.controller.controllerComponent.controllerInterface
 
 import scala.swing.Reactor
 
+def print1: Unit =
+  print(State.handle(gameStatsEvent()))
+
+
+
 class TUI(controller: controllerInterface) extends Reactor:
 
   listenTo(controller)
@@ -66,6 +71,6 @@ class TUI(controller: controllerInterface) extends Reactor:
     case event: updateStates => print1
   }
 
-  def print1: Unit =
-    print(State.handle(gameStatsEvent()))
+  /*def print1: Unit =
+    print(State.handle(gameStatsEvent()))*/
 

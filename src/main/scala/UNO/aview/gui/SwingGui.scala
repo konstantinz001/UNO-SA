@@ -10,6 +10,16 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event.{ButtonClicked, Key}
 
+def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
+  val orig = new ImageIcon(path)
+  val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
+  new ImageIcon(scaledImage)
+  
+  
+  
+  
+
+
 class SwingGui(controller: controllerInterface) extends Frame :
 
   listenTo(controller)
@@ -25,7 +35,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
       background = java.awt.Color.DARK_GRAY
 
       for (i <- (1 to controller.playerList(1).playerCards.length))
-        val cardPanel = new CardPanel(1, i - 1, controller)
+        val cardPanel =  CardPanel(1, i - 1, controller)
         contents += cardPanel.card
 
     contents += new GridPanel(1, 4) :
@@ -286,7 +296,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
 
   visible = true
 
-  def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
+  /*def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
     val orig = new ImageIcon(path)
     val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
-    new ImageIcon(scaledImage)
+    new ImageIcon(scaledImage)*/

@@ -4,6 +4,7 @@ import UNO.UnoGame.Controller
 
 trait Event
 
+
 case class instructionEvent() extends Event:
   def instruction: String =
     "\nPossible instructions:\n"+
