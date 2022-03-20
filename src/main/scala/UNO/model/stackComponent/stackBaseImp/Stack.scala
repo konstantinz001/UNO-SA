@@ -6,10 +6,18 @@ import UNO.model.stackComponent.StackInterface
 import scala.util.Random
 
 case class Stack(stackCards: List[Card]) extends StackInterface:
+  enum Color (val name:String):
+    case Green extends Color("green")
+    case Blue extends Color("blue")
+    case Red extends Color("red")
+    case Yellow extends Color("yellow")
+    case Black extends Color("black")
+
+
   def initStack(): Stack =
-    val green = List(Card("0", "green"), Card("1", "green"), Card("2", "green"), Card("3", "green"),
-      Card("4", "green"), Card("5", "green"), Card("6", "green"), Card("7", "green"), Card("8", "green"),
-      Card("9", "green"), Card("+2", "green"), Card("<-->", "green"), Card("Ø", "green"))
+    val green = List(Card("0", Color.Green.name), Card("1", Color.Green.name), Card("2", Color.Green.name), Card("3", Color.Green.name),
+      Card("4", Color.Green.name), Card("5", Color.Green.name), Card("6", Color.Green.name), Card("7", Color.Green.name), Card("8", Color.Green.name),
+      Card("9", Color.Green.name), Card("+2", Color.Green.name), Card("<-->", Color.Green.name), Card("Ø", Color.Green.name))
     val red = List(Card("0", "red"), Card("1", "red"), Card("2", "red"), Card("3", "red"),
       Card("4", "red"), Card("5", "red"), Card("6", "red"), Card("7", "red"), Card("8", "red"),
       Card("9", "red"), Card("+2", "red"), Card("<-->", "red"), Card("Ø", "red"))
