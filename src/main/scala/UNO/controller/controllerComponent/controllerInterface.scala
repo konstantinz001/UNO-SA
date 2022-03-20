@@ -7,7 +7,7 @@ import UNO.model.stackComponent.stackBaseImp.Stack
 import scala.swing.Publisher
 
 
-trait controllerInterface extends Publisher{
+trait controllerInterface extends Publisher:
   var playername1: String
   var playername2 : String
   var stackCard: Stack
@@ -32,4 +32,3 @@ trait controllerInterface extends Publisher{
   import scala.swing.event.Event
 
   class updateState extends Event
-}

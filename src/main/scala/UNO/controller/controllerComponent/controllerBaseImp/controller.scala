@@ -11,8 +11,8 @@ import UNO.model.fileIOComponent.FileIOTrait
 import UNO.model.fileIOComponent.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-
 import scala.swing.Publisher
+
 
 
 class controller @Inject() extends controllerInterface with Publisher:

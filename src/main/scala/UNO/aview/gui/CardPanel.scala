@@ -4,11 +4,16 @@ import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
-
 import java.awt.Image
 import javax.swing.ImageIcon
 import scala.swing._
 import scala.swing.{BoxPanel, Button, FlowPanel, Orientation}
+
+
+def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
+  val orig = new ImageIcon(path)
+  val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
+  new ImageIcon(scaledImage)
 
 class CardPanel(list: Int, index: Int, controller: controllerInterface) extends FlowPanel:
 
@@ -43,10 +48,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
     else
       "Black_"
 
-  def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
-    val orig = new ImageIcon(path)
-    val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
-    new ImageIcon(scaledImage)
+
   
   val card: BoxPanel = new BoxPanel(Orientation.Vertical):
     val button: Button = new Button(
@@ -65,7 +67,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
                   controller.removeCard(index)
                 else if controller.playerList.head.playerCards.size == 1 && controller.unoCall then
                   controller.publish(new endStates)
-                else if !Strategy.handle(removeCardEvent(index), index) then null
+                else if !Strategy.handle(removeCardEvent(index), index) then None
                 else
                   controller.removeCard(index)
                   controller.playerList = controller.playerList.reverse
