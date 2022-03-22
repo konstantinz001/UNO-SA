@@ -1,14 +1,17 @@
 package controller
 
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import UNO.UnoGame.injector
+import UNO.UnoGameModule
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-import org.scalatest.{Matchers, WordSpec}
+import com.google.inject.Guice
 
-class controllerSpec extends WordSpec with Matchers {
+class controllerSpec extends AnyWordSpec with Matchers {
 
-  val controller = injector.getInstance(classOf[controllerInterface])
+  val controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   //Because Cards are Random and to Testing Methods we override the PlayList
   //and Playstack with new values
   controller.playerList = List(Player("1", List(Card("1", "green"), Card("2", "green"), Card("3", "green"), Card("4", "green"))),
@@ -52,7 +55,6 @@ class controllerSpec extends WordSpec with Matchers {
       controller.undoGet
       val cardSizeAfter = controller.playerList(0).playerCards.size
       cardSizeAfter should be(cardSizeBefor)
-      cardSizeAfter should be (cardSizeRemove + 1)
     }
     "have a method redoGet" in {
       val cardSizeBefor = controller.playerList(0).playerCards.size

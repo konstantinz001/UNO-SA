@@ -12,7 +12,7 @@ def print1: Unit =
 
 
 class TUI(controller: controllerInterface) extends Reactor:
-
+  
   listenTo(controller)
 
   def processInputLine(input: String): String =
