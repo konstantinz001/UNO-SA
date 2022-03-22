@@ -1,11 +1,12 @@
 package model
 
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-import org.scalatest.{Matchers, WordSpec}
 
-class GameStateSpec extends WordSpec with Matchers {
+class GameStateSpec extends AnyWordSpec with Matchers {
 
   var playStack2: List[Card] = List(Card("","blue"))
   var playerList: List[Player] = List(Player("Testy",List(Card("","red"))))
