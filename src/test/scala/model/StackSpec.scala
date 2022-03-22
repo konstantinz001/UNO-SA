@@ -1,9 +1,11 @@
 package model
+
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
-import org.scalatest.{Matchers, WordSpec}
 
-class StackSpec extends WordSpec with Matchers {
+class StackSpec extends AnyWordSpec with Matchers {
   "An initial Stack" should {
     var stackCard = Stack(List(new Card("", ""))).initStack()
     "contain a cardStack" in {

@@ -1,10 +1,11 @@
 package model
 
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-import org.scalatest._
 
-class PlayerSpec extends WordSpec with Matchers {
+class PlayerSpec extends AnyWordSpec with Matchers {
   val player = Player("Bob",List(Card("1","green"), Card("2","red"), Card("3","blue")))
   "A Player" when {
     "created" should {
