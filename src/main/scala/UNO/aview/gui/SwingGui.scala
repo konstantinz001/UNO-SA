@@ -10,15 +10,6 @@ import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event.{ButtonClicked, Key}
 
-def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
-  val orig = new ImageIcon(path)
-  val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
-  new ImageIcon(scaledImage)
-  
-  
-  
-  
-
 
 class SwingGui(controller: controllerInterface) extends Frame :
 
@@ -295,8 +286,3 @@ class SwingGui(controller: controllerInterface) extends Frame :
   }
 
   visible = true
-
-  /*def scaledImageIcon(path: String, width: Int, height: Int): ImageIcon =
-    val orig = new ImageIcon(path)
-    val scaledImage = orig.getImage.getScaledInstance(width, height, Image.SCALE_REPLICATE)
-    new ImageIcon(scaledImage)*/
