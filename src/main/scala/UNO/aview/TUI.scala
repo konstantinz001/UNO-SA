@@ -3,6 +3,7 @@ package UNO.aview
 import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
 import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.controller.controllerComponent.controllerInterface
+import UNO.util.Event
 
 import scala.swing.Reactor
 
@@ -22,7 +23,10 @@ class TUI(controller: controllerInterface) extends Reactor:
 
       case "s" =>
         controller.getCard()
-        State.handle(setPlayerCardEvent())
+        //setPlayerCardEvent().setPlayerCard
+        State.state = setPlayerCardEvent().setPlayerCard
+        null
+        //State.handle(setPlayerCardEvent())
       case "r" =>
         if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
           controller.colorSet = is(2)
