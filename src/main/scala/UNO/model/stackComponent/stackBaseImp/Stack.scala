@@ -13,21 +13,44 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
     case Yellow extends Color("yellow")
     case Black extends Color("black")
 
+  enum Number (val name:String):
+    case Zero extends Number("0")
+    case One extends Number("1")
+    case Two extends Number("2")
+    case Three extends Number("3")
+    case Four extends Number("4")
+    case Five extends Number("5")
+    case Six extends Number("6")
+    case Seven extends Number("7")
+    case Eight extends Number("8")
+    case Nine extends Number("9")
+
+  enum Special (val name:String):
+    case PlusTwo extends Special("+2")
+    case Reverse extends Special("<-->")
+    case Expose extends Special("Ø")
+    case CSwitch extends Special("ColorSwitch")
+    case CSwitchPlusFour extends Special("4+ ColorSwitch")
+
 
   def initStack(): Stack =
-    val green = List(Card("0", Color.Green.name), Card("1", Color.Green.name), Card("2", Color.Green.name), Card("3", Color.Green.name),
-      Card("4", Color.Green.name), Card("5", Color.Green.name), Card("6", Color.Green.name), Card("7", Color.Green.name), Card("8", Color.Green.name),
-      Card("9", Color.Green.name), Card("+2", Color.Green.name), Card("<-->", Color.Green.name), Card("Ø", Color.Green.name))
-    val red = List(Card("0", Color.Red.name), Card("1", Color.Red.name), Card("2", Color.Red.name), Card("3", Color.Red.name),
-      Card("4", Color.Red.name), Card("5", Color.Red.name), Card("6", Color.Red.name), Card("7", Color.Red.name), Card("8", Color.Red.name),
-      Card("9", Color.Red.name), Card("+2", Color.Red.name), Card("<-->", Color.Red.name), Card("Ø", Color.Red.name))
-    val blue = List(Card("0", Color.Blue.name), Card("1", Color.Blue.name), Card("2", Color.Blue.name), Card("3", Color.Blue.name),
-      Card("4", Color.Blue.name), Card("5", Color.Blue.name), Card("6", Color.Blue.name), Card("7", Color.Blue.name), Card("8", Color.Blue.name),
-      Card("9", Color.Blue.name), Card("+2", Color.Blue.name), Card("<-->", Color.Blue.name), Card("Ø", Color.Blue.name))
-    val yellow = List(Card("0",Color.Yellow.name), Card("1",Color.Yellow.name), Card("2",Color.Yellow.name), Card("3",Color.Yellow.name),
-      Card("4",Color.Yellow.name), Card("5",Color.Yellow.name), Card("6",Color.Yellow.name), Card("7",Color.Yellow.name), Card("8",Color.Yellow.name),
-      Card("9",Color.Yellow.name), Card("+2",Color.Yellow.name), Card("<-->",Color.Yellow.name), Card("Ø",Color.Yellow.name))
-    val black = List(Card("ColorSwitch",Color.Black.name), Card("4+ ColorSwitch",Color.Black.name))
+    val green = List(Card(Number.Zero.name, Color.Green.name), Card(Number.One.name, Color.Green.name), Card(Number.Two.name, Color.Green.name), Card(Number.Three.name, Color.Green.name),
+      Card(Number.Four.name, Color.Green.name), Card(Number.Five.name, Color.Green.name), Card(Number.Six.name, Color.Green.name), Card(Number.Seven.name, Color.Green.name), Card(Number.Eight.name, Color.Green.name),
+      Card(Number.Nine.name, Color.Green.name), Card(Special.PlusTwo.name, Color.Green.name), Card(Special.Reverse.name, Color.Green.name), Card(Special.Expose.name, Color.Green.name))
+
+    val red = List(Card(Number.Zero.name, Color.Red.name), Card(Number.One.name, Color.Red.name), Card(Number.Two.name, Color.Red.name), Card(Number.Three.name, Color.Red.name),
+      Card(Number.Four.name, Color.Red.name), Card(Number.Five.name, Color.Red.name), Card(Number.Six.name, Color.Red.name), Card(Number.Seven.name, Color.Red.name), Card(Number.Eight.name, Color.Red.name),
+      Card(Number.Nine.name, Color.Red.name), Card(Special.PlusTwo.name, Color.Red.name), Card(Special.Reverse.name, Color.Red.name), Card(Special.Expose.name, Color.Red.name))
+
+    val blue = List(Card(Number.Zero.name, Color.Blue.name), Card(Number.One.name, Color.Blue.name), Card(Number.Two.name, Color.Blue.name), Card(Number.Three.name, Color.Blue.name),
+      Card(Number.Four.name, Color.Blue.name), Card(Number.Five.name, Color.Blue.name), Card(Number.Six.name, Color.Blue.name), Card(Number.Seven.name, Color.Blue.name), Card(Number.Eight.name, Color.Blue.name),
+      Card(Number.Nine.name, Color.Blue.name), Card(Special.PlusTwo.name, Color.Blue.name), Card(Special.Reverse.name, Color.Blue.name), Card(Special.Expose.name, Color.Blue.name))
+
+    val yellow = List(Card(Number.Zero.name,Color.Yellow.name), Card(Number.One.name,Color.Yellow.name), Card(Number.Two.name,Color.Yellow.name), Card(Number.Three.name,Color.Yellow.name),
+      Card(Number.Four.name,Color.Yellow.name), Card(Number.Five.name,Color.Yellow.name), Card(Number.Six.name,Color.Yellow.name), Card(Number.Seven.name,Color.Yellow.name), Card(Number.Eight.name,Color.Yellow.name),
+      Card(Number.Nine.name,Color.Yellow.name), Card(Special.PlusTwo.name,Color.Yellow.name), Card(Special.Reverse.name,Color.Yellow.name), Card(Special.Expose.name,Color.Yellow.name))
+
+    val black = List(Card(Special.CSwitch.name,Color.Black.name), Card(Special.CSwitchPlusFour.name,Color.Black.name))
     copy(green ::: green ::: red ::: red ::: blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
 
   def shuffleCards(): Stack =
