@@ -71,6 +71,3 @@ class TUI(controller: controllerInterface) extends Reactor:
     case event: updateStates => print1
   }
 
-  /*def print1: Unit =
-    print(State.handle(gameStatsEvent()))*/
-
