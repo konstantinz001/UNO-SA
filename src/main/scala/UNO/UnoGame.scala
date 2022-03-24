@@ -18,15 +18,15 @@ object UnoGame:
 
   @main def main(): Unit =
 
-  print(State.handle(instructionEvent()))
-  print(State.handle(gameStatsEvent()))
+    print(State.handle(instructionEvent()))
+    print(State.handle(gameStatsEvent()))
 
-  if (UIType == true) then
-    val gui = SwingGui(Controller)
-  var input1: String = ""
-  while input1 != "q"
-  do
-    input1 = readLine("\nInstruction: ")
-    print(tui.processInputLine(input1))
-    if input1 == "q" then
-      System.exit(0)
+    if (UIType == true) then
+      val gui = SwingGui(Controller)
+    var input1: String = ""
+    while input1 != "q"
+    do
+      input1 = readLine("\nInstruction: ")
+      print(tui.processInputLine(input1))
+      if input1 == "q" then
+        System.exit(0)

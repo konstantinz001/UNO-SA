@@ -17,11 +17,9 @@ class TuiSpec extends AnyWordSpec with Matchers {
       var controller_test = new controller()
       var tui_Test = new TUI(controller_test)
 
-      //tui_Test.processInputLine("s") should be(State.handle(setPlayerCardEvent()))
+      tui_Test.processInputLine("u 0") should be(State.handle(toManyCardsEvent()))
 
-      //tui_Test.processInputLine("u 0") should be(State.handle(toManyCardsEvent()))
-
-      //tui_Test.processInputLine("undo") should be ("undo")
+      tui_Test.processInputLine("undo") should be ("undo")
 
       //tui_Test.processInputLine("redo") should be ("redo")
 
