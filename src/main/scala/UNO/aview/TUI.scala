@@ -4,8 +4,8 @@ import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
 //import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.util.*
 import UNO.controller.controllerComponent.controllerInterface
-
 import scala.swing.Reactor
+
 
 def print1: Unit =
   print(State.handle(gameStatsEvent()))
@@ -28,7 +28,6 @@ class TUI(controller: controllerInterface) extends Reactor:
         case_u(is)
       case "q" =>
         State.handle(exitGameEvent())
-
       case "undo" =>
         controller.undoGet
         "undo"
@@ -47,6 +46,8 @@ class TUI(controller: controllerInterface) extends Reactor:
   reactions += {
     case event: updateStates => print1
   }
+
+  // moved the methods down for better visibility in the switch loop
   def case_r(is:Array[String]):String=
     if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
       controller.colorSet = is(2)
