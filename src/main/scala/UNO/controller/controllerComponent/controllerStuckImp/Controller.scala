@@ -26,20 +26,20 @@ abstract class Controller extends controllerInterface:
 
   override def initPlayerList(): List[Player] = List(Player("Testy",List(Card("","red"))))
 
-  override def getCard(): Unit = null
+  override def getCard(): Unit = Option
 
-  override def removeCard(handindex: Int): Unit = null
+  override def removeCard(handindex: Int): Unit = Option
 
-  override def undoGet: Unit = null
+  override def undoGet: Unit = Option
 
-  override def redoGet: Unit = null
+  override def redoGet: Unit = Option
 
   override def stackEmpty(): Stack = stackCard
 
-  override def save: Unit = null
+  override def save: Unit = Option
 
-  override def load: Unit = null
+  override def load: Unit = Option
 
-  override def setDefault(): Unit = null
+  override def setDefault(): Unit = Option
 
   override def initStackCard() : Stack = Stack(List(Card("",""))).initStack()
