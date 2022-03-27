@@ -75,7 +75,7 @@ def printGameBoard(): Unit = {
 
   def yourturn(): String = {
     val a = "* " * 50 + "\n"
-    var b = ((" " * (a.length/2 - ("PLAYER x").length/2))
+    val b = ((" " * (a.length/2 - ("PLAYER x").length/2))
       + "PLAYER " + player + "\n")
     return a + b + a + "\n"
   }

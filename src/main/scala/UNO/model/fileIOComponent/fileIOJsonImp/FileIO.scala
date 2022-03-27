@@ -23,7 +23,7 @@ class FileIO extends FileIOTrait:
     val playerValue2 = (json \ "gameState" \ "playerCardsValue2").as[List[String]]
     val playerColor1 = (json \ "gameState" \ "playerCardsColor1").as[List[String]]
     val playerColor2 = (json \ "gameState" \ "playerCardsColor2").as[List[String]]
-    var cards1 = List(Card(playerValue1(0), playerColor1(0)))
+    var cards1 = List(Card(playerValue1(0), playerColor1(0))) //TODO: Fix later
     for i <- (1 to playerValue1.size - 1)
       // optinal decide later if ok
       do cards1 = Card(playerValue1(i), playerColor1(i)) :: cards1
