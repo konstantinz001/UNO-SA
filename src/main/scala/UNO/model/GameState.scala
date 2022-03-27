@@ -6,8 +6,8 @@ import UNO.model.stackComponent.stackBaseImp.Stack
 
 case class GameState(playerList: List[Player], playStack: List[Card]):
 
-  def getplayerList(): List[Player] =
-    playerList
+  //def getplayerList(): List[Player] =
+  //  playerList
 
   def getstackCard(): Stack =
     val stackCard = Stack(List(Card("",""))).initStack()
@@ -16,6 +16,6 @@ case class GameState(playerList: List[Player], playStack: List[Card]):
     })*/
     stackCard
 
-  def getplayStack(): List[Card] =
-    playStack
+  //def getplayStack(): List[Card] =
+  //  playStack
 
