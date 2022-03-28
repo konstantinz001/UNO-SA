@@ -25,31 +25,45 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
       case 4 => controller.stackCard.stackCards
 
 
+//  def cardValue(cardList: List[Card], cardIndex: Int): String =
+//    if cardList(cardIndex).value == "<-->" then
+//      "Reverse.png"
+//    else if cardList(cardIndex).value == "Ø" then
+//      "Skip.png"
+//    else if cardList(cardIndex).value == "" then
+//      "Radio.png"
+//    else
+//      cardList(cardIndex).value + ".png"
+
   def cardValue(cardList: List[Card], cardIndex: Int): String =
-    if cardList(cardIndex).value == "<-->" then
-      "Reverse.png"
-    else if cardList(cardIndex).value == "Ø" then
-      "Skip.png"
-    else if cardList(cardIndex).value == "" then
-      "Radio.png"
-    else
-      cardList(cardIndex).value + ".png"
+    cardList(cardIndex).value match {
+      case "<-->" =>"Reverse.png"
+      case "Ø" =>"Skip.png"
+      case "" =>"Radio.png"
+      case _ => cardList(cardIndex).value + ".png"
+    }
 
+  def cardColor(cardList:List[Card], cardIndex:Int):String=
+    cardList(cardIndex).color match{
+      case "red" => "Red_"
+      case "blue" => "Blue_"
+      case "yellow" => "Yellow_"
+      case "green" => "Green_"
+      case _ => "Black_"
+    }
 
-  def cardColor(cardList: List[Card], cardIndex: Int): String =
-    if cardList(cardIndex).color == "red" then
-      "Red_"
-    else if cardList(cardIndex).color == "blue" then
-      "Blue_"
-    else if cardList(cardIndex).color == "yellow" then
-      "Yellow_"
-    else if cardList(cardIndex).color == "green" then
-      "Green_"
-    else
-      "Black_"
+//  def cardColor(cardList: List[Card], cardIndex: Int): String =
+//    if cardList(cardIndex).color == "red" then
+//      "Red_"
+//    else if cardList(cardIndex).color == "blue" then
+//      "Blue_"
+//    else if cardList(cardIndex).color == "yellow" then
+//      "Yellow_"
+//    else if cardList(cardIndex).color == "green" then
+//      "Green_"
+//    else
+//      "Black_"
 
-
-  
   val card: BoxPanel = new BoxPanel(Orientation.Vertical):
     val button: Button = new Button(
       if list == 1 then
@@ -79,33 +93,36 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
             reactions += {
               case event.ButtonClicked(_) => controller.getCard()
             }
-
-
-
-
     button.preferredSize_=(new Dimension(97, 100))
     button.maximumSize_=(new Dimension(97, 100))
     button.minimumSize_=(new Dimension(77, 80))
     button.background = java.awt.Color.DARK_GRAY
-    if list == 1 then
-      button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
-    else if list == 4 then
-      button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
-
-    else if list == 3 then
-      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
-        110, 100)
-      if cardColor(mycard(), index) == "Black_" then
+    list match {
+      case 1 => button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
+      case 4 => button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
+      case 3 => button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 110, 100)
+        if cardColor(mycard(), index) == "Black_" then
         button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
           110, 100)
         controller.colorSet = ""
-
-
-    else
-      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
-        110, 100)
-
-
-
+      case _=> button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 110, 100)
+    }
+//    if list == 1 then
+//      button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
+//    else if list == 4 then
+//      button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
+//
+//    else if list == 3 then
+//      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
+//        110, 100)
+//      if cardColor(mycard(), index) == "Black_" then
+//        button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
+//          110, 100)
+//        controller.colorSet = ""
+//
+//
+//    else
+//      button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index),
+//        110, 100)
     contents += button
     background = java.awt.Color.DARK_GRAY
