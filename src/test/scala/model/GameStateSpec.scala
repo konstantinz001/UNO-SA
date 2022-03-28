@@ -14,13 +14,10 @@ class GameStateSpec extends AnyWordSpec with Matchers {
 
   "A GameState" when {
     "have a method getplayerList" in {
-      gameState.getplayerList() should be(List(Player("Testy", List(Card("", "red")))))
+      gameState.playerList should be(List(Player("Testy", List(Card("", "red")))))
     }
     "have a method getstackCard" in {
       gameState.getstackCard() should be(gameState.getstackCard())
-    }
-    "have a method getplayStack" in {
-      gameState.getplayStack() should be(List(Card("", "blue")))
     }
   }
 }

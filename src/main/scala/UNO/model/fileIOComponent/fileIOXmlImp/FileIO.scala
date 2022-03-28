@@ -20,13 +20,19 @@ class FileIO extends FileIOTrait:
     val playerValue2 = (file \\ "gamestate" \ "playerCardValue2").text.split(" ").map(_.trim).toList.reverse.init
     val playerColor1 = (file \\ "gamestate" \ "playerCardColor1").text.split(" ").map(_.trim).toList.reverse.init
     val playerColor2 = (file \\ "gamestate" \ "playerCardColor2").text.split(" ").map(_.trim).toList.reverse.init
-    var cards1 = List(Card(playerValue1(0), playerColor1(0)))
-    for(i <- (1 to playerValue1.size - 1))
-      cards1 = Card(playerValue1(i), playerColor1(i)) :: cards1
-    var cards2 = List(Card(playerValue2(0), playerColor2(0)))
-    for(i <- (1 to playerValue2.size - 1))
-      cards2 = Card(playerValue2(i), playerColor2(i)) :: cards2
+    val cards1 = returnList(Card(playerValue1(0), playerColor1(0)),List():List[Card],
+      1, playerValue1, playerColor1)
+    val cards2 = returnList(Card(playerValue2(0), playerColor2(0)),List():List[Card],
+      1, playerValue2, playerColor2)
     List(Player(playerName(1), cards1), Player(playerName(0), cards2))
+
+
+  def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] = {
+    if((playerValueIndex.size-index) < 1) then
+      newCard :: oldList
+    else
+      newCard :: returnList(Card(playerValueIndex(index), playerColorIndex(index)),oldList, index+1, playerValueIndex, playerColorIndex)
+  }
 
   def setPlayStack (file: Elem) : List[Card] =
     List(Card((file \\ "gamestate" \ "playStack" \ "playStackValue").text.trim,

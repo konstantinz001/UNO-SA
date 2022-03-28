@@ -267,7 +267,6 @@ class SwingGui(controller: controllerInterface) extends Frame :
           System.exit(0)
       }
 
-
   def redraw: Unit =
     contents = new BorderPanel:
       add(gamePanel, BorderPanel.Position.Center)
