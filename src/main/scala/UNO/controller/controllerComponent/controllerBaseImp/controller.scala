@@ -23,6 +23,11 @@ class controller @Inject() extends controllerInterface with Publisher:
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
+  // example for closures
+  var factor = 3
+  val multiplier = (i:Int) => i * factor
+  multiplier(5)
+  //
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
