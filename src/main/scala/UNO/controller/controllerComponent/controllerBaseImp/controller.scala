@@ -24,8 +24,8 @@ class controller @Inject() extends controllerInterface with Publisher:
   var colorSet = ""
   var unoCall = false
   val five = 5
-  val number_of_cards0 = Controller.playerList(0).playerCards.size
-  val number_of_cards1 = Controller.playerList(1).playerCards.size
+  //val number_of_cards0 = Controller.playerList(0).playerCards.size
+  //val number_of_cards1 = Controller.playerList(1).playerCards.size
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -49,10 +49,10 @@ class controller @Inject() extends controllerInterface with Publisher:
       stackCards = stackCards.shuffleCards()
     stackCards
 
-  def howmanycards() : Int =
-    val addition: Int => Int => Int = x => y => x + y
+  //def howmanycards() : Int =
+  //  val addition: Int => Int => Int = x => y => x + y
     //closure + currying
-    addition(number_of_cards0)(number_of_cards1)
+  //  addition(number_of_cards0)(number_of_cards1)
 
 
   def initPlayStack() : List[Card] =
