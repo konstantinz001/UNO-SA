@@ -3,6 +3,7 @@ package UNO.util
 
 
 object State:
+  // closure
   var state = gameStartEvent().gameStart
   def handle(e: Event, index:Int) =
     e match 

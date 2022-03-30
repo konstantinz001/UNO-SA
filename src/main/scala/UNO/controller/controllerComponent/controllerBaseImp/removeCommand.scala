@@ -6,6 +6,8 @@ import UNO.util.Command
 
 
 class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command:
+
+
   override def doStep(): Unit =
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
     cardDiff()

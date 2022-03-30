@@ -23,6 +23,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var playStack2 = initPlayStack()
   var colorSet = ""
   var unoCall = false
+  val five = 5
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -49,13 +50,14 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   def initPlayStack() : List[Card] =
     while stackCard.getCardFromStack().color == "black"
-      do
-        stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
-        stackCard = stackCard.removeCard()
+    do
+      stackCard = stackCard.pullCards(List(stackCard.getCardFromStack()))
+      stackCard = stackCard.removeCard()
     List(stackCard.getCardFromStack())
 
   def stackEmpty(): Stack =
-    if stackCard.stackCards.length <= 5 then
+    // closure is a function which uses one or more variables declared outside the function
+    if stackCard.stackCards.length <= five then
       stackCard = stackCard.reversePullCards(playStack2).shuffleCards()
       for (i <- (1 to 100))
         stackCard = stackCard.shuffleCards()
@@ -63,6 +65,7 @@ class controller @Inject() extends controllerInterface with Publisher:
 
 
   def initPlayerList(): List[Player] =
+    var starthand = List(Card("",""))
     def startHand(): List[Card] =
       var starthand = List(Card("",""))
       for(i <- (1 to 7))
