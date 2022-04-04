@@ -32,7 +32,7 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
     case CSwitch extends Special("ColorSwitch")
     case CSwitchPlusFour extends Special("4+ ColorSwitch")
 
-
+ // kürzer macchen
   def initStack(): Stack =
     val green = List(Card(Number.Zero.name, Color.Green.name), Card(Number.One.name, Color.Green.name), Card(Number.Two.name, Color.Green.name), Card(Number.Three.name, Color.Green.name),
       Card(Number.Four.name, Color.Green.name), Card(Number.Five.name, Color.Green.name), Card(Number.Six.name, Color.Green.name), Card(Number.Seven.name, Color.Green.name), Card(Number.Eight.name, Color.Green.name),
@@ -51,19 +51,45 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
       Card(Number.Nine.name,Color.Yellow.name), Card(Special.PlusTwo.name,Color.Yellow.name), Card(Special.Reverse.name,Color.Yellow.name), Card(Special.Expose.name,Color.Yellow.name))
 
     val black = List(Card(Special.CSwitch.name,Color.Black.name), Card(Special.CSwitchPlusFour.name,Color.Black.name))
+    // prototyp of using map(standard collection) + function parameter
+    val new_collection = green.map(getgreen)
+    print("hehe", new_collection)
+
     copy(green ::: green ::: red ::: red ::: blue ::: blue ::: yellow ::: yellow ::: black ::: black ::: Nil)
 
   def shuffleCards(): Stack =
     copy(Random.shuffle(stackCards))
 
+  def getgreen(card:Card):Unit=
+    card.color match {
+      case Color.Green.name => card
+      case _ =>
+    }
+//    if(card.color == Color.Green.name)
+//      return card
+//    else
+//      return null
+
+
   def removeCard(): Stack =
     copy(stackCards.tail)
 
-  def pullCards(playerStack: List[Card]): Stack =
-    copy(stackCards ::: playerStack)
 
-  def reversePullCards(playerStack: List[Card]): Stack =
-    copy((stackCards.reverse ::: playerStack).reverse)
+  def pullCards(playerStack:List[Card]): Stack = unified("nonreverse") (playerStack)
+  def reversePullCards(playerStack:List[Card]):Stack = unified("reverse") (playerStack)
+
+  def unified(value:String)(playerStack:List[Card]):Stack=
+    if(value =="nonreverse")
+      copy(stackCards ::: playerStack)
+    else (value =="reverse")
+      copy((stackCards.reverse ::: playerStack).reverse)
+
+
+  //def pullCards(playerStack: List[Card]): Stack =
+  //  copy(stackCards ::: playerStack)
+
+  //def reversePullCards(playerStack: List[Card]): Stack =
+  //  copy((stackCards.reverse ::: playerStack).reverse)
 
   def getCardFromStack(): Card =
     stackCards(0)

@@ -20,6 +20,7 @@ class RemoveCommand(handindex: Int, controller: controllerInterface) extends Com
         for(i <- (1 to 4))
           controller.stackCard = controller.stackCard.reversePullCards(List(controller.playerList(1).playerCards(0)))
           controller.playerList = List(controller.playerList(0), controller.playerList(1).removePlayerCards(0))
+
     else
       controller.playerList = List(controller.playerList(1).setPlayerCards(controller.playStack2(0)), controller.playerList(0))
       controller.playStack2 = controller.playStack2.tail
