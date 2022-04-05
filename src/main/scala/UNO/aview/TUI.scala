@@ -92,6 +92,11 @@ class TUI(controller: controllerInterface) extends Reactor:
   def case_u(is:Array[String]):String= unifiedcases(Letter.U.letter_string) (is)
   def case_r(is:Array[String]):String = unifiedcases(Letter.R.letter_string) (is)
 
+  def tryColorSwitch(is_2 : String) :  Option[String] =
+    Try((List("blue", "red", "yellow", "green").filter(x => x.equals(is_2))(0))) match
+      case Success(color: String) => Some(color)
+      case Failure(_) => None
+
   def unifiedcases(value:String)(is:Array[String]):String=
     value match {
       case "u"=>
@@ -109,7 +114,12 @@ class TUI(controller: controllerInterface) extends Reactor:
 
       case "r"=>
         if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
-          controller.colorSet = is(2)
+        //Try Monad
+          tryColorSwitch(is(2)) match
+            case Some(color: String) => controller.colorSet = color
+            //case None => throw new Exception("Color could not change!\n")
+            case None => println("Color could not change!\n")
+
         if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
           controller.removeCard(is(1).toInt)
           State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
@@ -122,5 +132,6 @@ class TUI(controller: controllerInterface) extends Reactor:
           controller.getCard()
           State.handle(forgotCallUnoEvent())
     }
+
 
 

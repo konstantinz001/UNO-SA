@@ -76,8 +76,6 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
 //      return card
 //    else
 //      return null
-  val test = initstackcurry(yellow)_
-  print("hehe",test.toString())
 
   def removeCard(): Stack =
     tryremoveCard() match {
@@ -97,10 +95,9 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
   def reversePullCards(playerStack:List[Card]):Stack = unified("reverse") (playerStack)
 
   def unified(value:String)(playerStack:List[Card]):Stack=
-    if(value =="nonreverse")
-      copy(stackCards ::: playerStack)
-    else (value =="reverse")
-      copy((stackCards.reverse ::: playerStack).reverse)
+    value match
+      case "nonreverse" => copy(stackCards ::: playerStack)
+      case "reverse" => copy((stackCards.reverse ::: playerStack).reverse)
 
 
   //def pullCards(playerStack: List[Card]): Stack =

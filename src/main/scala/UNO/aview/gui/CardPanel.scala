@@ -78,7 +78,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
     button.preferredSize_=(new Dimension(97, 200))
     button.maximumSize_=(new Dimension(97, 200))
     button.minimumSize_=(new Dimension(77, 200))
-    button.background = java.awt.Color.decode("#4d090b")
+    button.background = java.awt.Color.decode("#003366")
     list match {
       case 1 => button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 70, 100)
       case 4 => button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 70, 100)
@@ -91,7 +91,7 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
     }
     button.horizontalAlignment = Alignment.Center
     button.text = ""
-    button.background = java.awt.Color.decode("#4d090b")
-    button.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+    button.background = java.awt.Color.decode("#003366")
+    button.border = LineBorder(java.awt.Color.decode("#003366"), 10)
     contents += button
-    background = java.awt.Color.decode("#4d090b")
+    background = java.awt.Color.decode("#003366")

@@ -25,26 +25,26 @@ class SwingGui(controller: controllerInterface) extends Frame :
 
 
     contents += new GridPanel(1, controller.playerList(1).playerCards.size +1) :
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 10)
+      background = java.awt.Color.decode("#003366")
 
       for (i <- (1 to controller.playerList(1).playerCards.length))
         val cardPanel =  CardPanel(1, i - 1, controller)
-        cardPanel.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+        cardPanel.border = LineBorder(java.awt.Color.decode("#003366"), 10)
         contents += cardPanel.card
 
 
     contents += new GridPanel(1, 4) :
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
-      background = java.awt.Color.decode("#4d090b")
-      //val cardStack =  CardPanel(4, 0, controller)
+      border = LineBorder(java.awt.Color.decode("#003366"), 10)
+      background = java.awt.Color.decode("#003366")
+      val cardStack =  CardPanel(4, 0, controller)
       contents += cardStack.card
       val playStack =  CardPanel(3, 0, controller)
       contents += playStack.card
       val unoCall = new Button()
       unoCall.icon = scaledImageIcon("src\\main\\Pics\\UNO-Button.png", 100, 100)
-      unoCall.background = java.awt.Color.decode("#4d090b")
-      unoCall.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+      unoCall.background = java.awt.Color.decode("#003366")
+      unoCall.border = LineBorder(java.awt.Color.decode("#003366"), 10)
       unoCall.horizontalAlignment = Alignment.Right
       contents += unoCall
       listenTo(unoCall)
@@ -60,8 +60,8 @@ class SwingGui(controller: controllerInterface) extends Frame :
 
 
     contents += new GridPanel(1, controller.playerList.head.playerCards.size + 1):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 10)
+      background = java.awt.Color.decode("#003366")
       var cards: List[BoxPanel] = List.empty
       for (i <- (1 to controller.playerList.head.playerCards.length))
         val cardPanel =  CardPanel(0, i - 1, controller)
@@ -69,8 +69,8 @@ class SwingGui(controller: controllerInterface) extends Frame :
       cards.map(x => x.visible = false)
 
       val showButton = new Button()
-      showButton.background = java.awt.Color.decode("#4d090b")
-      showButton.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+      showButton.background = java.awt.Color.decode("#003366")
+      showButton.border = LineBorder(java.awt.Color.decode("#003366"), 10)
       showButton.icon = scaledImageIcon("src\\main\\Pics\\Show.png", 100, 100)
       showButton.horizontalAlignment = Alignment.Right
 
@@ -88,21 +88,21 @@ class SwingGui(controller: controllerInterface) extends Frame :
       contents += showButton
 
     contents += new GridPanel(1, 4):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 10)
+      background = java.awt.Color.decode("#003366")
 
       val buttonGroup = new ButtonGroup
       val red = new RadioButton("")
-      red.background = java.awt.Color.decode("#4d090b")
+      red.background = java.awt.Color.decode("#003366")
       red.icon = scaledImageIcon("src\\main\\Pics\\Red_Radio.png", 70, 70)
       val blue = new RadioButton("")
-      blue.background = java.awt.Color.decode("#4d090b")
+      blue.background = java.awt.Color.decode("#003366")
       blue.icon = scaledImageIcon("src\\main\\Pics\\Blue_Radio.png", 70, 70)
       val green = new RadioButton("")
-      green.background = java.awt.Color.decode("#4d090b")
+      green.background = java.awt.Color.decode("#003366")
       green.icon = scaledImageIcon("src\\main\\Pics\\Green_Radio.png", 70, 70)
       val yellow = new RadioButton("")
-      yellow.background = java.awt.Color.decode("#4d090b")
+      yellow.background = java.awt.Color.decode("#003366")
       yellow.icon = scaledImageIcon("src\\main\\Pics\\Yellow_Radio.png", 70, 70)
       buttonGroup.buttons ++= List(red, blue, green, yellow)
       buttonGroup.select(red)
@@ -154,7 +154,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
             yellow.icon = scaledImageIcon("src\\main\\Pics\\Yellow_Radio.png", 70, 70)
       }
     contents += new GridPanel(2, 1):
-      background = java.awt.Color.decode("#4d090b")
+      background = java.awt.Color.decode("#003366")
       val label: Label = new Label:
         icon = scaledImageIcon("src\\main\\Pics\\Player" + controller.playerList.head.name +".png", 180, 70)
       label.horizontalAlignment = Alignment.Center
@@ -195,21 +195,21 @@ class SwingGui(controller: controllerInterface) extends Frame :
   def endGamePanel: GridPanel = new GridPanel(2, 1):
 
     contents += new GridPanel(2, 1):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 50)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 50)
+      background = java.awt.Color.decode("#003366")
 
       val winLabel = new Label("PLAYER " + controller.playerList.head.name.toUpperCase + ": YOU ARE WINNING!")
       winLabel.foreground = java.awt.Color.WHITE
-      winLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 50)
+      winLabel.font = new Font("Comic Sans MS", java.awt.Font.BOLD, 50)
       val againLabel = new Label("Play Again?")
       againLabel.foreground = java.awt.Color.WHITE
-      againLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 20)
+      againLabel.font = new Font("Comic Sans MS", java.awt.Font.BOLD, 20)
       contents += winLabel
       contents += againLabel
 
     contents += new GridPanel(1, 2):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 50)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 50)
+      background = java.awt.Color.decode("#003366")
 
       val yesButton = new Button("YES")
       val noButton = new Button("NO")
@@ -250,26 +250,26 @@ class SwingGui(controller: controllerInterface) extends Frame :
   def welcomePanel = new GridPanel(2, 1):
 
     contents += new GridPanel(1, 1):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 150)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 150)
+      background = java.awt.Color.decode("#003366")
 
       val WelcomeLabel = new Label("Welcome to UNO!")
       WelcomeLabel.foreground = java.awt.Color.WHITE
-      WelcomeLabel.font = new Font("Arial Black", java.awt.Font.BOLD, 120)
+      WelcomeLabel.font = new Font("Comic Sans MS", java.awt.Font.BOLD, 120)
       contents += WelcomeLabel
 
     contents += new GridPanel(1, 4):
-      border = LineBorder(java.awt.Color.decode("#4d090b"), 150)
-      background = java.awt.Color.decode("#4d090b")
+      border = LineBorder(java.awt.Color.decode("#003366"), 150)
+      background = java.awt.Color.decode("#003366")
 
       val enterButton = new Button()
-      enterButton.background = java.awt.Color.decode("#4d090b")
-      enterButton.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+      enterButton.background = java.awt.Color.decode("#003366")
+      enterButton.border = LineBorder(java.awt.Color.decode("#003366"), 10)
       enterButton.icon = scaledImageIcon("src\\main\\Pics\\Enter.png", 70, 70)
 
       val exitButton = new Button()
-      exitButton.background = java.awt.Color.decode("#4d090b")
-      exitButton.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
+      exitButton.background = java.awt.Color.decode("#003366")
+      exitButton.border = LineBorder(java.awt.Color.decode("#003366"), 10)
       exitButton.icon = scaledImageIcon("src\\main\\Pics\\Exit.png", 70, 70)
 
       contents += enterButton
