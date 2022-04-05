@@ -48,7 +48,7 @@ class TUI(controller: controllerInterface) extends Reactor:
   }
 
   // moved the methods down for better visibility in the switch loop
-  def case_r(is:Array[String]):String=
+/*  def case_r(is:Array[String]):String=
     if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
       controller.colorSet = is(2)
     if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
@@ -75,6 +75,41 @@ class TUI(controller: controllerInterface) extends Reactor:
       controller.getCard()
       controller.playerList = controller.playerList.reverse
       controller.getCard()
-      State.handle(toManyCardsEvent())
+      State.handle(toManyCardsEvent())*/
+
+
+  def case_u(is:Array[String]):String= unifiedcases("u") (is)
+  def case_r(is:Array[String]):String = unifiedcases("r") (is)
+
+  def unifiedcases(value:String)(is:Array[String]):String=
+    value match {
+      case "u"=>
+        controller.unoCall = true
+        if controller.playerList(0).playerCards.size.equals(2) then
+          controller.removeCard(is(1).toInt)
+          State.handle(callFirstUnoEvent(is(1).toInt), is(1).toInt)
+        else if controller.playerList(0).playerCards.size.equals(1) then
+          State.handle(callSecondUnoEvent())
+        else
+          controller.getCard()
+          controller.playerList = controller.playerList.reverse
+          controller.getCard()
+          State.handle(toManyCardsEvent())
+
+      case "r"=>
+        if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
+          controller.colorSet = is(2)
+        if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
+          controller.removeCard(is(1).toInt)
+          State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
+        else if !Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
+          State.handle(removeFalseCardEvent())
+        else
+          controller.removeCard(is(1).toInt)
+          controller.getCard()
+          controller.playerList = controller.playerList.reverse
+          controller.getCard()
+          State.handle(forgotCallUnoEvent())
+    }
 
 
