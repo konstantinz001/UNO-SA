@@ -10,6 +10,10 @@ import scala.swing.Reactor
 def print1: Unit =
   print(State.handle(gameStatsEvent()))
 
+enum Letter(val letter_string: String):
+  case U   extends Letter("u")
+  case R extends Letter("r")
+
 
 class TUI(controller: controllerInterface) extends Reactor:
   
@@ -78,8 +82,8 @@ class TUI(controller: controllerInterface) extends Reactor:
       State.handle(toManyCardsEvent())*/
 
 
-  def case_u(is:Array[String]):String= unifiedcases("u") (is)
-  def case_r(is:Array[String]):String = unifiedcases("r") (is)
+  def case_u(is:Array[String]):String= unifiedcases(Letter.U.letter_string) (is)
+  def case_r(is:Array[String]):String = unifiedcases(Letter.R.letter_string) (is)
 
   def unifiedcases(value:String)(is:Array[String]):String=
     value match {
