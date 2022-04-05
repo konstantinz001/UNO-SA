@@ -5,14 +5,22 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.fileIOComponent.FileIOTrait
 
-
 import java.io.{File, PrintWriter}
+import scala.util.{Failure, Success, Try}
 import scala.xml.{Elem, PrettyPrinter}
 
 class FileIO extends FileIOTrait:
+
   override def load: GameState =
-    val file = scala.xml.XML.loadFile("gamestate.xml")
-    GameState(setPlayerList(file), setPlayStack(file))
+    tryload match {
+      case Some(file: Elem) => GameState(setPlayerList(file), setPlayStack(file))
+      case None => throw new Exception("Spielstand konnte nicht geladen werden\n")
+    }
+
+  def tryload: Option[Elem] =
+    Try(scala.xml.XML.loadFile("gamestate.xml")) match
+      case Success(file) => Some(file)
+      case Failure(_) => None
 
   def setPlayerList (file: Elem) : List[Player] =
     val playerName = List((file \\ "gamestate" \ "playerName2").text, (file \\ "gamestate" \ "playerName1").text)

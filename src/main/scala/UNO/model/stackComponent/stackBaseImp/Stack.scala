@@ -3,7 +3,7 @@ package UNO.model.stackComponent.stackBaseImp
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.StackInterface
 
-import scala.util.Random
+import scala.util.{Failure, Random, Success, Try}
 
 case class Stack(stackCards: List[Card]) extends StackInterface:
   val green = List(Card(Number.Zero.name, Color.Green.name), Card(Number.One.name, Color.Green.name), Card(Number.Two.name, Color.Green.name), Card(Number.Three.name, Color.Green.name),
@@ -80,7 +80,15 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
   print("hehe",test.toString())
 
   def removeCard(): Stack =
-    copy(stackCards.tail)
+    tryremoveCard() match {
+      case Some(stack) => stack
+      case None => throw new Exception("Es konnte keine Karte entfernt werden!\n")
+    }
+
+  def tryremoveCard(): Option[Stack] =
+    Try(stackCards.tail) match
+      case Success(stackCardTail: List[Card]) => Some(copy(stackCardTail))
+      case Failure(_) => None
 
   def initStack():Stack=initstackcurry(yellow)(black)(blue)(red)(green)
 

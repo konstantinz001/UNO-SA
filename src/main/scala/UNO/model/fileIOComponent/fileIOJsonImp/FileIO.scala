@@ -5,16 +5,22 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.fileIOComponent.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
+import scala.util.{Failure, Success, Try}
 
 import scala.io.Source
 
 
 class FileIO extends FileIOTrait:
   override def load: GameState =
-    val file: String = Source.fromFile("gamestate.json").getLines.mkString
-    val json: JsValue = Json.parse(file)
-    GameState(setPlayerList(json), setPlayStack(json))
+    tryload match {
+      case Some(json: JsValue) => GameState(setPlayerList(json), setPlayStack(json))
+      case None => throw new Exception("Spielstand konnte nicht geladen werden\n")
+    }
 
+  def tryload: Option[JsValue] =
+    Try(Source.fromFile("gamestate.json").getLines.mkString) match
+      case Success(file) => Some(Json.parse(file))
+      case Failure(_) => None
 
 
   def setPlayerList (json: JsValue) : List[Player] =
@@ -29,29 +35,24 @@ class FileIO extends FileIOTrait:
       1, playerValue2, playerColor2)
 
     List(Player(playerName(0), cards1), Player(playerName(1), cards2))
-
-
-
+  
   def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] = {
     if((playerValueIndex.size-index) < 1) then
       newCard :: oldList
     else
       newCard :: returnList(Card(playerValueIndex(index), playerColorIndex(index)),oldList, index+1, playerValueIndex, playerColorIndex)
   }
-
-
-
-
-
+  
   def setPlayStack (json: JsValue) : List[Card] =
     List(Card((json \ "gameState" \ "playStackValue").as[String],
       (json \ "gameState" \ "playStackColor").as[String]))
 
   override def save(gameState: GameState): Unit =
     import java.io._
-    val pw = new PrintWriter(new File("gamestate.json"))
-    pw.write(Json.prettyPrint(gameStateToJson(gameState)))
-    pw.close
+    try 
+      val pw = new PrintWriter(new File("gamestate.json"))
+      pw.write(Json.prettyPrint(gameStateToJson(gameState)))
+      pw.close
 
   def gameStateToJson(gameState: GameState) =
     Json.obj(

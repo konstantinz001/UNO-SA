@@ -6,7 +6,7 @@ import UNO.model.cardComponent.cardBaseImp.Card
 import scala.util.{Failure, Success, Try}
 
 case class Player(name: String, playerCards: List[Card]) extends PlayerInterface:
-
+  
   override def toString: String =
     name + "\n" + playerCards + "\n"
 

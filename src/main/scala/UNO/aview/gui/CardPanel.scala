@@ -4,9 +4,11 @@ import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.util.{Strategy, removeCardEvent}
+
 import java.awt.Image
-import javax.swing.ImageIcon
-import scala.swing._
+import javax.swing.{ImageIcon, SwingConstants}
+import scala.swing.*
+import scala.swing.Swing.LineBorder
 import scala.swing.{BoxPanel, Button, FlowPanel, Orientation}
 
 
@@ -73,19 +75,23 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
         reactions += {
           case event.ButtonClicked(_) => controller.getCard()
         }
-    button.preferredSize_=(new Dimension(97, 100))
-    button.maximumSize_=(new Dimension(97, 100))
-    button.minimumSize_=(new Dimension(77, 80))
-    button.background = java.awt.Color.DARK_GRAY
+    button.preferredSize_=(new Dimension(97, 200))
+    button.maximumSize_=(new Dimension(97, 200))
+    button.minimumSize_=(new Dimension(77, 200))
+    button.background = java.awt.Color.decode("#4d090b")
     list match {
-      case 1 => button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 110, 100)
-      case 4 => button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 110, 100)
-      case 3 => button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 110, 100)
+      case 1 => button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 70, 100)
+      case 4 => button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 70, 100)
+      case 3 => button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
         if cardColor(mycard(), index) == "Black_" then
           button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
-            110, 100)
+            70, 100)
         controller.colorSet = ""
-      case _=> button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 110, 100)
+      case _=> button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
     }
+    button.horizontalAlignment = Alignment.Center
+    button.text = ""
+    button.background = java.awt.Color.decode("#4d090b")
+    button.border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
     contents += button
-    background = java.awt.Color.DARK_GRAY
+    background = java.awt.Color.decode("#4d090b")

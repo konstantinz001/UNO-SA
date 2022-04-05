@@ -1,6 +1,8 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
+import UNO.controller.controllerComponent.controllerBaseImp.updateStates
+
+import scala.util.{Failure, Success, Try}
 //import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.util.*
 import UNO.controller.controllerComponent.controllerInterface
@@ -53,8 +55,13 @@ class TUI(controller: controllerInterface) extends Reactor:
 
   // moved the methods down for better visibility in the switch loop
 /*  def case_r(is:Array[String]):String=
+
     if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
-      controller.colorSet = is(2)
+      //Try Monad
+      Try((List("blue", "red", "yellow", "green").filter(x => x.equals(is(2)))(0))) match
+        case Success(color: String) => Some(controller.colorSet = color)
+        case Failure(_) => println("Wrong Color!")
+
     if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
       controller.removeCard(is(1).toInt)
       State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
