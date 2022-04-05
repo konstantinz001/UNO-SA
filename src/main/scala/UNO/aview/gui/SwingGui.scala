@@ -22,9 +22,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
   peer.validate()
 
   def gamePanel: GridPanel = new GridPanel(5, 1) :
-    // closures??? bezüglich contents
-    val cardStack =  CardPanel(4, 0, controller)
-    val playStack =  CardPanel(3, 0, controller)
+
 
     contents += new GridPanel(1, controller.playerList(1).playerCards.size +1) :
       border = LineBorder(java.awt.Color.decode("#4d090b"), 10)
@@ -41,7 +39,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
       background = java.awt.Color.decode("#4d090b")
       //val cardStack =  CardPanel(4, 0, controller)
       contents += cardStack.card
-      //val playStack =  CardPanel(3, 0, controller)
+      val playStack =  CardPanel(3, 0, controller)
       contents += playStack.card
       val unoCall = new Button()
       unoCall.icon = scaledImageIcon("src\\main\\Pics\\UNO-Button.png", 100, 100)

@@ -45,7 +45,9 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   def initStackCard() : Stack =
     var stackCards =Stack(List(Card("",""))).initStack()
-    for(i <- (1 to 100))
+    // using range collection
+    val rangeIncl = Range.inclusive(1,100)
+    for(i <- rangeIncl)
       stackCards = stackCards.shuffleCards()
     stackCards
 
@@ -71,7 +73,10 @@ class controller @Inject() extends controllerInterface with Publisher:
     stackCard
 
 
-  def initPlayerList(): List[Player] =
+
+
+
+  def initPlayerList():List[Player] =
     var starthand = List(Card("",""))
     def startHand(): List[Card] =
       var starthand = List(Card("",""))
@@ -80,6 +85,8 @@ class controller @Inject() extends controllerInterface with Publisher:
         stackCard = stackCard.removeCard()
       starthand.init.reverse
     List(Player("1",startHand()),Player("2",startHand()))
+
+
 
 
 
@@ -95,14 +102,26 @@ class controller @Inject() extends controllerInterface with Publisher:
     unoCall = false
     publish(new updateStates)
 
-  def undoGet: Unit =
+/*  def undoGet: Unit =
     undoManager.undoStep()
-    publish(new updateStates)
+    publish(new updateStates)*/
+
+  def undoGet:Unit = undoredget(true)
+  def redoGet:Unit = undoredget(false)
 
 
-  def redoGet: Unit =
+/*  def redoGet: Unit =
     undoManager.redoStep()
-    publish(new updateStates)
+    publish(new updateStates)*/
+
+  def undoredget(value:Boolean):Unit=
+    if(value == true)
+      undoManager.undoStep()
+      publish(new updateStates)
+    else
+      undoManager.redoStep()
+      publish(new updateStates)
+
 
   override def save: Unit =
     fileIo.save(GameState(playerList, playStack2))
