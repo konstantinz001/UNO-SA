@@ -95,6 +95,3 @@ class TUI(controller: controllerInterface) extends Reactor:
           controller.getCard()
           State.handle(forgotCallUnoEvent())
     }
-
-
-

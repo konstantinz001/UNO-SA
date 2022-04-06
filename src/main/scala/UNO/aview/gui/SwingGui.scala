@@ -2,7 +2,6 @@ package UNO.aview.gui
 
 import UNO.controller.controllerComponent.controllerBaseImp.{endStates, updateStates}
 import UNO.controller.controllerComponent.controllerInterface
-
 import java.awt.{Color, Graphics, GraphicsEnvironment, Image, Toolkit}
 import java.io.File
 import javax.imageio.ImageIO
@@ -22,7 +21,6 @@ class SwingGui(controller: controllerInterface) extends Frame :
   peer.validate()
 
   def gamePanel: GridPanel = new GridPanel(5, 1) :
-
 
     contents += new GridPanel(1, controller.playerList(1).playerCards.size +1) :
       border = LineBorder(java.awt.Color.decode("#003366"), 10)

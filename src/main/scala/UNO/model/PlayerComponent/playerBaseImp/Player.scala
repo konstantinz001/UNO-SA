@@ -23,4 +23,3 @@ case class Player(name: String, playerCards: List[Card]) extends PlayerInterface
     Try(playerCards diff List(playerCards(index))) match
       case Success(list) => Some(copy(playerCards = list))
       case Failure(_) => None
-

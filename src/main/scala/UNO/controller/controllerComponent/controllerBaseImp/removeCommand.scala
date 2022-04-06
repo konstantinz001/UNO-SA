@@ -6,8 +6,7 @@ import UNO.util.Command
 
 
 class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command:
-
-
+  
   override def doStep(): Unit =
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
     cardDiff()
@@ -20,7 +19,6 @@ class RemoveCommand(handindex: Int, controller: controllerInterface) extends Com
         for(i <- (1 to 4))
           controller.stackCard = controller.stackCard.reversePullCards(List(controller.playerList(1).playerCards(0)))
           controller.playerList = List(controller.playerList(0), controller.playerList(1).removePlayerCards(0))
-
     else
       controller.playerList = List(controller.playerList(1).setPlayerCards(controller.playStack2(0)), controller.playerList(0))
       controller.playStack2 = controller.playStack2.tail
@@ -60,6 +58,3 @@ class RemoveCommand(handindex: Int, controller: controllerInterface) extends Com
         controller.playerList = controller.playerList.tail ::: List(controller.playerList.head) ::: Nil
       case _ =>
         controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(handindex))
-
-
-

@@ -5,17 +5,8 @@ import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 
 case class GameState(playerList: List[Player], playStack: List[Card]):
-
-  //def getplayerList(): List[Player] =
-  //  playerList
-
+  
   def getstackCard(): Stack =
     val stackCard = Stack(List(Card("",""))).initStack()
-    /*(1 to 100).foreach((i)=>{
-      stackCard = stackCard.shuffleCards()
-    })*/
     stackCard
-
-  //def getplayStack(): List[Card] =
-  //  playStack
 

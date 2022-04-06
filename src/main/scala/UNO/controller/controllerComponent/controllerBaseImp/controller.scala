@@ -25,8 +25,6 @@ class controller @Inject() extends controllerInterface with Publisher:
   var unoCall = false
   val five = 5
   val rangeIncl = Range.inclusive(1,100)
-  //val number_of_cards0 = Controller.playerList(0).playerCards.size
-  //val number_of_cards1 = Controller.playerList(1).playerCards.size
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -39,24 +37,17 @@ class controller @Inject() extends controllerInterface with Publisher:
     playerList = initPlayerList()
     playStack2 = initPlayStack()
     publish(new updateStates)
-
-  // simple function as parameter example
+  
   def returnplayerList():List[Player] =
     playerList
 
   def initStackCard() : Stack =
     var stackCards =Stack(List(Card("",""))).initStack()
-    // using range collection
     val rangeIncl = Range.inclusive(1,100)
     for(i <- rangeIncl)
       stackCards = stackCards.shuffleCards()
     stackCards
-
-  //def howmanycards() : Int =
-  //  val addition: Int => Int => Int = x => y => x + y
-    //closure + currying
-  //  addition(number_of_cards0)(number_of_cards1)
-
+    
 
   def initPlayStack() : List[Card] =
     while stackCard.getCardFromStack().color == "black"
@@ -72,11 +63,8 @@ class controller @Inject() extends controllerInterface with Publisher:
       for (i <- rangeIncl)
         stackCard = stackCard.shuffleCards()
     stackCard
-
-
-
-
-
+    
+    
   def initPlayerList():List[Player] =
     var starthand = List(Card("",""))
     def startHand(): List[Card] =
@@ -86,11 +74,8 @@ class controller @Inject() extends controllerInterface with Publisher:
         stackCard = stackCard.removeCard()
       starthand.init.reverse
     List(Player("1",startHand()),Player("2",startHand()))
-
-
-
-
-
+  
+  
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   def getCard(): Unit =
     stackCard = stackEmpty()
@@ -103,18 +88,11 @@ class controller @Inject() extends controllerInterface with Publisher:
     unoCall = false
     publish(new updateStates)
 
-/*  def undoGet: Unit =
-    undoManager.undoStep()
-    publish(new updateStates)*/
 
   def undoGet:Unit = undoredget(true)
   def redoGet:Unit = undoredget(false)
 
-
-/*  def redoGet: Unit =
-    undoManager.redoStep()
-    publish(new updateStates)*/
-
+  
   def undoredget(value:Boolean):Unit=
     if(value == true)
       undoManager.undoStep()
