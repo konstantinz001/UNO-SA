@@ -24,6 +24,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var colorSet = ""
   var unoCall = false
   val five = 5
+  val rangeIncl = Range.inclusive(1,100)
   //val number_of_cards0 = Controller.playerList(0).playerCards.size
   //val number_of_cards1 = Controller.playerList(1).playerCards.size
 
@@ -65,10 +66,10 @@ class controller @Inject() extends controllerInterface with Publisher:
     List(stackCard.getCardFromStack())
 
   def stackEmpty(): Stack =
-    // closure is a function which uses one or more variables declared outside the function
     if stackCard.stackCards.length <= five then
       stackCard = stackCard.reversePullCards(playStack2).shuffleCards()
-      for (i <- (1 to 100))
+      val rangeIncl = Range.inclusive(1,100)
+      for (i <- rangeIncl)
         stackCard = stackCard.shuffleCards()
     stackCard
 

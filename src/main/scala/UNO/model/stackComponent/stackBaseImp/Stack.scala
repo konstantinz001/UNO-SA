@@ -49,6 +49,10 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
     case CSwitch extends Special("ColorSwitch")
     case CSwitchPlusFour extends Special("4+ ColorSwitch")
 
+  enum Unifiedenum(val letter_string: String):
+    case nonreverse   extends Unifiedenum("nonreverse")
+    case reverse extends Unifiedenum("reverse")
+
 
  // kürzer macchen
   //def initStack(): Stack =
@@ -91,8 +95,9 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
   def initStack():Stack=initstackcurry(yellow)(black)(blue)(red)(green)
 
 
-  def pullCards(playerStack:List[Card]): Stack = unified("nonreverse") (playerStack)
-  def reversePullCards(playerStack:List[Card]):Stack = unified("reverse") (playerStack)
+
+  def pullCards(playerStack:List[Card]): Stack = unified(Unifiedenum.nonreverse.letter_string) (playerStack)
+  def reversePullCards(playerStack:List[Card]):Stack = unified(Unifiedenum.reverse.letter_string) (playerStack)
 
   def unified(value:String)(playerStack:List[Card]):Stack=
     value match

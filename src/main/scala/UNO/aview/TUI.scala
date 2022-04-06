@@ -1,9 +1,7 @@
 package UNO.aview
 
 import UNO.controller.controllerComponent.controllerBaseImp.updateStates
-
 import scala.util.{Failure, Success, Try}
-//import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
 import UNO.util.*
 import UNO.controller.controllerComponent.controllerInterface
 import scala.swing.Reactor
@@ -13,7 +11,7 @@ def print1: Unit =
   print(State.handle(gameStatsEvent()))
 
 enum Letter(val letter_string: String):
-  case U   extends Letter("u")
+  case U extends Letter("u")
   case R extends Letter("r")
 
 
@@ -53,41 +51,6 @@ class TUI(controller: controllerInterface) extends Reactor:
     case event: updateStates => print1
   }
 
-  // moved the methods down for better visibility in the switch loop
-/*  def case_r(is:Array[String]):String=
-
-    if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
-      //Try Monad
-      Try((List("blue", "red", "yellow", "green").filter(x => x.equals(is(2)))(0))) match
-        case Success(color: String) => Some(controller.colorSet = color)
-        case Failure(_) => println("Wrong Color!")
-
-    if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
-      controller.removeCard(is(1).toInt)
-      State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
-    else if !Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
-      State.handle(removeFalseCardEvent())
-    else
-      controller.removeCard(is(1).toInt)
-      controller.getCard()
-      controller.playerList = controller.playerList.reverse
-      controller.getCard()
-      State.handle(forgotCallUnoEvent())
-
-
-  def case_u(is:Array[String]):String =
-    controller.unoCall = true
-    if controller.playerList(0).playerCards.size.equals(2) then
-      controller.removeCard(is(1).toInt)
-      State.handle(callFirstUnoEvent(is(1).toInt), is(1).toInt)
-    else if controller.playerList(0).playerCards.size.equals(1) then
-      State.handle(callSecondUnoEvent())
-    else
-      controller.getCard()
-      controller.playerList = controller.playerList.reverse
-      controller.getCard()
-      State.handle(toManyCardsEvent())*/
-
 
   def case_u(is:Array[String]):String= unifiedcases(Letter.U.letter_string) (is)
   def case_r(is:Array[String]):String = unifiedcases(Letter.R.letter_string) (is)
@@ -118,7 +81,7 @@ class TUI(controller: controllerInterface) extends Reactor:
           tryColorSwitch(is(2)) match
             case Some(color: String) => controller.colorSet = color
             //case None => throw new Exception("Color could not change!\n")
-            case None => println("Color could not change!\n")
+            case None => "Color could not change!\n"
 
         if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
           controller.removeCard(is(1).toInt)
