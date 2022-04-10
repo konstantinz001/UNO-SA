@@ -3,7 +3,7 @@ package UNO
 import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
 import controller.controllerComponent._
-import UNO.model.fileIOComponent._
+import UNO.model.fileIO._
 
 class UnoGameModule extends AbstractModule:
 

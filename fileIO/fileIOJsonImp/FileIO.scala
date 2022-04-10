@@ -1,4 +1,4 @@
-package UNO.model.fileIOComponent.fileIOJsonImp
+package UNO.model.fileIO.fileIOJsonImp
 
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
