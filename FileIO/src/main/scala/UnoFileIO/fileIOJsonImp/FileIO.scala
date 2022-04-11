@@ -1,12 +1,13 @@
-package UNO.model.fileIOComponent.fileIOJsonImp
+package UnoFileIO.fileIOJsonImp
 
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.fileIOComponent.FileIOTrait
+import UnoFileIO.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
 
 import scala.io.Source
+
 
 
 class FileIO extends FileIOTrait:
@@ -37,7 +38,7 @@ class FileIO extends FileIOTrait:
       (json \ "gameState" \ "playStackColor").as[String]))
 
   override def save(gameState: GameState): Unit =
-    import java.io._
+    import java.io.*
     val pw = new PrintWriter(new File("gamestate.json"))
     pw.write(Json.prettyPrint(gameStateToJson(gameState)))
     pw.close

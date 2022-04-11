@@ -1,10 +1,9 @@
-package UNO.model.fileIOComponent.fileIOXmlImp
+package UnoFileIO.fileIOXmlImp
 
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.fileIOComponent.FileIOTrait
-
+import UnoFileIO.FileIOTrait
 
 import java.io.{File, PrintWriter}
 import scala.xml.{Elem, PrettyPrinter}

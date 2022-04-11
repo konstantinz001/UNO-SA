@@ -7,8 +7,8 @@ import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.stackComponent.stackBaseImp.Stack
 import UNO.util.UndoManager
-import UNO.model.fileIOComponent.FileIOTrait
-import UNO.model.fileIOComponent.fileIOJsonImp.FileIO
+import UnoFileIO.FileIOTrait
+import UnoFileIO.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import scala.swing.Publisher
