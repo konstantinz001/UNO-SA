@@ -1,6 +1,6 @@
 package UNO.aview.gui
 
-import UNO.controller.controllerComponent.controllerBaseImp.{endStates, updateStates}
+import UNO.controller.controllerComponent.controllerBaseImp._
 import UNO.controller.controllerComponent.controllerInterface
 import java.awt.{Color, Graphics, GraphicsEnvironment, Image, Toolkit}
 import java.io.File
@@ -16,8 +16,8 @@ class SwingGui(controller: controllerInterface) extends Frame :
   listenTo(controller)
   title = " UNO Game"
   peer.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()))
-  peer.setResizable(false)
-  peer.setUndecorated(true);
+  //peer.setResizable(false)
+  //peer.setUndecorated(true);
   peer.validate()
 
   def gamePanel: GridPanel = new GridPanel(5, 1) :
@@ -278,27 +278,61 @@ class SwingGui(controller: controllerInterface) extends Frame :
       listenTo(enterButton, exitButton)
       reactions += {
         case ButtonClicked(`enterButton`) =>
-          redraw
+          redrawGame
         case ButtonClicked(`exitButton`) =>
           System.exit(0)
       }
 
+  def instructionPanel(labelMessage: String) = new GridPanel(1, 1):
 
-  def redraw: Unit =
+    contents += new GridPanel(1, 1):
+      border = LineBorder(java.awt.Color.decode("#003366"), 150)
+      background = java.awt.Color.decode("#003366")
+
+      val WelcomeLabel = new Label(labelMessage)
+      WelcomeLabel.foreground = java.awt.Color.WHITE
+      WelcomeLabel.font = new Font("Comic Sans MS", java.awt.Font.BOLD, 25)
+
+      val okButton = new Button()
+      okButton.background = java.awt.Color.decode("#003366")
+      okButton.border = LineBorder(java.awt.Color.decode("#003366"), 10)
+      okButton.icon = scaledImageIcon("src\\main\\Pics\\OKAY.png", 70, 70)
+
+      contents += WelcomeLabel
+      contents += okButton
+
+      listenTo(okButton)
+      reactions += {
+        case ButtonClicked(`okButton`) =>
+          redrawGame
+      }
+
+  def redrawGame: Unit =
     contents = new BorderPanel:
       add(gamePanel, BorderPanel.Position.Center)
 
-  def redraw2: Unit =
+  def redrawWinning: Unit =
     contents = new BorderPanel:
       add(endGamePanel, BorderPanel.Position.Center)
 
-  def redraw3: Unit =
+  def redrawMessageLoad: Unit =
     contents = new BorderPanel:
-      add(welcomePanel, BorderPanel.Position.Center)
+      add(instructionPanel("Your Gamestate was loaded!"), BorderPanel.Position.Center)
+
+  def redrawMessageSave: Unit =
+    contents = new BorderPanel:
+      add(instructionPanel("Your Gamestate was saved!"), BorderPanel.Position.Center)
+
+  def redrawFailure: Unit =
+    contents = new BorderPanel:
+      add(instructionPanel("Your Instruction could not served!"), BorderPanel.Position.Center)
 
   reactions += {
-    case event: updateStates => redraw
-    case event: endStates => redraw2
+    case event: updateStates => redrawGame
+    case event: saveStates => redrawMessageSave
+    case event: loadStates => redrawMessageLoad
+    case event: endStates => redrawWinning
+    case event: failureStates => redrawFailure
   }
 
   visible = true

@@ -1,6 +1,7 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
+import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.*
 import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
@@ -11,6 +12,7 @@ import UNO.model.fileIOComponent.FileIOTrait
 import UNO.model.fileIOComponent.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
+
 import scala.swing.Publisher
 
 
@@ -104,11 +106,15 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   override def save: Unit =
     fileIo.save(GameState(playerList, playStack2))
+    publish(new saveStates)
 
 
   override def load: Unit =
-    gameState = fileIo.load(GameState(playerList, playStack2))
-    playerList = gameState.playerList
-    stackCard = gameState.getstackCard()
-    playStack2 = gameState.playStack
-    publish(new updateStates)
+    gameState = fileIo.load
+    if(gameState.playerList == List.empty && gameState.playStack == List.empty) then
+      publish(new failureStates)
+    else
+      playerList = gameState.playerList
+      stackCard = gameState.getstackCard()
+      playStack2 = gameState.playStack
+      publish(new loadStates)

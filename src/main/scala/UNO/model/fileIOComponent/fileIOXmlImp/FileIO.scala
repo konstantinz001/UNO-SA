@@ -11,11 +11,11 @@ import scala.xml.{Elem, PrettyPrinter}
 
 class FileIO extends FileIOTrait:
 
-  override def load(gameState: GameState): GameState =
-    tryload match
+  override def load: GameState =
+    tryload match {
       case Some(file: Elem) => GameState(setPlayerList(file), setPlayStack(file))
-      case None => gameState
-
+      case None => GameState(List.empty,List.empty)
+    }
 
   def tryload: Option[Elem] =
     Try(scala.xml.XML.loadFile("gamestate.xml")) match
@@ -35,11 +35,12 @@ class FileIO extends FileIOTrait:
     List(Player(playerName(1), cards1), Player(playerName(0), cards2))
 
 
-  def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] =
+  def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] = {
     if((playerValueIndex.size-index) < 1) then
       newCard :: oldList
     else
       newCard :: returnList(Card(playerValueIndex(index), playerColorIndex(index)),oldList, index+1, playerValueIndex, playerColorIndex)
+  }
 
   def setPlayStack (file: Elem) : List[Card] =
     List(Card((file \\ "gamestate" \ "playStack" \ "playStackValue").text.trim,

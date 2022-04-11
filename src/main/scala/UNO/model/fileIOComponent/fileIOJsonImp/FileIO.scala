@@ -11,11 +11,11 @@ import scala.io.Source
 
 
 class FileIO extends FileIOTrait:
-  override def load(gameState: GameState): GameState =
-    tryload match
+  override def load: GameState =
+    tryload match {
       case Some(json: JsValue) => GameState(setPlayerList(json), setPlayStack(json))
-      case None => gameState
-
+      case None => GameState(List.empty,List.empty)
+    }
 
   def tryload: Option[JsValue] =
     Try(Source.fromFile("gamestate.json").getLines.mkString) match
@@ -36,11 +36,12 @@ class FileIO extends FileIOTrait:
 
     List(Player(playerName(0), cards1), Player(playerName(1), cards2))
   
-  def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] =
+  def returnList (newCard : Card, oldList: List[Card], index : Int, playerValueIndex: List[String], playerColorIndex: List[String]) : List[Card] = {
     if((playerValueIndex.size-index) < 1) then
       newCard :: oldList
     else
       newCard :: returnList(Card(playerValueIndex(index), playerColorIndex(index)),oldList, index+1, playerValueIndex, playerColorIndex)
+  }
   
   def setPlayStack (json: JsValue) : List[Card] =
     List(Card((json \ "gameState" \ "playStackValue").as[String],
