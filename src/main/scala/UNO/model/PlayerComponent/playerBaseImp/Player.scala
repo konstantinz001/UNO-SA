@@ -16,7 +16,7 @@ case class Player(name: String, playerCards: List[Card]) extends PlayerInterface
   def removePlayerCards(index: Int): Player =
     tryRemovePlayerCards(index) match {
       case Some(player) => player
-      case None => throw new Exception("Es konnte keine Karte ausgewählt werden!\n")
+      case None => Player(name,playerCards)
     }
 
   def tryRemovePlayerCards(index: Int): Option[Player] =

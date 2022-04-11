@@ -107,7 +107,7 @@ class controller @Inject() extends controllerInterface with Publisher:
 
 
   override def load: Unit =
-    gameState = fileIo.load
+    gameState = fileIo.load(GameState(playerList, playStack2))
     playerList = gameState.playerList
     stackCard = gameState.getstackCard()
     playStack2 = gameState.playStack

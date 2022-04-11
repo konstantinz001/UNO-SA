@@ -63,7 +63,7 @@ case class Stack(stackCards: List[Card]) extends StackInterface:
   def removeCard(): Stack =
     tryremoveCard() match {
       case Some(stack) => stack
-      case None => throw new Exception("Es konnte keine Karte entfernt werden!\n")
+      case None => Stack(stackCards)
     }
 
   def tryremoveCard(): Option[Stack] =
