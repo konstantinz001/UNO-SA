@@ -16,8 +16,8 @@ class SwingGui(controller: controllerInterface) extends Frame :
   listenTo(controller)
   title = " UNO Game"
   peer.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()))
-  //peer.setResizable(false)
-  //peer.setUndecorated(true);
+  peer.setResizable(false)
+  peer.setUndecorated(true);
   peer.validate()
 
   def gamePanel: GridPanel = new GridPanel(5, 1) :
