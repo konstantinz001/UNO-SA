@@ -58,7 +58,7 @@ class TUI(controller: controllerInterface) extends Reactor:
   def tryColorSwitch(is_2 : String) :  Option[String] =
     Try((List("blue", "red", "yellow", "green").filter(x => x.equals(is_2))(0))) match
       case Success(color: String) => Some(color)
-      case Failure(_) => None
+      case Failure(_) => "False input"
 
   def unifiedcases(value:String)(is:Array[String]):String=
     value match {

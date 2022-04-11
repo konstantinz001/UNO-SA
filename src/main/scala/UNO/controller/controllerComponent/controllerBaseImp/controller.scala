@@ -13,6 +13,7 @@ import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import scala.swing.Publisher
 import scala.util.{Success, Failure}
+import UNO.controller.controllerComponent.GameStatus._
 
 
 
@@ -26,6 +27,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var unoCall = false
   val five = 5
   val rangeIncl = Range.inclusive(1,100)
+  var gameStatus: GameStatus = IDLE
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -122,17 +124,18 @@ class controller @Inject() extends controllerInterface with Publisher:
     gameState match {
       case Success(option) =>
         option.match {
-          case Some(things) =>
-            val(playerliste,playstackonthefield) = things
-            print(things._1)
+          case Some(lists) =>
+            val(playerliste,playstackonthefield) = lists
             playerList = playerliste
             playStack2 = playstackonthefield
-            print("hehe")
+            gameStatus = LOADED
             "load success"
           case None=>
+            gameStatus = COULD_NOT_LOAD
             "load not success"
         }
       case Failure(e) =>
+        gameStatus = COULD_NOT_LOAD
         "load not success"
     }
     publish(new updateStates)
