@@ -4,17 +4,35 @@ import UNO.model.GameState
 import UNO.model.PlayerComponent.playerBaseImp.Player
 import UNO.model.cardComponent.cardBaseImp.Card
 import UNO.model.fileIOComponent.FileIOTrait
+import play.api.libs.json.{JsValue, Json}
 
 import java.io.{File, PrintWriter}
+import scala.io.Source
 import scala.util.{Failure, Success, Try}
 import scala.xml.{Elem, PrettyPrinter}
 
 class FileIO extends FileIOTrait:
 
-  override def load: GameState =
-    tryload match {
-      case Some(file: Elem) => GameState(setPlayerList(file), setPlayStack(file))
-      case None => throw new Exception("Spielstand konnte nicht geladen werden\n")
+  /*override def load: GameState = {
+    val file = scala.xml.XML.loadFile("gamestate.xml")
+    GameState(setPlayerList(file), setPlayStack(file))
+  }*/
+
+  override def load:Try[Option[(List[Player],List[Card])]]=
+    var matchFieldOption: Option[(List[Player],List[Card])] = None
+    Try{
+      val file = scala.xml.XML.loadFile("gamestate.xml")
+      matchFieldOption = Some((List[Player](),List[Card]()))
+      matchFieldOption match {
+        case Some((playList,playStack2))=>
+          var newplaylist = playList
+          var newplaystack2 = playStack2
+          newplaylist = setPlayerList(file)
+          newplaystack2= setPlayStack(file)
+          matchFieldOption = Some((newplaylist,newplaystack2))
+        case None=>
+      }
+      matchFieldOption
     }
 
   def tryload: Option[Elem] =

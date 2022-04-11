@@ -11,7 +11,32 @@ import scala.io.Source
 
 
 class FileIO extends FileIOTrait:
-  override def load: GameState =
+
+  /*override def load: GameState = {
+    val file: String = Source.fromFile("gamestate.json").getLines.mkString
+    val json: JsValue = Json.parse(file)
+    GameState(setPlayerList(json), setPlayStack(json))
+  }*/
+
+  override def load:Try[Option[(List[Player],List[Card])]]=
+    var matchFieldOption: Option[(List[Player],List[Card])] = None
+    Try{
+      val file: String = Source.fromFile("gamestate.json").getLines.mkString
+      val json: JsValue = Json.parse(file)
+      matchFieldOption = Some((List[Player](),List[Card]()))
+      matchFieldOption match {
+        case Some((playList,playStack2))=>
+          var newplaylist = playList
+          var newplaystack2 = playStack2
+          newplaylist = setPlayerList(json)
+          newplaystack2= setPlayStack(json)
+          matchFieldOption = Some((newplaylist,newplaystack2))
+        case None=>
+      }
+      matchFieldOption
+    }
+
+/*  override def load: GameState =
     tryload match {
       case Some(json: JsValue) => GameState(setPlayerList(json), setPlayStack(json))
       case None => throw new Exception("Spielstand konnte nicht geladen werden\n")
@@ -20,7 +45,7 @@ class FileIO extends FileIOTrait:
   def tryload: Option[JsValue] =
     Try(Source.fromFile("gamestate.json").getLines.mkString) match
       case Success(file) => Some(Json.parse(file))
-      case Failure(_) => None
+      case Failure(_) => None*/
 
 
   def setPlayerList (json: JsValue) : List[Player] =
@@ -47,12 +72,12 @@ class FileIO extends FileIOTrait:
     List(Card((json \ "gameState" \ "playStackValue").as[String],
       (json \ "gameState" \ "playStackColor").as[String]))
 
-  override def save(gameState: GameState): Unit =
+  override def save(gameState: GameState): Unit = {
     import java.io._
-    try 
-      val pw = new PrintWriter(new File("gamestate.json"))
-      pw.write(Json.prettyPrint(gameStateToJson(gameState)))
-      pw.close
+    val pw = new PrintWriter(new File("gamestate.json"))
+    pw.write(Json.prettyPrint(gameStateToJson(gameState)))
+    pw.close
+  }
 
   def gameStateToJson(gameState: GameState) =
     Json.obj(

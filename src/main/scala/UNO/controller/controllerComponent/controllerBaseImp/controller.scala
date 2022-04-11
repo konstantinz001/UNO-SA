@@ -12,6 +12,7 @@ import UNO.model.fileIOComponent.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import scala.swing.Publisher
+import scala.util.{Success, Failure}
 
 
 
@@ -106,9 +107,33 @@ class controller @Inject() extends controllerInterface with Publisher:
     fileIo.save(GameState(playerList, playStack2))
 
 
-  override def load: Unit =
+
+  /*override def load: Unit =
     gameState = fileIo.load
     playerList = gameState.playerList
+    print(gameState.playerList)
     stackCard = gameState.getstackCard()
     playStack2 = gameState.playStack
+    publish(new updateStates)*/
+
+
+  override def load:String=
+    val gameState = fileIo.load
+    gameState match {
+      case Success(option) =>
+        option.match {
+          case Some(things) =>
+            val(playerliste,playstackonthefield) = things
+            print(things._1)
+            playerList = playerliste
+            playStack2 = playstackonthefield
+            print("hehe")
+            "load success"
+          case None=>
+            "load not success"
+        }
+      case Failure(e) =>
+        "load not success"
+    }
     publish(new updateStates)
+    "load"
