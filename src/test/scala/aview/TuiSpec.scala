@@ -18,13 +18,13 @@ class TuiSpec extends AnyWordSpec with Matchers {
 
       tui_Test.processInputLine("u 0") should be(State.handle(toManyCardsEvent()))
 
-      tui_Test.processInputLine("undo") should be ("undo")
+      tui_Test.processInputLine("undo") should be ("UNDO")
 
-      tui_Test.processInputLine("redo") should be ("redo")
+      tui_Test.processInputLine("redo") should be ("REDO")
 
-      tui_Test.processInputLine("load") should be ("Loading Game!")
+      tui_Test.processInputLine("load") should be ("LOADED")
 
-      tui_Test.processInputLine("save") should be ("Saved Game!")
+      tui_Test.processInputLine("save") should be ("SAVED")
 
       tui_Test.processInputLine("whatever") should be ("Wrong command!")
 

@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 import UNO.UnoGame.Controller
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerBaseImp.controller
-import UNO.util.{callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, instructionEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
+import UNO.util.{callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, instructionEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent, wrongIndexEvent}
 
 class EventSpec extends AnyWordSpec with Matchers {
   "Event" should {
@@ -62,5 +62,11 @@ class EventSpec extends AnyWordSpec with Matchers {
       forgotCallUnoEvent should contain
       (" ")
     }
+
+    "wrongIndexEvent" in {
+      wrongIndexEvent should contain
+      (" ")
+    }
+
   }
 }
