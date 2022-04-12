@@ -22,4 +22,3 @@ object State:
       case h: exitGameEvent => state = exitGameEvent().exitGame
       case i: forgotCallUnoEvent => state = forgotCallUnoEvent().forgotCallUno
     state
-  

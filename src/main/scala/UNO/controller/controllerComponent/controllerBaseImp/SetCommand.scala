@@ -11,11 +11,10 @@ class SetCommand(controller: controllerInterface) extends Command:
 
 
   override def undoStep(): Unit =
-    controller.stackCard = controller.stackCard.pullCards(List(controller.playerList(1).playerCards(0)))
     controller.playerList = List(controller.playerList(1).removePlayerCards(0), controller.playerList(0))
+    controller.stackCard = controller.stackCard.pullCards(List(controller.playerList(1).playerCards(0)))
 
 
   override def redoStep(): Unit =
     controller.playerList = List(controller.playerList(1), controller.playerList(0).setPlayerCards(controller.stackCard.getCardFromStack()))
     controller.stackCard = controller.stackCard.removeCard()
-

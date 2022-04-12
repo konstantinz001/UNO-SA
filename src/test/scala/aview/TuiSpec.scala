@@ -21,17 +21,15 @@ class TuiSpec extends AnyWordSpec with Matchers {
 
       tui_Test.processInputLine("undo") should be ("undo")
 
-      //tui_Test.processInputLine("redo") should be ("redo")
+      tui_Test.processInputLine("redo") should be ("redo")
 
-      //tui_Test.processInputLine("load") should be ("Loading Game!")
+      tui_Test.processInputLine("load") should be ("Loading Game!")
 
-      //tui_Test.processInputLine("save") should be ("Saved Game!")
+      tui_Test.processInputLine("save") should be ("Saved Game!")
 
-      //tui_Test.processInputLine("whatever") should be ("Wrong command!")
+      tui_Test.processInputLine("whatever") should be ("Wrong command!")
 
-      //print1 should be (println(State.handle(gameStatsEvent())))
-
-      /*for(i <- (1 to 100)) {
+      for(i <- (1 to 10)) {
         if(controller_test.playerList(0).playerCards(0).color == "black") {
           tui_Test.processInputLine("s")
         }
@@ -42,8 +40,8 @@ class TuiSpec extends AnyWordSpec with Matchers {
             or
             be(State.handle(forgotCallUnoEvent())))
         tui_Test.processInputLine("s")
-      }*/
-      //tui_Test.processInputLine("q") should be(State.handle(exitGameEvent()))
+      }
+      tui_Test.processInputLine("q") should be(State.handle(exitGameEvent()))
     }
   }
 }

@@ -2,7 +2,7 @@ package controller
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import UNO.UnoGame.injector
+//import UNO.UnoGame.injector
 import UNO.UnoGameModule
 import UNO.controller.controllerComponent.controllerInterface
 import UnoPlayer.playerBaseImp.Player
