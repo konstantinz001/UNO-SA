@@ -1,8 +1,8 @@
-package model
+package UnoCards
 
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
 import UnoCards.cardBaseImp.Card
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class CardSpec extends AnyWordSpec with Matchers {
   "A Card" when {

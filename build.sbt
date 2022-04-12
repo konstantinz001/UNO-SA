@@ -1,9 +1,6 @@
-lazy val gamestate = project in file("Gamestate")
-lazy val card = project in file("Cards")
-lazy val player = project in file("Player")
-lazy val stack = project in file("Stack")
-lazy val fileIo = project in file("FileIO")
-lazy val root = (project in file(".")).aggregate(fileIo)
+lazy val root = (project in file(".")).aggregate(persistenceModel).dependsOn(gameModel, persistenceModel)
+lazy val gameModel = (project in file("GameModel"))
+lazy val persistenceModel = (project in file("PersistenceModel")).dependsOn(gameModel)
 
 name := "UNO"
 version := "0.1"

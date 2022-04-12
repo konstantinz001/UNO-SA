@@ -1,10 +1,9 @@
-package model
+package UnoGameState
 
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
-import UNO.model.GameState
-import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class GameStateSpec extends AnyWordSpec with Matchers {
 
