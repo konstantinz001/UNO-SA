@@ -3,6 +3,7 @@ package UNO.controller.controllerComponent.controllerBaseImp
 import UNO.UnoGameModule
 import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.*
+import UNO.controller.controllerComponent.GameStatus._
 import UnoGameState.GameState
 import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
@@ -14,6 +15,7 @@ import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 
 import scala.swing.Publisher
+import scala.util.{Failure, Success}
 
 
 
@@ -27,6 +29,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var unoCall = false
   val five = 5
   val rangeIncl = Range.inclusive(1,100)
+  var gameStatus: GameStatus = IDLE
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -98,23 +101,33 @@ class controller @Inject() extends controllerInterface with Publisher:
   def undoredget(value:Boolean):Unit=
     if(value == true)
       undoManager.undoStep()
+      gameStatus = UNDO
       publish(new updateStates)
     else
       undoManager.redoStep()
+      gameStatus = REDO
       publish(new updateStates)
 
 
   override def save: Unit =
     fileIo.save(GameState(playerList, playStack2))
+    gameStatus = SAVED
     publish(new saveStates)
 
-
-  override def load: Unit =
-    gameState = fileIo.load
-    if(gameState.playerList == List.empty && gameState.playStack == List.empty) then
-      publish(new failureStates)
-    else
-      playerList = gameState.playerList
-      stackCard = gameState.getstackCard()
-      playStack2 = gameState.playStack
-      publish(new loadStates)
+  override def load:Unit=
+    val gameState = fileIo.load
+    gameState match {
+      case Success(option) =>
+        option.match {
+          case Some(things) =>
+            val(playerliste,playstackonthefield) = things
+            playerList = playerliste
+            playStack2 = playstackonthefield
+            gameStatus = LOADED
+            publish(new loadStates)
+          case None=>
+        }
+      case Failure(e) =>
+        gameStatus = COULD_NOT_LOAD
+        publish(new failureStates)
+    }

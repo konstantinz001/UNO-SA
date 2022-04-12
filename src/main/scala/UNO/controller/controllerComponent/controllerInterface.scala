@@ -1,5 +1,6 @@
 package UNO.controller.controllerComponent
 
+import UNO.controller.controllerComponent.GameStatus.GameStatus
 import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
 import UnoStack.stackBaseImp.Stack
@@ -8,6 +9,7 @@ import scala.swing.Publisher
 
 
 trait controllerInterface extends Publisher:
+  var gameStatus: GameStatus
   var playername1: String
   var playername2 : String
   var stackCard: Stack

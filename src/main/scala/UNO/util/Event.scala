@@ -59,3 +59,7 @@ case class forgotCallUnoEvent() extends Event:
   def forgotCallUno:String =
     "\nYou have forgot to Call UNO\n" +
       "\n--Handcards:\t" + Controller.playerList(1).playerCards + "\n"
+
+case class wrongIndexEvent() extends Event:
+  def worngIndex:String =
+    "\nYou have set the wrong Index\n"

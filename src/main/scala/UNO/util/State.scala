@@ -21,4 +21,5 @@ object State:
       case g: gameStatsEvent => state = gameStatsEvent().gameStats
       case h: exitGameEvent => state = exitGameEvent().exitGame
       case i: forgotCallUnoEvent => state = forgotCallUnoEvent().forgotCallUno
+      case j: wrongIndexEvent => state = wrongIndexEvent().worngIndex
     state

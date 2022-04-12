@@ -7,11 +7,34 @@ import UnoFileIO.FileIOTrait
 
 import java.io.{File, PrintWriter}
 import scala.xml.{Elem, PrettyPrinter}
+import scala.util.{Failure, Success, Try}
 
 class FileIO extends FileIOTrait:
-  override def load: GameState =
-    val file = scala.xml.XML.loadFile("gamestate.xml")
-    GameState(setPlayerList(file), setPlayStack(file))
+
+  override def load:Try[Option[(List[Player],List[Card])]]=
+    var matchFieldOption: Option[(List[Player],List[Card])] = None
+    Try{
+      val file = scala.xml.XML.loadFile("gamestate.xml")
+      matchFieldOption = Some((List[Player](),List[Card]()))
+      matchFieldOption match {
+        case Some((playList,playStack2))=>
+          var newplaylist = playList
+          var newplaystack2 = playStack2
+          newplaylist = setPlayerList(file)
+          newplaystack2= setPlayStack(file)
+          matchFieldOption = Some((newplaylist,newplaystack2))
+        case None=>
+      }
+      matchFieldOption
+    }
+
+  override def save(gameState: GameState): Unit =
+    val pw = new PrintWriter(new File("gamestate.xml"))
+    val prettyPrinter = new PrettyPrinter(200,4)
+    val xml = prettyPrinter.format(gameStateToXml(gameState))
+    pw.write(xml)
+    pw.close()
+
 
   def setPlayerList (file: Elem) : List[Player] =
     val playerName = List((file \\ "gamestate" \ "playerName2").text, (file \\ "gamestate" \ "playerName1").text)
@@ -31,12 +54,6 @@ class FileIO extends FileIOTrait:
     List(Card((file \\ "gamestate" \ "playStack" \ "playStackValue").text.trim,
       (file \\ "gamestate" \ "playStack" \ "playStackColor").text.trim))
 
-  override def save(gameState: GameState): Unit =
-    val pw = new PrintWriter(new File("gamestate.xml"))
-    val prettyPrinter = new PrettyPrinter(200,4)
-    val xml = prettyPrinter.format(gameStateToXml(gameState))
-    pw.write(xml)
-    pw.close()
 
   def gameStateToXml(gameState: GameState): Elem =
     <gamestate>
