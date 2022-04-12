@@ -45,7 +45,6 @@ class FileIO extends FileIOTrait:
     val playerColor2 = (json \ "gameState" \ "playerCardsColor2").as[List[String]]
     var cards1 = List(Card(playerValue1(0), playerColor1(0)))
     for i <- (1 to playerValue1.size - 1)
-      // optinal decide later if ok
       do cards1 = Card(playerValue1(i), playerColor1(i)) :: cards1
     var cards2 = List(Card(playerValue2(0), playerColor2(0)))
     for(i <- (1 to playerValue2.size - 1))

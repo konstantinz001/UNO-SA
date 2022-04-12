@@ -65,8 +65,7 @@ class FileIO extends FileIOTrait:
       {player2CardColor(gameState)}
       {playerStack(gameState)}
     </gamestate>
-
-  //PlayerList
+  
   def player1Name (gameState: GameState): Elem =
     <playerName1>
       { gameState.playerList(0).name}

@@ -79,9 +79,8 @@ class controller @Inject() extends controllerInterface with Publisher:
         stackCard = stackCard.removeCard()
       starthand.init.reverse
     List(Player("1",startHand()),Player("2",startHand()))
-  
-  
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   def getCard(): Unit =
     stackCard = stackEmpty()
     undoManager.doStep(SetCommand(this))
@@ -119,15 +118,15 @@ class controller @Inject() extends controllerInterface with Publisher:
     gameState match {
       case Success(option) =>
         option.match {
-          case Some(things) =>
-            val(playerliste,playstackonthefield) = things
-            playerList = playerliste
-            playStack2 = playstackonthefield
+          case Some(jsonData) =>
+            val(playerlistJson,playstackJson) = jsonData
+            playerList = playerlistJson
+            playStack2 = playstackJson
             gameStatus = LOADED
             publish(new loadStates)
           case None=>
         }
-      case Failure(e) =>
+      case Failure(_) =>
         gameStatus = COULD_NOT_LOAD
         publish(new failureStates)
     }

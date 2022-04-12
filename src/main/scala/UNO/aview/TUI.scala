@@ -9,6 +9,7 @@ import UNO.controller.controllerComponent.controllerInterface
 
 import scala.swing.Reactor
 
+//TODO: Make TUI hübscher
 
 def print1: Unit =
   print(State.handle(gameStatsEvent()))
@@ -16,7 +17,7 @@ def print1: Unit =
 def printGameStatus(controller: controllerInterface): String =
   val gameStatePrint = controller.gameStatus.toString()
   controller.gameStatus = IDLE
-  gameStatePrint
+  gameStatePrint + "\n" + State.handle(gameStatsEvent())
 
 enum Letter(val letter_string: String):
   case U extends Letter("u")
@@ -84,10 +85,8 @@ class TUI(controller: controllerInterface) extends Reactor:
           State.handle(wrongIndexEvent())
         else
           if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
-          //Try Monad
             tryColorSwitch(is(2)) match
               case Some(color: String) => controller.colorSet = color
-              //case None => throw new Exception("Color could not change!\n")
               case None => "Color could not change!\n"
 
           if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then

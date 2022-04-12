@@ -3,7 +3,7 @@ package UNO.controller.controllerComponent
 
 object GameStatus extends Enumeration :
   type GameStatus = Value
-  val IDLE, UNDO, REDO, NEW, INIT, ATTACK, SAVED, COULD_NOT_SAVE, LOADED, COULD_NOT_LOAD = Value
+  val IDLE, UNDO, REDO, NEW, INIT, SAVED, COULD_NOT_SAVE, LOADED, COULD_NOT_LOAD = Value
 
   val map = Map[GameStatus, String](
     SAVED -> "The Game was saved",
