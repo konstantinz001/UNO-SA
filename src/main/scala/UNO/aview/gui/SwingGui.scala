@@ -220,30 +220,6 @@ class SwingGui(controller: controllerInterface) extends Frame :
         case ButtonClicked(`noButton`) =>
           System.exit(0)
       }
-    menuBar = new MenuBar:
-      contents += new Menu("File"):
-        mnemonic = Key.F
-        contents += new MenuItem(Action("New") {
-          controller.setDefault()
-        })
-        contents += new MenuItem(Action("Save") {
-          controller.save
-        })
-        contents += new MenuItem(Action("Load") {
-          controller.load
-        })
-        contents += new MenuItem(Action("Quit") {
-          System.exit(0)
-        })
-
-      contents += new Menu("Edit"):
-        mnemonic = Key.E
-        contents += new MenuItem(Action("Undo") {
-          controller.undoGet
-        })
-        contents += new MenuItem(Action("Redo") {
-          controller.redoGet
-        })
 
   def welcomePanel = new GridPanel(2, 1):
 
@@ -323,16 +299,31 @@ class SwingGui(controller: controllerInterface) extends Frame :
     contents = new BorderPanel:
       add(instructionPanel("Your Gamestate was saved!"), BorderPanel.Position.Center)
 
+  def redrawMessageUndo: Unit =
+    contents = new BorderPanel:
+      add(instructionPanel("You have undo your last move!"), BorderPanel.Position.Center)
+
+  def redrawMessageRedo: Unit =
+    contents = new BorderPanel:
+      add(instructionPanel("You have redo your last move!"), BorderPanel.Position.Center)
+
   def redrawFailure: Unit =
     contents = new BorderPanel:
       add(instructionPanel("Your Instruction could not served!"), BorderPanel.Position.Center)
+
+  def redrawNewGame: Unit =
+    contents = new BorderPanel:
+      add(instructionPanel("New Game is loading..."), BorderPanel.Position.Center)
 
   reactions += {
     case event: updateStates => redrawGame
     case event: saveStates => redrawMessageSave
     case event: loadStates => redrawMessageLoad
+    case event: undoStates => redrawMessageUndo
+    case event: redoStates => redrawMessageRedo
     case event: endStates => redrawWinning
     case event: failureStates => redrawFailure
+    case event: newgameStates =>redrawNewGame
   }
 
   visible = true

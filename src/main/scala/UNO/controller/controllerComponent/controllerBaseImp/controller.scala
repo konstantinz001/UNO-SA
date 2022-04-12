@@ -41,7 +41,7 @@ class controller @Inject() extends controllerInterface with Publisher:
     stackCard = initStackCard()
     playerList = initPlayerList()
     playStack2 = initPlayStack()
-    publish(new updateStates)
+    publish(new newgameStates)
   
   def returnplayerList():List[Player] =
     playerList
@@ -102,11 +102,11 @@ class controller @Inject() extends controllerInterface with Publisher:
     if(value == true)
       undoManager.undoStep()
       gameStatus = UNDO
-      publish(new updateStates)
+      publish(new undoStates)
     else
       undoManager.redoStep()
       gameStatus = REDO
-      publish(new updateStates)
+      publish(new redoStates)
 
 
   override def save: Unit =
