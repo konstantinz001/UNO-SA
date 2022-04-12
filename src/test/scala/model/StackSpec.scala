@@ -2,8 +2,8 @@ package model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoCards.cardBaseImp.Card
+import UnoStack.stackBaseImp.Stack
 
 class StackSpec extends AnyWordSpec with Matchers {
   "An initial Stack" should {

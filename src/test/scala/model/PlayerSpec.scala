@@ -2,8 +2,8 @@ package model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   val player = Player("Bob",List(Card("1","green"), Card("2","red"), Card("3","blue")))

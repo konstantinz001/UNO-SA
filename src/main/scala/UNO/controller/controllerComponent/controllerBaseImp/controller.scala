@@ -2,10 +2,10 @@ package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.UnoGameModule
 import UNO.controller.controllerComponent.*
-import UNO.model.GameState
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoGameState.GameState
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
+import UnoStack.stackBaseImp.Stack
 import UNO.util.UndoManager
 import UnoFileIO.FileIOTrait
 import UnoFileIO.fileIOJsonImp.FileIO

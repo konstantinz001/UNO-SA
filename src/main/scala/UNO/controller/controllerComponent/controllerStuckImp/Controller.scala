@@ -2,9 +2,9 @@ package UNO.controller.controllerComponent.controllerStuckImp
 
 import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.controllerInterface
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
+import UnoStack.stackBaseImp.Stack
 
 
 abstract class Controller extends controllerInterface:

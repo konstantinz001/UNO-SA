@@ -1,7 +1,7 @@
-package UNO.model.PlayerComponent
+package UnoPlayer
 
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 
 trait PlayerInterface:
   def name: String

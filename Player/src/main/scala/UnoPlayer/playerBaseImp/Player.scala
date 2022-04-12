@@ -1,7 +1,7 @@
-package UNO.model.PlayerComponent.playerBaseImp
+package UnoPlayer.playerBaseImp
 
-import UNO.model.PlayerComponent.PlayerInterface
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.PlayerInterface
+import UnoCards.cardBaseImp.Card
 
 import scala.util.{Failure, Success, Try}
 

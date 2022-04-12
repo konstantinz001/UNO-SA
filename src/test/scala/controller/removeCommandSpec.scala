@@ -6,8 +6,8 @@ import UNO.UnoGame.Controller
 import UNO.UnoGameModule
 import UNO.controller.controllerComponent.controllerBaseImp.RemoveCommand
 import UNO.controller.controllerComponent.controllerInterface
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoCards.cardBaseImp.Card
+import UnoStack.stackBaseImp.Stack
 import UNO.util.UndoManager
 import com.google.inject.Guice
 

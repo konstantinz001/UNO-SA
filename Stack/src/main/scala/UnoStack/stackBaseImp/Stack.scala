@@ -1,7 +1,7 @@
-package UNO.model.stackComponent.stackBaseImp
+package UnoStack.stackBaseImp
 
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.StackInterface
+import UnoCards.cardBaseImp.Card
+import UnoStack.StackInterface
 
 import scala.util.Random
 

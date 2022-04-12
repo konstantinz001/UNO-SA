@@ -4,11 +4,11 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerBaseImp.controller
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 import UNO.util.{State, *}
 import UNO.controller.controllerComponent.controllerBaseImp.controller
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoStack.stackBaseImp.Stack
 
 
 class TuiSpec extends AnyWordSpec with Matchers {

@@ -1,8 +1,8 @@
-package UNO.model.stackComponent
+package UnoStack
 
 
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoCards.cardBaseImp.Card
+import UnoStack.stackBaseImp.Stack
 
 
 trait StackInterface:

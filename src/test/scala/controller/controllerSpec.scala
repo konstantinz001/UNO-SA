@@ -5,8 +5,8 @@ import org.scalatest.matchers.should.Matchers
 import UNO.UnoGame.injector
 import UNO.UnoGameModule
 import UNO.controller.controllerComponent.controllerInterface
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 import com.google.inject.Guice
 
 class controllerSpec extends AnyWordSpec with Matchers {

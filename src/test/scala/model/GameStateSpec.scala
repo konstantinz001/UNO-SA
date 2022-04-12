@@ -3,8 +3,8 @@ package model
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import UNO.model.GameState
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 
 class GameStateSpec extends AnyWordSpec with Matchers {
 

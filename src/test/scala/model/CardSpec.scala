@@ -2,7 +2,7 @@ package model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoCards.cardBaseImp.Card
 
 class CardSpec extends AnyWordSpec with Matchers {
   "A Card" when {

@@ -1,6 +1,6 @@
 package UnoFileIO
 
-import UNO.model.GameState
+import UnoGameState.GameState
 
 trait FileIOTrait:
   def load: GameState

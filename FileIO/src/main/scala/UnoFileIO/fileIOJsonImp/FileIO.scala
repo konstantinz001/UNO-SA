@@ -1,8 +1,8 @@
 package UnoFileIO.fileIOJsonImp
 
-import UNO.model.GameState
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoGameState.GameState
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
 import UnoFileIO.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
 
