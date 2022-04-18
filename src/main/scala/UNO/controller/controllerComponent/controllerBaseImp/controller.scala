@@ -13,13 +13,11 @@ import UnoFileIO.FileIOTrait
 import UnoFileIO.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsArray, JsString, JsValue, Json}
 
 import scala.io.Source
 import scala.swing.Publisher
 import scala.util.{Failure, Success}
-
-
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.javadsl.Behaviors
 import akka.http.scaladsl.Http
@@ -60,6 +58,7 @@ class controller @Inject() extends controllerInterface with Publisher:
     stackCard = initStackCard()
     playerList = initPlayerList()
     playStack2 = initPlayStack()
+    gameStatus = NEW
     publish(new newgameStates)
   
   def returnplayerList():List[Player] =
@@ -126,33 +125,6 @@ class controller @Inject() extends controllerInterface with Publisher:
       gameStatus = REDO
       publish(new redoStates)
 
-
-  /*override def save: Unit =
-    fileIo.save(GameState(playerList, playStack2))
-    gameStatus = SAVED
-    publish(new saveStates)*/
-
-/*
-  override def load:Unit=
-    val gameState = fileIo.load
-    gameState match {
-      case Success(option) =>
-        option.match {
-          case Some(jsonData) =>
-            val(playerlistJson,playstackJson) = jsonData
-            playerList = playerlistJson
-            playStack2 = playstackJson
-            gameStatus = LOADED
-            publish(new loadStates)
-          case None=>
-        }
-      case Failure(_) =>
-        gameStatus = COULD_NOT_LOAD
-        publish(new failureStates)
-    }
-*/
-
-
   override def save: Unit =
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
     val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = "http://localhost:8080/save", entity = gamestate))
@@ -180,8 +152,6 @@ class controller @Inject() extends controllerInterface with Publisher:
     }
   }
 
-
-
   def setPlayerList (json: JsValue) : List[Player] =
     val playerName = (json \ "gameState" \ "playerListName").as[List[String]]
     val playerValue1 = (json \ "gameState" \ "playerCardsValue1").as[List[String]]
@@ -208,6 +178,32 @@ class controller @Inject() extends controllerInterface with Publisher:
         "playStackColor" -> playstack(0).color
       )
     )
+
+  def gameToJson(): String = {
+    Json.prettyPrint(
+      Json.obj(
+        "game" -> Json.obj(
+          "playStackCard" -> JsString(playStack2(0).color + "||" +playStack2(0).value),
+          "playerListNameCurrent" -> JsString(playerList(0).name),
+          "playerListNameNext" -> JsString(playerList(1).name),
+          "playerListCardsCurrent" -> JsArray(
+            for{
+              card <-0 until playerList(0).playerCards.length
+            }yield {
+              JsString(playerList(0).playerCards(card).color + "||" + playerList(0).playerCards(card).value)
+            }
+          ),
+          "playerListCardsNext" -> JsArray(
+            for{
+              card <-0 until playerList(1).playerCards.length
+            }yield {
+              JsString(playerList(1).playerCards(card).color + "||" + playerList(1).playerCards(card).value )
+            }
+          ),
+        )
+      )
+    )
+  }
 
   def unpackJson(result: String): Unit = {
     val file: String = Source.fromFile("gamestate.json").getLines.mkString

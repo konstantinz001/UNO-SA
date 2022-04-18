@@ -26,7 +26,6 @@ case object FileIOService {
           path("save") {
             entity(as [String]) { game =>
               fileIO.save(game)
-              println("GAME SAVED")
               complete("game saved")
             }
           }

@@ -28,6 +28,7 @@ trait controllerInterface extends Publisher:
   def save: Unit
   def load: Unit
   def setDefault(): Unit
+  def gameToJson(): String
 
 
 
