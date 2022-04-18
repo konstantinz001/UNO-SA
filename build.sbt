@@ -2,10 +2,10 @@ lazy val root = (project in file(".")).aggregate(persistenceModel).dependsOn(gam
 lazy val gameModel = (project in file("GameModel"))
 lazy val persistenceModel = (project in file("PersistenceModel")).dependsOn(gameModel)
 
-
 name := "UNO"
 version := "0.1"
 scalaVersion := "3.0.0"
+
 
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.11"
 
@@ -24,6 +24,5 @@ libraryDependencies += ("com.typesafe.akka" %% "akka-http" % "10.2.4").cross(Cro
 libraryDependencies += ("com.typesafe.akka" %% "akka-stream" % "2.6.8").cross(CrossVersion.for3Use2_13)
 libraryDependencies +=( "com.typesafe.akka" %% "akka-actor-typed" % "2.6.8").cross(CrossVersion.for3Use2_13)
 libraryDependencies +=( "com.typesafe.akka" %% "akka-actor" % "2.6.8").cross(CrossVersion.for3Use2_13)
-
 
 

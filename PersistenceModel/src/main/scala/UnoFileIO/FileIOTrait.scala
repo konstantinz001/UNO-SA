@@ -7,6 +7,8 @@ import UnoPlayer.playerBaseImp.Player
 import scala.util.Try
 
 trait FileIOTrait:
-  def load:Try[Option[(List[Player],List[Card])]]
-  def save(gameState:GameState): Unit
+  //def load:Try[Option[(List[Player],List[Card])]]
+  //def save(gameState:GameState): Unit
+  def load: String
+  def save(gamestate_json: String): Unit
 

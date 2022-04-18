@@ -10,5 +10,5 @@ class UnoGameModule extends AbstractModule:
   override def configure() =
     bind(classOf[controllerInterface]).to(classOf[controllerBaseImp.controller])
     //bind[controllerInterface].to[controllerStubImp.Controller]
-    //bind[FileIOTrait].to[fileIOJsonImp.FileIO]
-    bind(classOf[FileIOTrait]).to(classOf[fileIOXmlImp.FileIO])
+    bind(classOf[FileIOTrait]).to(classOf[fileIOJsonImp.FileIO])
+    //bind(classOf[FileIOTrait]).to(classOf[fileIOXmlImp.FileIO])
