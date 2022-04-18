@@ -10,7 +10,6 @@ import UnoCards.cardBaseImp.Card
 import UnoStack.stackBaseImp.Stack
 import UNO.util.UndoManager
 import UnoFileIO.FileIOTrait
-import UnoFileIO.fileIOJsonImp.FileIO
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 
@@ -35,7 +34,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var gameState: GameState = GameState(returnplayerList(), playStack2)
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val injector = Guice.createInjector(new UnoGameModule)
-  val fileIo: FileIO = injector.getInstance(classOf[FileIO])
+  val fileIo: FileIOTrait = injector.getInstance(classOf[FileIOTrait])
 
   def setDefault(): Unit =
     stackCard = initStackCard()

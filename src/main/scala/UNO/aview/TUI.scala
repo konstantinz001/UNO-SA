@@ -10,6 +10,7 @@ import UNO.controller.controllerComponent.controllerInterface
 import scala.swing.Reactor
 
 //TODO: Make TUI hübscher
+//TODO: Enum as Color(String)
 
 def print1: Unit =
   print(State.handle(gameStatsEvent()))
