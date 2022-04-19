@@ -1,0 +1,11 @@
+{
+  "gameState" : {
+    "playerListName" : [ "1", "2" ],
+    "playerCardsValue1" : [ "8", "Ø", "+2", "0" ],
+    "playerCardsColor1" : [ "green", "green", "red", "red" ],
+    "playerCardsValue2" : [ "Ø", "2", "9" ],
+    "playerCardsColor2" : [ "green", "green", "green" ],
+    "playStackValue" : "2",
+    "playStackColor" : "red"
+  }
+}
