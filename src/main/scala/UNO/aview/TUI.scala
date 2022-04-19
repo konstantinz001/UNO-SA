@@ -1,10 +1,6 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.GameStatus.IDLE
-import UNO.controller.controllerComponent.controllerBaseImp.*
-
-import scala.util.{Failure, Success, Try}
-import UNO.util.*
+import UNO.controller.controllerComponent.controllerBaseImp._
 import UNO.controller.controllerComponent.{GameStatus, controllerInterface}
 
 import scala.swing.Reactor
