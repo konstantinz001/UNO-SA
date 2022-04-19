@@ -17,7 +17,7 @@ import play.api.libs.json.{JsArray, JsString, JsValue, Json}
 
 import scala.io.Source
 import scala.swing.Publisher
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Success, Try}
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.javadsl.Behaviors
 import akka.http.scaladsl.Http
@@ -34,9 +34,6 @@ class controller @Inject() extends controllerInterface with Publisher:
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "SingleRequest")
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
-  val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8080/load"))
-
-
   var playername1 = "1"
   var playername2 = "2"
   var stackCard = initStackCard()
@@ -46,7 +43,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var unoCall = false
   val five = 5
   val rangeIncl = Range.inclusive(1,100)
-  var gameStatus: GameStatus = IDLE
+  var gameStatus: GameStatus = INIT
 
   private val undoManager =new UndoManager
   var gameState: GameState = GameState(returnplayerList(), playStack2)
@@ -70,7 +67,6 @@ class controller @Inject() extends controllerInterface with Publisher:
     for(i <- rangeIncl)
       stackCards = stackCards.shuffleCards()
     stackCards
-    
 
   def initPlayStack() : List[Card] =
     while stackCard.getCardFromStack().color == "black"
@@ -86,8 +82,7 @@ class controller @Inject() extends controllerInterface with Publisher:
       for (i <- rangeIncl)
         stackCard = stackCard.shuffleCards()
     stackCard
-    
-    
+
   def initPlayerList():List[Player] =
     var starthand = List(Card("",""))
     def startHand(): List[Card] =
@@ -98,23 +93,96 @@ class controller @Inject() extends controllerInterface with Publisher:
       starthand.init.reverse
     List(Player("1",startHand()),Player("2",startHand()))
 
+  def checkValidRemoveMove(handindex: Int): Boolean =
+    if playerList(0).playerCards(handindex).color == playStack2(0).color ||
+      playerList(0).playerCards(handindex).value == playStack2(0).value ||
+      (playerList(0).playerCards(handindex).color == "black" && colorSet != "") then
+      true
+    else
+      false
+
+  def tryColorSwitch(color : String): Option[String] =
+    Try((List("blue", "red", "yellow", "green").filter(x => x.equals(color))(0))) match
+      case Success(color: String) => Some(color)
+      case Failure(_) => None
+
+
+  def wrongCommand: Unit =
+    gameStatus = WRONG
+    publish(new updateStates)
 
   def getCard(): Unit =
     stackCard = stackEmpty()
     undoManager.doStep(SetCommand(this))
+    gameStatus = GET
     publish(new updateStates)
 
-  def removeCard(handindex: Int) =
+  def removeUnoCard(handindex: Int): Unit =
     stackCard = stackEmpty()
-    undoManager.doStep(new RemoveCommand(handindex:Int, this))
-    unoCall = false
-    publish(new updateStates)
+    unoCall = true
+    if playerList(0).playerCards.size.equals(2) then
+      undoManager.doStep(new RemoveCommand(handindex:Int, this))
+      gameStatus = UNOCALL_1
+      unoCall = false
+      publish(new updateStates)
+    else if playerList(0).playerCards.size.equals(1) then
+      gameStatus = UNOCALL_2
+      unoCall = false
+      publish(new endStates)
+    else
+      undoManager.doStep(new RemoveCommand(handindex:Int, this))
+      playerList = playerList.reverse
+      undoManager.doStep(new RemoveCommand(handindex:Int, this))
+      gameStatus = PENALTY
+      publish(new updateStates)
+
+  def removeBlackCard(handindex: Int, color: String): Unit =
+    if handindex >= playerList(0).playerCards.size then
+      gameStatus = WRONG
+      publish(new updateStates)
+    else
+      if playerList(0).playerCards(handindex).color.equals("black") then
+        tryColorSwitch(color) match
+          case Some(color: String) =>
+            colorSet = color
+            removeCard(handindex)
+          case None =>
+            colorSet = ""
+            gameStatus = WRONGCOLOR
+            publish(new updateStates)
+
+
+  def removeCard(handindex: Int): Unit =
+    if handindex >= playerList(0).playerCards.size then
+      gameStatus = WRONG
+      publish(new updateStates)
+    else
+      if playerList(0).playerCards(handindex).color.equals("black") && colorSet == "" then
+        gameStatus = WRONGCOLOR
+        publish(new updateStates)
+      if checkValidRemoveMove(handindex) && playerList(0).playerCards.size >= 3 then
+        stackCard = stackEmpty()
+        undoManager.doStep(new RemoveCommand(handindex:Int, this))
+        unoCall = false
+        gameStatus = SET
+        publish(new updateStates)
+      else if !checkValidRemoveMove(handindex) && playerList(0).playerCards.size >= 3 then
+        gameStatus = WRONG
+        publish(new updateStates)
+      else
+        stackCard = stackEmpty()
+        undoManager.doStep(new RemoveCommand(handindex:Int, this))
+        undoManager.doStep(SetCommand(this))
+        playerList = playerList.reverse
+        undoManager.doStep(SetCommand(this))
+        unoCall = false
+        gameStatus = PENALTY
+        publish(new updateStates)
+
 
 
   def undoGet:Unit = undoredget(true)
   def redoGet:Unit = undoredget(false)
-
-  
   def undoredget(value:Boolean):Unit=
     if(value == true)
       undoManager.undoStep()
@@ -132,6 +200,7 @@ class controller @Inject() extends controllerInterface with Publisher:
     publish(new saveStates)
 
   override def load: Unit = {
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8080/load"))
     responseFuture.onComplete {
       case Failure(_) =>
         sys.error("HttpResponse failure")
@@ -151,6 +220,8 @@ class controller @Inject() extends controllerInterface with Publisher:
       }
     }
   }
+
+
 
   def setPlayerList (json: JsValue) : List[Player] =
     val playerName = (json \ "gameState" \ "playerListName").as[List[String]]

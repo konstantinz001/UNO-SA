@@ -20,13 +20,18 @@ trait controllerInterface extends Publisher:
   def initStackCard() : Stack
   def initPlayStack() : List[Card]
   def initPlayerList(): List[Player]
+  def checkValidRemoveMove(handindex: Int): Boolean
+  def tryColorSwitch(color : String): Option[String]
+  def removeBlackCard(handindex: Int, color: String): Unit
   def getCard(): Unit
   def removeCard(handindex: Int): Unit
+  def removeUnoCard(handindex: Int): Unit
   def undoGet: Unit
   def redoGet: Unit
   def stackEmpty(): Stack
   def save: Unit
   def load: Unit
+  def wrongCommand: Unit
   def setDefault(): Unit
   def gameToJson(): String
 

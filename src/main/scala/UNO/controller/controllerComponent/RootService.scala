@@ -10,6 +10,7 @@ import UNO.UnoGame.tui
 import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.controllerBaseImp.updateStates
 import UNO.util.{State, gameStatsEvent}
+import UNO.controller.controllerComponent.GameStatus.SAVED
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.swing.Reactor
@@ -28,7 +29,7 @@ object RootService extends Reactor {
         path("tui") {
           get {
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
-            //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, State.handle(gameStatsEvent())))
+            //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, GameStatus.getMessage(SAVED)))
           }
         },
         path("tui" / "newGame") {
@@ -48,8 +49,8 @@ object RootService extends Reactor {
           path("tui" / "save") {
             tui.processInputLine("save")
             //Controller.save
-            //complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
-            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, GameStatus.getMessage(Controller.gameStatus)))
+            complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
+            //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, Controller.gameStatus.toString()))
           }
         },
         get {

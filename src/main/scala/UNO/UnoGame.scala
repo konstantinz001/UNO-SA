@@ -1,7 +1,7 @@
 package UNO
 
 import UNO.aview.gui.SwingGui
-import UNO.controller.controllerComponent.{RootService, controllerInterface}
+import UNO.controller.controllerComponent.{GameStatus, RootService, controllerInterface}
 
 import scala.io.StdIn.readLine
 import aview.TUI
@@ -17,8 +17,7 @@ object UnoGame:
   @main def main(): Unit =
     val start = rootService.server()
 
-    print(State.handle(instructionEvent()))
-    print(State.handle(gameStatsEvent()))
+    GameStatus.handleStatus(Controller.gameStatus, Controller)
 
     if (UIType == true) then
       val gui = SwingGui(Controller)
@@ -27,8 +26,6 @@ object UnoGame:
     while input1 != "q"
     do
       input1 = readLine("\nInstruction: ")
-      print(tui.processInputLine(input1))
-      if input1 == "q" then
-        System.exit(0)
+      tui.processInputLine(input1)
 
     rootService.stop(start)

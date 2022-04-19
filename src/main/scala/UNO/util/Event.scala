@@ -22,10 +22,9 @@ case class gameStartEvent() extends Event:
 
 case class gameStatsEvent() extends Event:
   def gameStats: String =
-    "\n" + "_" * 50 + "\nPLAYER " + Controller.playerList(0).name.toUpperCase() +
-      "\n\nHandcards: \t" + Controller.playerList(0).playerCards +
-      "\n\n\nPlayStack: \t" + Controller.playStack2(0) + "\n" +
-      "\nStackCard: \t" + Controller.stackCard + "\n\n"
+      "\n" + "_" * 50 + "\nPLAYER " + Controller.playerList(0).name.toUpperCase() +
+      "\n\nPlayStack: \t" + Controller.playStack2(0) +
+      "\n\nHandcards: \t" + Controller.playerList(0).playerCards + "\n"
 
 case class exitGameEvent() extends Event:
   def exitGame:String = "\nGame exit\n"
