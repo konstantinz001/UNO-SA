@@ -36,7 +36,6 @@ class TUI(controller: controllerInterface) extends Reactor:
     value match {
       case "u"=> controller.removeUnoCard(is(1).toInt)
       case "r"=>
-        println(is(1))
         if(is.size == 2) then
           controller.removeCard(is(1).toInt)
         else

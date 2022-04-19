@@ -5,7 +5,6 @@ import UNO.controller.controllerComponent.{GameStatus, RootService, controllerIn
 
 import scala.io.StdIn.readLine
 import aview.TUI
-import UNO.util.{State, gameStatsEvent, instructionEvent}
 import com.google.inject.Guice
 
 object UnoGame:

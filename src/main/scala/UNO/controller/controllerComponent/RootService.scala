@@ -8,8 +8,7 @@ import akka.http.scaladsl.server.Directives.*
 import UNO.UnoGame.Controller
 import UNO.UnoGame.tui
 import UNO.aview.gui.SwingGui
-import UNO.controller.controllerComponent.controllerBaseImp.updateStates
-import UNO.util.{State, gameStatsEvent}
+import UNO.controller.controllerComponent.controllerBaseImp._
 import UNO.controller.controllerComponent.GameStatus.SAVED
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
@@ -94,7 +93,15 @@ object RootService extends Reactor {
   }
 
   reactions += {
-    case event: updateStates => print(State.handle(gameStatsEvent()))
+    case event: updateStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: welcomeStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: endStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: failureStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: saveStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: loadStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: undoStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: redoStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
+    case event: newgameStates => print(GameStatus.handleStatus(Controller.gameStatus, Controller))
   }
 
   def stop(server: Future[Http.ServerBinding]): Unit = {

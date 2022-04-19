@@ -130,9 +130,13 @@ class controller @Inject() extends controllerInterface with Publisher:
       unoCall = false
       publish(new endStates)
     else
+      stackCard = stackEmpty()
       undoManager.doStep(new RemoveCommand(handindex:Int, this))
       playerList = playerList.reverse
-      undoManager.doStep(new RemoveCommand(handindex:Int, this))
+      undoManager.doStep(SetCommand(this))
+      playerList = playerList.reverse
+      undoManager.doStep(SetCommand(this))
+      unoCall = false
       gameStatus = PENALTY
       publish(new updateStates)
 
@@ -172,6 +176,7 @@ class controller @Inject() extends controllerInterface with Publisher:
       else
         stackCard = stackEmpty()
         undoManager.doStep(new RemoveCommand(handindex:Int, this))
+        playerList = playerList.reverse
         undoManager.doStep(SetCommand(this))
         playerList = playerList.reverse
         undoManager.doStep(SetCommand(this))

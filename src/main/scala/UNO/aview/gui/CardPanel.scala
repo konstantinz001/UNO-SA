@@ -3,7 +3,6 @@ package UNO.aview.gui
 import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UnoCards.cardBaseImp.Card
-import UNO.util.{Strategy, removeCardEvent}
 import java.awt.Image
 import javax.swing.{ImageIcon, SwingConstants}
 import scala.swing.*
@@ -56,18 +55,10 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
       if list == 0 then
         reactions += {
           case event.ButtonClicked(_) =>
-            if (Strategy.handle(removeCardEvent(index), index) && controller.playerList.head.playerCards.size >= 3 && !controller.unoCall)
-              || controller.playerList.head.playerCards.size == 2 && controller.unoCall then
+            if !controller.unoCall then
               controller.removeCard(index)
-            else if controller.playerList.head.playerCards.size == 1 && controller.unoCall then
-              controller.publish(new endStates)
-            else if !Strategy.handle(removeCardEvent(index), index) then None
             else
-              controller.removeCard(index)
-              controller.playerList = controller.playerList.reverse
-              controller.getCard()
-              controller.playerList = controller.playerList.reverse
-              controller.getCard()
+              controller.removeUnoCard(index)
         }
       else if list == 4 then
         reactions += {

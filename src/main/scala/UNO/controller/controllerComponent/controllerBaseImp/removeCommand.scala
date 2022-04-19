@@ -4,6 +4,7 @@ import UNO.controller.controllerComponent.controllerInterface
 import UnoCards.cardBaseImp.Card
 import UNO.util.Command
 
+//TODO ENDGAME LOGIC mit SPezialcards verbessern
 
 class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command:
   
