@@ -1,11 +1,11 @@
 {
   "gameState" : {
-    "playerListName" : [ "2", "1" ],
-    "playerCardsValue1" : [ "Ø", "9" ],
-    "playerCardsColor1" : [ "green", "green" ],
-    "playerCardsValue2" : [ "7", "Ø", "+2", "0" ],
-    "playerCardsColor2" : [ "red", "yellow", "blue", "yellow" ],
-    "playStackValue" : "8",
-    "playStackColor" : "green"
+    "playerListName" : [ "1", "2" ],
+    "playerCardsValue1" : [ "Ø", "ColorSwitch", "7", "5", "3", "<-->", "1", "1", "5", "1", "2", "6", "0", "1", "8", "7", "2" ],
+    "playerCardsColor1" : [ "yellow", "black", "red", "blue", "yellow", "yellow", "blue", "yellow", "yellow", "red", "green", "red", "green", "red", "red", "blue", "green" ],
+    "playerCardsValue2" : [ "<-->", "7", "1", "Ø", "4", "0", "<-->", "3", "4", "2", "9", "4", "<-->", "Ø", "2", "3", "5" ],
+    "playerCardsColor2" : [ "red", "green", "yellow", "red", "yellow", "blue", "red", "blue", "blue", "blue", "green", "green", "blue", "green", "yellow", "blue", "green" ],
+    "playStackValue" : "1",
+    "playStackColor" : "red"
   }
 }

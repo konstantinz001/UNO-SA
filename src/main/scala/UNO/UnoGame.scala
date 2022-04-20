@@ -2,6 +2,8 @@ package UNO
 
 import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.{GameStatus, RootService, controllerInterface}
+import UnoFileIO.FileIOService
+import UNO.controller.controllerComponent.RootService
 
 import scala.io.StdIn.readLine
 import aview.TUI
@@ -11,10 +13,11 @@ object UnoGame:
   val Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val tui = TUI(Controller)
   val UIType: Boolean = if System.getenv("UI_TYPE").equals("gui") then true else false
-  val rootService = RootService
+  val rootService = RootService(Controller)
 
   @main def main(): Unit =
-    val start = rootService.server()
+
+    val rootServer = rootService.server()
 
     GameStatus.handleStatus(Controller.gameStatus, Controller)
 
@@ -27,4 +30,4 @@ object UnoGame:
       input1 = readLine("\nInstruction: ")
       tui.processInputLine(input1)
 
-    rootService.stop(start)
+    rootService.stop(rootServer)

@@ -5,16 +5,15 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpMethods, HttpRequest}
 import akka.http.scaladsl.server.Directives.*
-import UNO.UnoGame.Controller
+import UNO.controller.controllerComponent.controllerInterface
 import UNO.UnoGame.tui
 import UNO.aview.gui.SwingGui
 import UNO.controller.controllerComponent.controllerBaseImp._
-import UNO.controller.controllerComponent.GameStatus.SAVED
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.swing.Reactor
 
-object RootService extends Reactor {
+class RootService (Controller: controllerInterface) extends Reactor {
   listenTo(Controller)
 
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
@@ -28,7 +27,6 @@ object RootService extends Reactor {
         path("tui") {
           get {
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
-            //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, GameStatus.getMessage(SAVED)))
           }
         },
         path("tui" / "newGame") {
@@ -39,30 +37,25 @@ object RootService extends Reactor {
         },
         get {
           path("tui" / "load") {
-            tui.processInputLine("load")
-            //Controller.load
+            Controller.load
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
           }
         },
         get {
           path("tui" / "save") {
-            tui.processInputLine("save")
-            //Controller.save
+            Controller.save
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
-            //complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, Controller.gameStatus.toString()))
           }
         },
         get {
           path("tui" / "redo") {
-            tui.processInputLine("redo")
-            //Controller.redoGet
+            Controller.redoGet
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
           }
         },
         get {
           path("tui" / "undo") {
-            tui.processInputLine("undo")
-            //Controller.undoGet
+            Controller.undoGet
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
           }
         },
@@ -72,19 +65,43 @@ object RootService extends Reactor {
               pathEnd {
                 complete("/set")
               },
-              //akka.http.scaladsl.server.PathMatchers
               path (akka.http.scaladsl.server.PathMatchers.Segment) { handIndex =>
-                tui.processInputLine("r " + handIndex)
-                //Controller.removeCard(handIndex)
+                Controller.removeCard(handIndex.toInt)
                 complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
               }
             )
           }
         },
         get {
+          pathPrefix("tui" / "setUno") {
+            concat(
+              pathEnd {
+                complete("/setUno")
+              },
+              path (akka.http.scaladsl.server.PathMatchers.Segment) { handIndex =>
+                Controller.removeUnoCard(handIndex.toInt)
+                complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
+              }
+            )
+          }
+        },
+        get {
+          pathPrefix("tui" / "setcolor") {
+            concat(
+              pathEnd {
+                complete("/setcolor")
+              },
+              parameters("handIndex", "color") { (handIndex, color) =>
+                Controller.removeBlackCard(s"${handIndex}".toInt, s"$color")
+                complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
+              }
+              //http://localhost:7070/tui/setcolor/?handIndex=1&color=green
+            )
+          }
+        },
+        get {
           path("tui" / "get") {
-            tui.processInputLine("s")
-            //Controller.getCard()
+            Controller.getCard()
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
           }
         },

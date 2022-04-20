@@ -17,6 +17,7 @@ case object FileIOService {
     implicit val system = ActorSystem(Behaviors.empty, "my-system")
     implicit val executionContext = system.executionContext
 
+
     val route =
       concat (
         get {
@@ -40,7 +41,7 @@ case object FileIOService {
     bindingFuture.onComplete{
       case Success(binding) => {
         val address = binding.localAddress
-        println(s"File IO Save: http://${address.getHostName}:${address.getPort}/${"load"}\n" +
+        println(s"File IO Save: http://${address.getHostName}:${address.getPort}/${"save"}\n" +
           s"File IO Load: http://${address.getHostName}:${address.getPort}/${"load"} \n")
       }
       case Failure(exception) => {
