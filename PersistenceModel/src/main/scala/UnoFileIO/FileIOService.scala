@@ -7,6 +7,8 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
 import akka.http.scaladsl.server.Directives.*
 
+import scala.util.{Failure, Success}
+
 case object FileIOService {
 
   def main(args: Array[String]): Unit = {
@@ -34,5 +36,21 @@ case object FileIOService {
       )
 
     val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
+
+    bindingFuture.onComplete{
+      case Success(binding) => {
+        val address = binding.localAddress
+        println(s"File IO Save: http://${address.getHostName}:${address.getPort}/${"load"}\n" +
+          s"File IO Load: http://${address.getHostName}:${address.getPort}/${"load"} \n")
+      }
+      case Failure(exception) => {
+        println("File IO REST service couldn't be started! Error: " + exception + "\n")
+      }
+    }
+
+    def stop():Unit =
+      bindingFuture
+        .flatMap(_.unbind()) // trigger unbinding from the port
+        .onComplete(_ => system.terminate()) // and shutdown when done
   }
 }
