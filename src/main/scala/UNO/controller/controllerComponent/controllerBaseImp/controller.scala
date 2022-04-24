@@ -210,11 +210,13 @@ class controller @Inject() extends controllerInterface with Publisher:
       case Failure(_) =>
         sys.error("HttpResponse failure")
         gameStatus = COULD_NOT_LOAD
+        publish(new failureStates)
       case Success(res) => {
         Unmarshal(res.entity).to[String].onComplete {
           case Failure(_) => gameStatus = COULD_NOT_LOAD
             sys.error("Marshal failure")
             gameStatus = COULD_NOT_LOAD
+            publish(new failureStates)
 
           case Success(result) => {
             unpackJson(result)
