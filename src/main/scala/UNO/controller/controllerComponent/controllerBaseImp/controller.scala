@@ -200,12 +200,12 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   override def save: Unit =
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = "http://localhost:8080/save", entity = gamestate))
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = "http://localhost:8081/save", entity = gamestate))
     gameStatus = SAVED
     publish(new saveStates)
 
   override def load: Unit = {
-    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8080/load"))
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8081/load"))
     responseFuture.onComplete {
       case Failure(_) =>
         sys.error("HttpResponse failure")

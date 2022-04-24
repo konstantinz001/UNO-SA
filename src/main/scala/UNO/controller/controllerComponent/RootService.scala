@@ -19,7 +19,8 @@ class RootService (Controller: controllerInterface) extends Reactor {
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
-  val port = 7070
+  val rootPort = 8080
+  val rootUri = "root-service"
 
   def server(): Future[Http.ServerBinding] = {
     val route =
@@ -106,7 +107,7 @@ class RootService (Controller: controllerInterface) extends Reactor {
           }
         },
       )
-    Http().newServerAt("localhost", port).bind(route)
+    Http().newServerAt(rootUri, rootPort).bind(route)
   }
 
   reactions += {
@@ -123,6 +124,6 @@ class RootService (Controller: controllerInterface) extends Reactor {
 
   def stop(server: Future[Http.ServerBinding]): Unit = {
     server
-      .flatMap(_.unbind()).onComplete(_ => println(port + " released"))
+      .flatMap(_.unbind()).onComplete(_ => println(rootPort + " released"))
   }
 }

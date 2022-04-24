@@ -1,8 +1,5 @@
 package UnoFileIO.fileIOJsonImp
 
-import UnoGameState.GameState
-import UnoPlayer.playerBaseImp.Player
-import UnoCards.cardBaseImp.Card
 import UnoFileIO.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
 import scala.util.{Failure, Success, Try}

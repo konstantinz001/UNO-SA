@@ -17,6 +17,9 @@ case object FileIOService {
     implicit val system = ActorSystem(Behaviors.empty, "my-system")
     implicit val executionContext = system.executionContext
 
+    val fileIOPort = 8081
+    val fileIOUri = "fileio-service"
+
 
     val route =
       concat (
@@ -36,7 +39,8 @@ case object FileIOService {
 
       )
 
-    val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
+    val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
+    //val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
 
     bindingFuture.onComplete{
       case Success(binding) => {

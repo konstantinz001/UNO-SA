@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  fileio:
+    container_name: "fileio-service"
+    build:
+      context: ./PersistenceModel
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+    stdin_open: true
+  root:
+    container_name: "root-service"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    depends_on:
+      - fileio
+    environment:
+      UI_TYPE: gui
+      DISPLAY: host.docker.internal:0
