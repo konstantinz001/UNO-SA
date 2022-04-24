@@ -3,7 +3,9 @@ package UNO.aview.gui
 import UNO.controller.controllerComponent.controllerBaseImp.endStates
 import UNO.controller.controllerComponent.controllerInterface
 import UnoCards.cardBaseImp.Card
+
 import java.awt.Image
+import java.io.File
 import javax.swing.{ImageIcon, SwingConstants}
 import scala.swing.*
 import scala.swing.Swing.LineBorder
@@ -69,14 +71,14 @@ class CardPanel(list: Int, index: Int, controller: controllerInterface) extends 
     button.minimumSize_=(new Dimension(77, 200))
     button.background = java.awt.Color.decode("#003366")
     list match {
-      case 1 => button.icon = scaledImageIcon("src\\main\\Pics\\Card_Back.png", 70, 100)
-      case 4 => button.icon = scaledImageIcon("src\\main\\Pics\\Stack.png", 70, 100)
-      case 3 => button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
+      case 1 => button.icon = scaledImageIcon("Pics" + File.separator + "Card_Back.png", 70, 100)
+      case 4 => button.icon = scaledImageIcon("Pics" + File.separator + "Stack.png", 70, 100)
+      case 3 => button.icon = scaledImageIcon("Pics" + File.separator + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
         if cardColor(mycard(), index) == "Black_" then
-          button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
+          button.icon = scaledImageIcon("Pics" + File.separator + cardColor(List(Card("", controller.colorSet)), 3) + "Radio.png",
             70, 100)
         controller.colorSet = ""
-      case _=> button.icon = scaledImageIcon("src\\main\\Pics\\" + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
+      case _=> button.icon = scaledImageIcon("Pics" + File.separator + cardColor(mycard(), index) + cardValue(mycard(), index), 70, 100)
     }
     button.horizontalAlignment = Alignment.Center
     button.text = ""
