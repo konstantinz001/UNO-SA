@@ -39,8 +39,8 @@ case object FileIOService {
 
       )
 
-    val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
-    //val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
+    //val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
+    val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
 
     bindingFuture.onComplete{
       case Success(binding) => {

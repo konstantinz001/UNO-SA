@@ -34,6 +34,9 @@ class controller @Inject() extends controllerInterface with Publisher:
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "SingleRequest")
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
+  val fileiouri = "localhost"
+  val fileioport = 8081
+
   var playername1 = "1"
   var playername2 = "2"
   var stackCard = initStackCard()
@@ -200,12 +203,12 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   override def save: Unit =
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = "http://localhost:8081/save", entity = gamestate))
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = s"http://${fileiouri}:${fileioport}/save", entity = gamestate))
     gameStatus = SAVED
     publish(new saveStates)
 
   override def load: Unit = {
-    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "http://localhost:8081/load"))
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = s"http://${fileiouri}:${fileioport}/load"))
     responseFuture.onComplete {
       case Failure(_) =>
         sys.error("HttpResponse failure")

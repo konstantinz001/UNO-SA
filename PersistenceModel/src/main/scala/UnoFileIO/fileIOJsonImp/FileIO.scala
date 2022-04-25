@@ -2,8 +2,9 @@ package UnoFileIO.fileIOJsonImp
 
 import UnoFileIO.FileIOTrait
 import play.api.libs.json.{JsValue, Json}
-import scala.util.{Failure, Success, Try}
 
+import java.io.File
+import scala.util.{Failure, Success, Try}
 import scala.io.Source
 
 class FileIO extends FileIOTrait:
@@ -22,6 +23,6 @@ class FileIO extends FileIOTrait:
 
   def save(gamestate_json: String): Unit =
     import java.io._
-    val print_writer = new PrintWriter(new File("gamestate.json"))
+    val print_writer = new PrintWriter(new File("." + File.separator + "gamestate.json"))
     print_writer.write(gamestate_json)
     print_writer.close()
