@@ -34,6 +34,8 @@ trait controllerInterface extends Publisher:
   def wrongCommand: Unit
   def setDefault(): Unit
   def gameToJson(): String
+  def loadFromDB(): Unit
+  def saveInDb(): Unit
 
 
 

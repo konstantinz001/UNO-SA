@@ -1,9 +1,10 @@
 package UNO
 
+import UNO.database.DaoInterface
 import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
-import controller.controllerComponent._
-import UnoFileIO._
+import controller.controllerComponent.*
+import UnoFileIO.*
 
 class UnoGameModule extends AbstractModule:
 
@@ -12,3 +13,4 @@ class UnoGameModule extends AbstractModule:
     //bind[controllerInterface].to[controllerStubImp.Controller]
     bind(classOf[FileIOTrait]).to(classOf[fileIOJsonImp.FileIO])
     //bind(classOf[FileIOTrait]).to(classOf[fileIOXmlImp.FileIO])
+    bind(classOf[DaoInterface]).to(classOf[database.slick.DaoSlick])

@@ -27,6 +27,7 @@ class TUI(controller: controllerInterface) extends Reactor:
       case "q" => System.exit(0)
       case "undo" => controller.undoGet
       case "redo" => controller.redoGet
+      case "loadFromDB" => controller.loadFromDB()
       case "load" => controller.load
       case "save" => controller.save
       case _ => controller.wrongCommand

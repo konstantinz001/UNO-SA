@@ -27,6 +27,8 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 import scala.concurrent.ExecutionContextExecutor
+import UNO.database.DaoInterface
+import UNO.database.slick.DaoSlick
 
 
 class controller @Inject() extends controllerInterface with Publisher:
@@ -53,6 +55,9 @@ class controller @Inject() extends controllerInterface with Publisher:
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo: FileIO = injector.getInstance(classOf[FileIO])
+  val db:DaoSlick= injector.getInstance(classOf[DaoSlick])
+  //val db = Guice.createInjector(new UnoGameModule).getInstance(classOf[DaoInterface])
+
 
   def setDefault(): Unit =
     stackCard = initStackCard()
@@ -292,4 +297,20 @@ class controller @Inject() extends controllerInterface with Publisher:
     playerList = setPlayerList(json)
     playStack2 = List(Card((json \ "gameState" \ "playStackValue").as[String],
       (json \ "gameState" \ "playStackColor").as[String]))
+  }
+
+  //TODO
+  def evaldb():Unit={
+
+  }
+
+  def saveInDb():Unit = {
+    //val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
+    db.save(playerList,playStack2)
+  }
+
+  def loadFromDB():Unit = {
+    //gameboard = db.load()
+    //evaldb(gameboard)
+    //publish(new loadStates)
   }
