@@ -24,9 +24,7 @@ import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpMethods, HttpRequest, HttpResponse}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext
-import scala.concurrent.ExecutionContextExecutor
+import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
 import UNO.database.DaoInterface
 import UNO.database.slick.DaoSlick
 
@@ -57,7 +55,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   val fileIo: FileIO = injector.getInstance(classOf[FileIO])
   //val db:DaoSlick= injector.getInstance(classOf[DaoSlick]) // test
   val db = injector.getInstance(classOf[DaoInterface])
-  val savefile:String="fuvk"
+  val savefile:String="test"
 
 
   def setDefault(): Unit =
@@ -293,6 +291,8 @@ class controller @Inject() extends controllerInterface with Publisher:
   }
 
   def unpackJson(result: String): Unit = {
+    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj\n")
+    print(result)
     val file: String = Source.fromFile("gamestate.json").getLines.mkString
     val json: JsValue = Json.parse(file)
     playerList = setPlayerList(json)

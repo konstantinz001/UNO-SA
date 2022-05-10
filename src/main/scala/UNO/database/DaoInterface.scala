@@ -8,5 +8,7 @@ trait DaoInterface  {
   def load():String
   def save(playerlist:List[Player], playerstack:List[Card]):Future[Unit]
   def save2(gamestate:String):Unit
+  def unpackJson(result: String): List[Player]
+  def probesafe(paras:List[String]):Future[Unit]
 
 }
