@@ -44,7 +44,11 @@ class DaoSlick extends DaoInterface {
       case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
     }
   }
-  override def load():Unit={
-    print("")
+  override def load():String={
+    val test:String = "test"
+    test
+  }
+  override def save2(gamestate:String):Unit={
+    print(gamestate)
   }
 }

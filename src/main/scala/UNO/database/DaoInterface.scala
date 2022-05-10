@@ -5,7 +5,8 @@ import UnoCards.cardBaseImp.Card
 
 
 trait DaoInterface  {
-  def load():Unit
+  def load():String
   def save(playerlist:List[Player], playerstack:List[Card]):Future[Unit]
+  def save2(gamestate:String):Unit
 
 }
