@@ -170,7 +170,7 @@ class SwingGui(controller: controllerInterface) extends Frame :
         contents += new MenuItem(Action("Load") {
           controller.load
         })
-        contents += new MenuItem(Action("Save from DB") {
+        contents += new MenuItem(Action("Save in DB") {
           controller.saveInDb()
         })
         contents += new MenuItem(Action("Load from DB") {

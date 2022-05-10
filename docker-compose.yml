@@ -1,5 +1,11 @@
 version: "3.9"
 services:
+
+  unodb:
+    image: uno-mysql:latest
+    hostname: unodb
+    ports:
+      - "3306:3306"
   fileio:
     container_name: "fileio-service"
     build:
@@ -18,6 +24,8 @@ services:
     stdin_open: true
     depends_on:
       - fileio
+      - unodb
     environment:
       UI_TYPE: gui
       DISPLAY: host.docker.internal:0
+      DATABASE_HOST: unodb:3306

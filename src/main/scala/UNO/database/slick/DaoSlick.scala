@@ -3,6 +3,7 @@ package UNO.database.slick
 import UNO.database.DaoInterface
 import UnoCards.cardBaseImp.Card
 import UnoPlayer.playerBaseImp.Player
+import UnoGameState.GameState
 import slick.lifted.TableQuery
 import slick.jdbc.JdbcBackend.Database
 import slick.jdbc.MySQLProfile.api.*
@@ -13,10 +14,9 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
-import UNO.database.slick.CardsTable
 import play.api.libs.json.{JsValue, Json}
 
-import scala.Array.copy
+import scala.Array.{copy, range}
 import scala.io.Source
 
 class DaoSlick extends DaoInterface {
@@ -34,67 +34,46 @@ class DaoSlick extends DaoInterface {
     password = databasePassword
   )
 
-  val stack = TableQuery[CardsTable]
-  val players = TableQuery[PlayerValueTable]
-  //val maintable = TableQuery[DatabaseSchema]
+  val gameState = TableQuery[GamestateTable]
 
-  override def save(playerlist:List[Player], playerstack:List[Card]):Future[Unit]= {
+  override def load(gameID: String):GameState={
+    val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
+    val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
+    val dbCard_1 =
+      (for{
+        i <- (0 to gameResult_1.size - 1)
+      } yield Card(gameResult_1(i)._2,gameResult_1(i)._3)).toList
+    val dbPlayer_1 = Player("1",dbCard_1)
 
+    val gameQuery_2 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '2';""".as[(String, String, String)]
+    val gameResult_2 = Await.result(database.run(gameQuery_2), Duration.Inf)
+    val dbCard_2 =
+      (for{
+        i <- (0 to gameResult_2.size - 1)
+      } yield Card(gameResult_2(i)._2,gameResult_2(i)._3)).toList
+    val dbPlayer_2 = Player("2",dbCard_2)
+
+    val dbPlayerList = List(dbPlayer_1, dbPlayer_2)
+
+    val gameQuery_STACK = sql"""select VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = 'STACK';""".as[(String, String)]
+    val gameResult_STACK = Await.result(database.run(gameQuery_STACK), Duration.Inf).head
+    val dbCard_STACK = List(Card(gameResult_STACK._1,gameResult_STACK._2))
+
+    GameState(dbPlayerList, dbCard_STACK)
+  }
+
+
+  override def save(gameID: String,player: String, value: List[String], color:List[String]):Future[Unit] = {
     val injection= DBIO.seq(
-      (stack.schema).createIfNotExists,
-      stack ++=(for{
-        card <-playerstack
-      } yield card)
+      (gameState.schema).createIfNotExists,
+      gameState.delete,
+      gameState ++=(for{
+        i <- (0 to value.size - 1)
+      } yield (gameID,player,value(i), color(i)))
     )
     database.run(injection).andThen {
       case Success(_) => println("Daten erfolgreich gespeichert")
       case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
     }
-  }
-  override def load():String={
-    val test:String = "test"
-    test
-  }
-  override def save2(gamestate:String):Unit={
-    unpackJson(gamestate)
-    print("jsonfile print\n")
-    print(unpackJson(gamestate))
-    //print(gamestate)
-  }
-  override def probesafe(paras:List[String]):Future[Unit] = {
-    val injection= DBIO.seq(
-      (players.schema).createIfNotExists,
-      players ++=(for{
-        player <-paras
-      } yield player)
-    )
-    database.run(injection).andThen {
-      case Success(_) => println("Daten erfolgreich gespeichert")
-      case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
-    }
-
-  }
-  override def unpackJson(result: String): List[Player] = {
-    //val file: String = Source.fromFile("gamestate.json").getLines.mkString
-    val file: String = result.linesWithSeparators.mkString
-    val json: JsValue = Json.parse(file)
-    val playStacki2 = List(Card((json \ "gameState" \ "playStackValue").as[String],
-      (json \ "gameState" \ "playStackColor").as[String]))
-    playStack2 = playStack2  // karte in der mitte - aktuelle Karte
-
-    val playerName = (json \ "gameState" \ "playerListName").as[List[String]]
-    val playerValue1 = (json \ "gameState" \ "playerCardsValue1").as[List[String]]
-    val playerValue2 = (json \ "gameState" \ "playerCardsValue2").as[List[String]]
-    val playerColor1 = (json \ "gameState" \ "playerCardsColor1").as[List[String]]
-    val playerColor2 = (json \ "gameState" \ "playerCardsColor2").as[List[String]]
-    probesafe(playerValue1)
-
-    var cards1 = List(Card(playerValue1(0), playerColor1(0)))
-    for i <- (1 to playerValue1.size - 1)
-      do cards1 = Card(playerValue1(i), playerColor1(i)) :: cards1
-    var cards2 = List(Card(playerValue2(0), playerColor2(0)))
-    for(i <- (1 to playerValue2.size - 1))
-      cards2 = Card(playerValue2(i), playerColor2(i)) :: cards2
-    List(Player(playerName(0), cards1.reverse), Player(playerName(1), cards2.reverse))
   }
 }

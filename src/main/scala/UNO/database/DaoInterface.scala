@@ -2,13 +2,11 @@ package UNO.database
 import scala.concurrent.Future
 import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
+import UnoGameState.GameState
 
 
 trait DaoInterface  {
-  def load():String
-  def save(playerlist:List[Player], playerstack:List[Card]):Future[Unit]
-  def save2(gamestate:String):Unit
-  def unpackJson(result: String): List[Player]
-  def probesafe(paras:List[String]):Future[Unit]
+  def load(gameid:String):GameState
+  def save(gameid: String, player: String, value: List[String], color:List[String]):Future[Unit]
 
 }

@@ -49,7 +49,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var gameStatus: GameStatus = INIT
 
   private val undoManager =new UndoManager
-  var gameState: GameState = GameState(returnplayerList(), playStack2)
+  //var gameState: GameState = GameState(returnplayerList(), playStack2)
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo: FileIO = injector.getInstance(classOf[FileIO])
@@ -291,29 +291,27 @@ class controller @Inject() extends controllerInterface with Publisher:
   }
 
   def unpackJson(result: String): Unit = {
-    print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj\n")
-    print(result)
-    val file: String = Source.fromFile("gamestate.json").getLines.mkString
+    //val file: String = Source.fromFile("gamestate.json").getLines.mkString
+    val file: String = result.linesWithSeparators.mkString
     val json: JsValue = Json.parse(file)
     playerList = setPlayerList(json)
     playStack2 = List(Card((json \ "gameState" \ "playStackValue").as[String],
       (json \ "gameState" \ "playStackColor").as[String]))
   }
 
-  //TODO
-  def evaldb():Unit={
-    // braucht man nicht später anschauen
-
-  }
 
   def saveInDb():Unit = {
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    db.save2(gamestate)
+    db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
+    db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
+    db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
     //db.save(playerList,playStack2)
   }
 
   def loadFromDB():Unit = {
-    val savefile = db.load()
-    unpackJson(savefile)
-    publish(new loadStates)
+      val result = db.load("1")
+      playerList = result.playerList
+      playStack2 = result.playStack
+      gameStatus = LOADED
+      publish(new loadStates)
   }
