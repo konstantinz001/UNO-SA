@@ -37,6 +37,7 @@ trait controllerInterface extends Publisher:
   def loadFromDB(): Unit
   def saveInDb(): Unit
 
+  def unpackJson(result: String): Unit
 
 
   import scala.swing.event.Event

@@ -37,6 +37,6 @@ libraryDependencies +="mysql" % "mysql-connector-java" % "8.0.24"
 
 //scalacOptions ++= Seq("-Xignore-scala2-macros")
 
-
+libraryDependencies +=("org.mongodb.scala" %% "mongo-scala-driver" % "4.6.0").cross(CrossVersion.for3Use2_13)
 
 

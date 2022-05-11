@@ -290,7 +290,7 @@ class controller @Inject() extends controllerInterface with Publisher:
     )
   }
 
-  def unpackJson(result: String): Unit = {
+  override def unpackJson(result: String): Unit = {
     //val file: String = Source.fromFile("gamestate.json").getLines.mkString
     val file: String = result.linesWithSeparators.mkString
     val json: JsValue = Json.parse(file)
@@ -302,10 +302,11 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   def saveInDb():Unit = {
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
-    db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
-    db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
-    //db.save(playerList,playStack2)
+    //db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
+    //db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
+    //db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
+    val gameState = GameState(playerList, playStack2)
+    db.save(gameState)
   }
 
   def loadFromDB():Unit = {

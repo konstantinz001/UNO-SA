@@ -63,7 +63,7 @@ class DaoSlick extends DaoInterface {
   }
 
 
-  override def save(gameID: String,player: String, value: List[String], color:List[String]):Future[Unit] = {
+  override def save(gameID: String,player: String, value: List[String], color:List[String]):Unit = {
     val injection= DBIO.seq(
       (gameState.schema).createIfNotExists,
       gameState.delete,
@@ -76,4 +76,5 @@ class DaoSlick extends DaoInterface {
       case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
     }
   }
+  override def save(gameState: GameState):Unit = ???
 }
