@@ -251,7 +251,7 @@ class controller @Inject() extends controllerInterface with Publisher:
       cards2 = Card(playerValue2(i), playerColor2(i)) :: cards2
     List(Player(playerName(0), cards1.reverse), Player(playerName(1), cards2.reverse))
 
-  def gameStateToJson(playerList: List[Player], playstack: List[Card]) =
+  override def gameStateToJson(playerList: List[Player], playstack: List[Card]) =
     Json.obj(
       "gameState" -> Json.obj(
         "playerListName" -> playerList.map(x => x.name),
@@ -307,6 +307,8 @@ class controller @Inject() extends controllerInterface with Publisher:
     //db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
     val gameState = GameState(playerList, playStack2)
     db.save(gameState)
+    gameStatus = SAVED
+    publish(new saveStates)
   }
 
   def loadFromDB():Unit = {
@@ -316,3 +318,11 @@ class controller @Inject() extends controllerInterface with Publisher:
       gameStatus = LOADED
       publish(new loadStates)
   }
+
+  override def loadDBJSON(gameString: String): GameState =
+    val json: JsValue = Json.parse(gameString)
+    GameState(setPlayerList(json), setPlayStack(json))
+
+  def setPlayStack (json: JsValue) : List[Card] =
+    List(Card((json \ "gameState" \ "playStackValue").as[String],
+      (json \ "gameState" \ "playStackColor").as[String]))

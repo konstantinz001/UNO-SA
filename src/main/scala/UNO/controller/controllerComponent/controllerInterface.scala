@@ -3,7 +3,10 @@ package UNO.controller.controllerComponent
 import UNO.controller.controllerComponent.GameStatus.GameStatus
 import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
+import UnoGameState.GameState
 import UnoStack.stackBaseImp.Stack
+import jdk.nashorn.api.scripting.JSObject
+import play.api.libs.json.JsObject
 
 import scala.swing.Publisher
 
@@ -36,6 +39,8 @@ trait controllerInterface extends Publisher:
   def gameToJson(): String
   def loadFromDB(): Unit
   def saveInDb(): Unit
+  def loadDBJSON(gameString: String): GameState
+  def gameStateToJson(playerList: List[Player], playstack: List[Card]) : JsObject
 
   def unpackJson(result: String): Unit
 

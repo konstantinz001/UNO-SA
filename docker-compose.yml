@@ -1,7 +1,13 @@
 version: "3.9"
 services:
 
-  unodb:
+  unodb_mysql:
+    image: uno-mysql:latest
+    hostname: unodb
+    ports:
+      - "3306:3306"
+
+  unodb_mongodb:
     image: uno-mongodb:latest
     hostname: unodb
     ports:
@@ -26,6 +32,7 @@ services:
       - fileio
       - unodb
     environment:
-      UI_TYPE: gui
-      DISPLAY: host.docker.internal:0
-      DATABASE_HOST: unodb:27017
+      - UI_TYPE=gui
+      - DISPLAY=host.docker.internal:0
+      - DATABASE_HOST=uno_mongodb:27017
+      - DATABASE_HOST=uno_mysql:3306

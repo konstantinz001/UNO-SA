@@ -11,6 +11,7 @@ import UnoPlayer.playerBaseImp.Player
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.result.InsertOneResult
 import play.api.libs.json.{JsArray, JsString, JsValue, Json}
+import UNO.UnoGame.Controller
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
@@ -23,18 +24,17 @@ class DaoMongoDB extends DaoInterface{
   val client: MongoClient = MongoClient(uri)
   val db: MongoDatabase = client.getDatabase("unodb")
   val collection: MongoCollection[Document] = db.getCollection("uno")
-  val fileIo = new FileIO()
 
   override def load(gameid:String): GameState = {
     val collection = db.getCollection("uno")
     val result = Await.result(collection.find().first().head(), Duration.Inf)
-    fileIo.loadByString(result.toJson())
+    Controller.loadDBJSON(result.toJson)
   }
 
   override def save(gameid: String, player: String, value: List[String], color:List[String]): Unit = ???
 
   override def save(gameState: GameState): Unit =
-    val jsObject = fileIo.gameStateToJson(gameState)
+    val jsObject = Controller.gameStateToJson(gameState.playerList, gameState.playStack)
     val doc = Document(BsonDocument.apply(jsObject.toString))
     collection.countDocuments().subscribe(new Observer[Long] {
       override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
