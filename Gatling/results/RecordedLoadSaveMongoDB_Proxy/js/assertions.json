@@ -1,0 +1,10 @@
+{
+  "simulation": "RecordedDataMongoDb",
+  "simulationId": "recordeddatamongodb",
+  "start": 1652483028663,
+  "description": "",
+  "scenarios": ["SPIKE - Simulation", "ENDURANCE - Simulation", "STRESS - Simulation", "LOAD - Simulation", "VOLUME - Simulation"],
+  "assertions": [
+
+  ]
+}
