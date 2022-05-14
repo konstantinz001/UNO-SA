@@ -78,11 +78,8 @@ class DaoSlick extends DaoInterface {
     tmp
   }
 
-
   override def save(playerNames: List[String],value1: List[String], color1:List[String],
                     value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]):Unit = {
-
-
 
     val injection= DBIO.seq(
       (gameState.schema).createIfNotExists,
