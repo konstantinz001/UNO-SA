@@ -33,7 +33,7 @@ class DaoSlick extends DaoInterface {
 
   val gameState = TableQuery[GamestateTable]
 
-  override def load(gameID: String):GameState={
+  override def load(gameID: String):String={
     val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
     val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
 
@@ -64,7 +64,7 @@ class DaoSlick extends DaoInterface {
     val dbCard_STACKColor = gameResult_STACK._2
     val playerName = List("1","2")
 
-    val tmp = Controller.loadDBJSON(Json.obj(
+    Json.obj(
       "gameState" -> Json.obj(
         "playerListName" -> playerName.map(x => x),
         "playerCardsValue1" -> dbCard_1Value.map(x => x),
@@ -74,8 +74,7 @@ class DaoSlick extends DaoInterface {
         "playStackValue" -> dbCard_STACKValue,
         "playStackColor" -> dbCard_STACKColor
       )
-    ).toString)
-    tmp
+    ).toString()
   }
 
   override def save(playerNames: List[String],value1: List[String], color1:List[String],
@@ -99,5 +98,4 @@ class DaoSlick extends DaoInterface {
       case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
     }
   }
-  override def save(gameState: GameState):Unit = ???
 }

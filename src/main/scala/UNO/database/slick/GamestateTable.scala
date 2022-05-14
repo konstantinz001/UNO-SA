@@ -21,14 +21,7 @@ class GamestateTable(tag: Tag) extends Table[(String,String,String,String)](tag,
 
   def color = column[String]("COLOR")
 
-  override def * = (id,player,value,color)/*<>(create,extract)
-
-  def create(t:(String,String,String)):Player= {
-    Player(t._1,List(Card(t._2,t._3))
-  }
-  def extract(c:Player): Option[(String,String,String)]= {
-    Some((c.name,c.playerCards))
-  }*/
+  override def * = (id,player,value,color)
 }
 
 

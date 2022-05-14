@@ -302,19 +302,16 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   def saveInDb():Unit = {
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    //db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
-    //db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
     db.save(List(playerList(0).name,playerList(1).name,"Stack"),playerList(0).playerCards.map(x=> x.value),
       playerList(0).playerCards.map(x=> x.color), playerList(1).playerCards.map(x=> x.value),
       playerList(1).playerCards.map(x=> x.color),playStack2.map(x=> x.value), playStack2.map(x=> x.color))
     val gameState = GameState(playerList, playStack2)
-    //db.save(gameState)
     gameStatus = SAVED
     publish(new saveStates)
   }
 
   def loadFromDB():Unit = {
-      val result = db.load("1")
+      val result = loadDBJSON(db.load("1"))
       playerList = result.playerList
       playStack2 = result.playStack
       gameStatus = LOADED

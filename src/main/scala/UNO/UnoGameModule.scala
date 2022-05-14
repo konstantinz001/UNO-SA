@@ -13,5 +13,5 @@ class UnoGameModule extends AbstractModule:
     //bind[controllerInterface].to[controllerStubImp.Controller]
     bind(classOf[FileIOTrait]).to(classOf[fileIOJsonImp.FileIO])
     //bind(classOf[FileIOTrait]).to(classOf[fileIOXmlImp.FileIO])
-    bind(classOf[DaoInterface]).to(classOf[database.slick.DaoSlick])
-    //bind(classOf[DaoInterface]).to(classOf[database.mongoDB.DaoMongoDB])
+    //bind(classOf[DaoInterface]).to(classOf[database.slick.DaoSlick])
+    bind(classOf[DaoInterface]).to(classOf[database.mongoDB.DaoMongoDB])

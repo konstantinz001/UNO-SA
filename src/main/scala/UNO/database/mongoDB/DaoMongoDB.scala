@@ -1,14 +1,12 @@
 package UNO.database.mongoDB
 
 import UNO.database.DaoInterface
-import UnoGameState.GameState
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.{Document, MongoClient, MongoCollection, MongoDatabase}
 import org.mongodb.scala.*
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.result.InsertOneResult
 import play.api.libs.json.{JsArray, JsString, JsValue, Json}
-import UNO.UnoGame.Controller
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
@@ -22,17 +20,26 @@ class DaoMongoDB extends DaoInterface{
   val db: MongoDatabase = client.getDatabase("unodb")
   val collection: MongoCollection[Document] = db.getCollection("uno")
 
-  override def load(gameid:String): GameState = {
+  override def load(gameid:String): String = {
     val collection = db.getCollection("uno")
     val result = Await.result(collection.find().first().head(), Duration.Inf)
-    Controller.loadDBJSON(result.toJson)
+    result.toJson
   }
 
   override def save(playerNames: List[String],value1: List[String], color1:List[String],
-                    value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]): Unit = ???
+                    value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]): Unit =
 
-  override def save(gameState: GameState): Unit =
-    val jsObject = Controller.gameStateToJson(gameState.playerList, gameState.playStack)
+    val jsObject= Json.obj(
+      "gameState" -> Json.obj(
+        "playerListName" -> playerNames,
+        "playerCardsValue1" -> value1,
+        "playerCardsColor1" -> color1,
+        "playerCardsValue2" -> value2,
+        "playerCardsColor2" -> color2,
+        "playStackValue" -> valueStack(0),
+        "playStackColor" -> colorStack(0)
+      )
+    )
     val doc = Document(BsonDocument.apply(jsObject.toString))
     collection.countDocuments().subscribe(new Observer[Long] {
       override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
