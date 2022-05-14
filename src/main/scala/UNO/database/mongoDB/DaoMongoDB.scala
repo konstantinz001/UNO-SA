@@ -28,7 +28,8 @@ class DaoMongoDB extends DaoInterface{
     Controller.loadDBJSON(result.toJson)
   }
 
-  override def save(gameid: String, player: String, value: List[String], color:List[String]): Unit = ???
+  override def save(playerNames: List[String],value1: List[String], color1:List[String],
+                    value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]): Unit = ???
 
   override def save(gameState: GameState): Unit =
     val jsObject = Controller.gameStateToJson(gameState.playerList, gameState.playStack)

@@ -7,7 +7,8 @@ import UnoGameState.GameState
 
 trait DaoInterface  {
   def load(gameid:String):GameState
-  def save(gameid: String, player: String, value: List[String], color:List[String]):Unit
+  def save(playerNames: List[String],value1: List[String], color1:List[String],
+           value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]): Unit
   def save(gameState: GameState):Unit
 
 }

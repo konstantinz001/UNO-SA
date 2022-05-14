@@ -1,8 +1,7 @@
 package UNO.database.slick
 
+import UNO.UnoGame.Controller
 import UNO.database.DaoInterface
-import UnoCards.cardBaseImp.Card
-import UnoPlayer.playerBaseImp.Player
 import UnoGameState.GameState
 import slick.lifted.TableQuery
 import slick.jdbc.JdbcBackend.Database
@@ -23,7 +22,6 @@ class DaoSlick extends DaoInterface {
     .getOrElse("MYSQL_DATABASE", "unodb") + "?serverTimezone=UTC"
   val databaseUser: String = sys.env.getOrElse("MYSQL_USER", "uno")
   val databasePassword: String = sys.env.getOrElse("MYSQL_PASSWORD", "uno123")
-  var playStack2=List[Card]()
 
 
   val database = Database.forURL(
@@ -33,43 +31,71 @@ class DaoSlick extends DaoInterface {
     password = databasePassword
   )
 
-  val gameState = TableQuery[GamestateTable] //new TableQuery(new GamestateTable())
+  val gameState = TableQuery[GamestateTable]
 
   override def load(gameID: String):GameState={
-    //Json.prettyPrint(gameStateToJson(playerList, playStack2))
     val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
     val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
-    val dbCard_1 =
+
+    val dbCard_1Value =
       (for{
         i <- (0 to gameResult_1.size - 1)
-      } yield Card(gameResult_1(i)._2,gameResult_1(i)._3)).toList
-    val dbPlayer_1 = Player("1",dbCard_1)
+      } yield (gameResult_1(i)._2)).toList
+    val dbCard_1Color =
+      (for{
+        i <- (0 to gameResult_1.size - 1)
+      } yield (gameResult_1(i)._3)).toList
 
     val gameQuery_2 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '2';""".as[(String, String, String)]
     val gameResult_2 = Await.result(database.run(gameQuery_2), Duration.Inf)
-    val dbCard_2 =
+    val dbCard_2Value =
       (for{
         i <- (0 to gameResult_2.size - 1)
-      } yield Card(gameResult_2(i)._2,gameResult_2(i)._3)).toList
-    val dbPlayer_2 = Player("2",dbCard_2)
+      } yield (gameResult_2(i)._2)).toList
+    val dbCard_2Color =
+      (for{
+        i <- (0 to gameResult_2.size - 1)
+      } yield (gameResult_2(i)._3)).toList
 
-    val dbPlayerList = List(dbPlayer_1, dbPlayer_2)
 
     val gameQuery_STACK = sql"""select VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = 'STACK';""".as[(String, String)]
     val gameResult_STACK = Await.result(database.run(gameQuery_STACK), Duration.Inf).head
-    val dbCard_STACK = List(Card(gameResult_STACK._1,gameResult_STACK._2))
+    val dbCard_STACKValue = gameResult_STACK._1
+    val dbCard_STACKColor = gameResult_STACK._2
+    val playerName = List("1","2")
 
-    GameState(dbPlayerList, dbCard_STACK)
+    val tmp = Controller.loadDBJSON(Json.obj(
+      "gameState" -> Json.obj(
+        "playerListName" -> playerName.map(x => x),
+        "playerCardsValue1" -> dbCard_1Value.map(x => x),
+        "playerCardsColor1" -> dbCard_2Color.map(x => x),
+        "playerCardsValue2" -> dbCard_2Value.map(x => x),
+        "playerCardsColor2" -> dbCard_2Color.map(x => x),
+        "playStackValue" -> dbCard_STACKValue,
+        "playStackColor" -> dbCard_STACKColor
+      )
+    ).toString)
+    tmp
   }
 
 
-  override def save(gameID: String,player: String, value: List[String], color:List[String]):Unit = {
+  override def save(playerNames: List[String],value1: List[String], color1:List[String],
+                    value2: List[String], color2:List[String], valueStack: List[String], colorStack: List[String]):Unit = {
+
+
+
     val injection= DBIO.seq(
       (gameState.schema).createIfNotExists,
       gameState.delete,
       gameState ++=(for{
-        i <- (0 to value.size - 1)
-      } yield (gameID,player,value(i), color(i)))
+        i <- (0 to value1.size - 1)
+      } yield ("1",playerNames(0),value1(i), color1(i))),
+      gameState ++=(for{
+        i <- (0 to value2.size - 1)
+      } yield ("1",playerNames(1),value2(i), color2(i))),
+      gameState ++=(for{
+        i <- (0 to valueStack.size - 1)
+      } yield ("1",playerNames(2),valueStack(i), colorStack(i))),
     )
     database.run(injection).andThen {
       case Success(_) => println("Daten erfolgreich gespeichert")
