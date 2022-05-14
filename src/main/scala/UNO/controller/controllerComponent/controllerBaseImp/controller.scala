@@ -53,9 +53,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
   val injector = Guice.createInjector(new UnoGameModule)
   val fileIo: FileIO = injector.getInstance(classOf[FileIO])
-  //val db:DaoSlick= injector.getInstance(classOf[DaoSlick]) // test
   val db = injector.getInstance(classOf[DaoInterface])
-  val savefile:String="test"
 
 
   def setDefault(): Unit =
@@ -302,11 +300,11 @@ class controller @Inject() extends controllerInterface with Publisher:
 
   def saveInDb():Unit = {
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
-    //db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
-    //db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
-    //db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
+    db.save("1",playerList(0).name,playerList(0).playerCards.map(x=> x.value), playerList(0).playerCards.map(x=> x.color))
+    db.save("1",playerList(1).name,playerList(1).playerCards.map(x=> x.value), playerList(1).playerCards.map(x=> x.color))
+    db.save("1","STACK",playStack2.map(x=> x.value), playStack2.map(x=> x.color))
     val gameState = GameState(playerList, playStack2)
-    db.save(gameState)
+    //db.save(gameState)
     gameStatus = SAVED
     publish(new saveStates)
   }

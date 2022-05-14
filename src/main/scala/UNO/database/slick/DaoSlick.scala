@@ -8,7 +8,6 @@ import slick.lifted.TableQuery
 import slick.jdbc.JdbcBackend.Database
 import slick.jdbc.MySQLProfile.api.*
 
-import scala.:+
 import scala.collection.IterableOnce.iterableOnceExtensionMethods
 import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -34,9 +33,10 @@ class DaoSlick extends DaoInterface {
     password = databasePassword
   )
 
-  val gameState = TableQuery[GamestateTable]
+  val gameState = TableQuery[GamestateTable] //new TableQuery(new GamestateTable())
 
   override def load(gameID: String):GameState={
+    //Json.prettyPrint(gameStateToJson(playerList, playStack2))
     val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
     val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
     val dbCard_1 =

@@ -8,10 +8,11 @@ import akka.http.scaladsl.server.Directives.*
 import UNO.controller.controllerComponent.controllerInterface
 import UNO.UnoGame.tui
 import UNO.aview.gui.SwingGui
-import UNO.controller.controllerComponent.controllerBaseImp._
+import UNO.controller.controllerComponent.controllerBaseImp.*
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.swing.Reactor
+import scala.util.{Failure, Success}
 
 class RootService (Controller: controllerInterface) extends Reactor {
   listenTo(Controller)
@@ -20,7 +21,7 @@ class RootService (Controller: controllerInterface) extends Reactor {
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
   val rootPort = 8080
-  val rootUri = "root-service"
+  val rootUri = "localhost"
 
   def server(): Future[Http.ServerBinding] = {
     val route =
@@ -37,8 +38,20 @@ class RootService (Controller: controllerInterface) extends Reactor {
           }
         },
         get {
+          path("tui" / "loadDB") {
+            Controller.loadFromDB()
+            complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
+          }
+        },
+        get {
           path("tui" / "load") {
             Controller.load
+            complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
+          }
+        },
+        get {
+          path("tui" / "saveDB") {
+            Controller.saveInDb()
             complete(HttpEntity(ContentTypes.`application/json`, Controller.gameToJson()))
           }
         },
@@ -107,7 +120,18 @@ class RootService (Controller: controllerInterface) extends Reactor {
           }
         },
       )
-    Http().newServerAt(rootUri, rootPort).bind(route)
+    val bindingFuture = Http().newServerAt(rootUri, rootPort).bind(route)
+
+    bindingFuture.onComplete{
+      case Success(binding) => {
+        val address = binding.localAddress
+        println(s"\nTUI: http://${address.getHostName}:${address.getPort}/${"tui"}\n")
+      }
+      case Failure(exception) => {
+        println("\nFile IO REST service couldn't be started! Error: " + exception + "\n")
+      }
+    }
+    bindingFuture
   }
 
   reactions += {

@@ -5,9 +5,6 @@ import UnoGameState.GameState
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.{Document, MongoClient, MongoCollection, MongoDatabase}
 import org.mongodb.scala.*
-import UnoFileIO.fileIOJsonImp.FileIO
-import UnoCards.cardBaseImp.Card
-import UnoPlayer.playerBaseImp.Player
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.result.InsertOneResult
 import play.api.libs.json.{JsArray, JsString, JsValue, Json}
