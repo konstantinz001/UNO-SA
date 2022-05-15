@@ -8,7 +8,7 @@ import net.codingwell.scalaguice.ScalaModule
 class FileIOModule extends AbstractModule :
 
   override def configure(): Unit =
-    //bind(classOf[DaoInterface]).to(classOf[database.mongoDB.DaoMongoDB])
-    bind(classOf[DaoInterface]).to(classOf[database.slick.DaoSlick])
+    bind(classOf[DaoInterface]).to(classOf[database.mongoDB.DaoMongoDB])
+    //bind(classOf[DaoInterface]).to(classOf[database.slick.DaoSlick])
 
     bind(classOf[FileIOTrait]).to(classOf[fileIOJsonImp.FileIO])

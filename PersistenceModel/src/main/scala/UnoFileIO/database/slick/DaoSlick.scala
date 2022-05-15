@@ -12,6 +12,8 @@ import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success}
 import play.api.libs.json.{JsValue, Json}
 
+import scala.concurrent.{Await, Future}
+
 import scala.Array.{copy, range}
 import scala.io.Source
 
@@ -31,7 +33,7 @@ class DaoSlick extends DaoInterface {
 
   val gameState = TableQuery[GamestateTable]
 
-  override def load(gameID: String):String={
+  override def load(gameID: String): Future[String]={
     val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
     val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
 
@@ -62,7 +64,7 @@ class DaoSlick extends DaoInterface {
     val dbCard_STACKColor = gameResult_STACK._2
     val playerName = List("1","2")
 
-    Json.obj(
+    Future(Json.obj(
       "gameState" -> Json.obj(
         "playerListName" -> playerName,
         "playerCardsValue1" -> dbCard_1Value,
@@ -72,7 +74,7 @@ class DaoSlick extends DaoInterface {
         "playStackValue" -> dbCard_STACKValue,
         "playStackColor" -> dbCard_STACKColor
       )
-    ).toString()
+    ).toString())
   }
 
   def save(game: String): Unit = {

@@ -10,6 +10,9 @@ import akka.http.scaladsl.server.Directives.{post, *}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import com.google.inject.Guice
 
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
+
 import scala.util.{Failure, Success}
 
 case object FileIOService {
@@ -36,7 +39,7 @@ case object FileIOService {
         },
         get {
           path("loadDB") {
-            complete(HttpEntity(ContentTypes.`application/json`, db.load("1")))
+            complete(HttpEntity(ContentTypes.`application/json`, Await.result(db.load("1"), Duration.Inf)))
           }
         },
         post {
