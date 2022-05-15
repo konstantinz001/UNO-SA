@@ -25,8 +25,8 @@ import akka.http.scaladsl.model.{HttpMethods, HttpRequest, HttpResponse}
 import akka.http.scaladsl.unmarshalling.Unmarshal
 
 import scala.concurrent.{Await, ExecutionContext, ExecutionContextExecutor, Future}
-import UNO.database.DaoInterface
-import UNO.database.slick.DaoSlick
+import UnoFileIO.database.DaoInterface
+import UnoFileIO.database.slick.DaoSlick
 
 
 class controller @Inject() extends controllerInterface with Publisher:
@@ -49,12 +49,7 @@ class controller @Inject() extends controllerInterface with Publisher:
   var gameStatus: GameStatus = INIT
 
   private val undoManager =new UndoManager
-  //var gameState: GameState = GameState(returnplayerList(), playStack2)
   def Controller = Guice.createInjector(new UnoGameModule).getInstance(classOf[controllerInterface])
-  val injector = Guice.createInjector(new UnoGameModule)
-  val fileIo: FileIO = injector.getInstance(classOf[FileIO])
-  //val db:DaoSlick= injector.getInstance(classOf[DaoSlick]) // test
-  val db = injector.getInstance(classOf[DaoInterface])
   val savefile:String="test"
 
 
@@ -291,7 +286,6 @@ class controller @Inject() extends controllerInterface with Publisher:
   }
 
   override def unpackJson(result: String): Unit = {
-    //val file: String = Source.fromFile("gamestate.json").getLines.mkString
     val file: String = result.linesWithSeparators.mkString
     val json: JsValue = Json.parse(file)
     playerList = setPlayerList(json)
@@ -299,8 +293,37 @@ class controller @Inject() extends controllerInterface with Publisher:
       (json \ "gameState" \ "playStackColor").as[String]))
   }
 
+  def saveInDb(): Unit =
+    val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(method = HttpMethods.POST, uri = s"http://${fileiouri}:${fileioport}/saveDB", entity = gamestate))
+    gameStatus = SAVED
+    publish(new saveStates)
 
-  def saveInDb():Unit = {
+  def loadFromDB(): Unit = {
+    val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = s"http://${fileiouri}:${fileioport}/loadDB"))
+    responseFuture.onComplete {
+      case Failure(_) =>
+        sys.error("HttpResponse failure")
+        gameStatus = COULD_NOT_LOAD
+        publish(new failureStates)
+      case Success(res) => {
+        Unmarshal(res.entity).to[String].onComplete {
+          case Failure(_) => gameStatus = COULD_NOT_LOAD
+            sys.error("Marshal failure")
+            gameStatus = COULD_NOT_LOAD
+            publish(new failureStates)
+
+          case Success(result) => {
+            unpackJson(result)
+            gameStatus = LOADED
+            publish(new loadStates)
+          }
+        }
+      }
+    }
+  }
+
+  /*def saveInDb():Unit = {
     val gamestate: String = Json.prettyPrint(gameStateToJson(playerList, playStack2))
     db.save(List(playerList(0).name,playerList(1).name,"Stack"),playerList(0).playerCards.map(x=> x.value),
       playerList(0).playerCards.map(x=> x.color), playerList(1).playerCards.map(x=> x.value),
@@ -316,11 +339,12 @@ class controller @Inject() extends controllerInterface with Publisher:
       playStack2 = result.playStack
       gameStatus = LOADED
       publish(new loadStates)
-  }
+  }*/
+
+
 
   override def loadDBJSON(gameString: String): GameState =
     val json: JsValue = Json.parse(gameString)
-    println(json)
     GameState(setPlayerList(json), setPlayStack(json))
 
   def setPlayStack (json: JsValue) : List[Card] =
