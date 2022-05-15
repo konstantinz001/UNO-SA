@@ -4,11 +4,10 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import UNO.aview.TUI
 import UNO.controller.controllerComponent.controllerBaseImp.controller
-import UNO.model.PlayerComponent.playerBaseImp.Player
-import UNO.model.cardComponent.cardBaseImp.Card
-import UNO.util.{State, *}
-import UNO.controller.controllerComponent.controllerBaseImp.controller
-import UNO.model.stackComponent.stackBaseImp.Stack
+import UnoPlayer.playerBaseImp.Player
+import UnoCards.cardBaseImp.Card
+import UNO.util.{*}
+import UnoStack.stackBaseImp.Stack
 
 
 class TuiSpec extends AnyWordSpec with Matchers {
@@ -16,22 +15,20 @@ class TuiSpec extends AnyWordSpec with Matchers {
     "have a methode processInputLine (1st)" in {
       var controller_test = new controller()
       var tui_Test = new TUI(controller_test)
+      /*
+      print(tui_Test.processInputLine("u 0")) should contain ("")
 
-      tui_Test.processInputLine("u 0") should be(State.handle(toManyCardsEvent()))
+      tui_Test.processInputLine("undo") should be ("UNDO")
 
-      tui_Test.processInputLine("undo") should be ("undo")
+      tui_Test.processInputLine("redo") should be ("REDO")
 
-      //tui_Test.processInputLine("redo") should be ("redo")
+      tui_Test.processInputLine("load") should be ("LOADED")
 
-      //tui_Test.processInputLine("load") should be ("Loading Game!")
+      tui_Test.processInputLine("save") should be ("SAVED")
 
-      //tui_Test.processInputLine("save") should be ("Saved Game!")
+      tui_Test.processInputLine("whatever") should be ("Wrong command!")
 
-      //tui_Test.processInputLine("whatever") should be ("Wrong command!")
-
-      //print1 should be (println(State.handle(gameStatsEvent())))
-
-      /*for(i <- (1 to 100)) {
+      for(i <- (1 to 10)) {
         if(controller_test.playerList(0).playerCards(0).color == "black") {
           tui_Test.processInputLine("s")
         }
@@ -42,8 +39,9 @@ class TuiSpec extends AnyWordSpec with Matchers {
             or
             be(State.handle(forgotCallUnoEvent())))
         tui_Test.processInputLine("s")
-      }*/
-      //tui_Test.processInputLine("q") should be(State.handle(exitGameEvent()))
+      }
+      tui_Test.processInputLine("q") should be(State.handle(exitGameEvent()))
+      */
     }
   }
 }

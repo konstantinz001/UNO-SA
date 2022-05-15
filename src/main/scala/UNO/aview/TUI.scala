@@ -1,73 +1,56 @@
 package UNO.aview
 
-import UNO.controller.controllerComponent.controllerBaseImp.{updateStates}
-import UNO.util.{State, Strategy, callFirstUnoEvent, callSecondUnoEvent, exitGameEvent, forgotCallUnoEvent, gameStatsEvent, removeCardEvent, removeFalseCardEvent, removePlayerCardEvent, setPlayerCardEvent, toManyCardsEvent}
-import UNO.controller.controllerComponent.controllerInterface
+import UNO.controller.controllerComponent.controllerBaseImp._
+import UNO.controller.controllerComponent.{GameStatus, controllerInterface}
 
 import scala.swing.Reactor
 
-def print1: Unit =
-  print(State.handle(gameStatsEvent()))
-
+enum Letter(val letter_string: String):
+  case U extends Letter("u")
+  case R extends Letter("r")
 
 
 class TUI(controller: controllerInterface) extends Reactor:
   
   listenTo(controller)
 
-  def processInputLine(input: String): String =
+  def case_u(is:Array[String]):Unit= unifiedcases(Letter.U.letter_string)(is)
+  def case_r(is:Array[String]):Unit = unifiedcases(Letter.R.letter_string)(is)
+
+  def processInputLine(input: String): Unit =
 
     val is: Array[String] = input.split(" ")
     is(0) match
+      case "s" => controller.getCard()
+      case "r" => case_r(is)
+      case "u" => case_u(is)
+      case "q" => System.exit(0)
+      case "undo" => controller.undoGet
+      case "redo" => controller.redoGet
+      case "loadFromDB" => controller.loadFromDB()
+      case "load" => controller.load
+      case "save" => controller.save
+      case _ => controller.wrongCommand
 
-      case "s" =>
-        controller.getCard()
-        State.handle(setPlayerCardEvent())
-      case "r" =>
-        if controller.playerList(0).playerCards(is(1).toInt).color.equals("black") then
-          controller.colorSet = is(2)
-        if Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
-          controller.removeCard(is(1).toInt)
-          State.handle(removePlayerCardEvent(is(1).toInt), is(1).toInt)
-        else if !Strategy.handle(removeCardEvent(is(1).toInt), is(1).toInt) && controller.playerList(0).playerCards.size >= 3 then
-          State.handle(removeFalseCardEvent())
-        else
-          controller.removeCard(is(1).toInt)
-          controller.getCard()
-          controller.playerList = controller.playerList.reverse
-          controller.getCard()
-          State.handle(forgotCallUnoEvent())
-      case "u" =>
-        controller.unoCall = true
-        if controller.playerList(0).playerCards.size.equals(2) then
-          controller.removeCard(is(1).toInt)
-          State.handle(callFirstUnoEvent(is(1).toInt), is(1).toInt)
-        else if controller.playerList(0).playerCards.size.equals(1) then
-          State.handle(callSecondUnoEvent())
-        else
-          controller.getCard()
-          controller.playerList = controller.playerList.reverse
-          controller.getCard()
-          State.handle(toManyCardsEvent())
-      case "q" =>
-        State.handle(exitGameEvent())
 
-      case "undo" =>
-        controller.undoGet
-        "undo"
-      case "redo" =>
-        controller.redoGet
-        "redo"
-      case "load" =>
-        controller.load
-        "Loading Game!"
-      case "save" =>
-        controller.save
-        "Saved Game!"
-      case _ =>
-        "Wrong command!"
+  def unifiedcases(value:String)(is:Array[String]):Unit=
+    value match {
+      case "u"=> controller.removeUnoCard(is(1).toInt)
+      case "r"=>
+        if(is.size == 2) then
+          controller.removeCard(is(1).toInt)
+        else
+          controller.removeBlackCard(is(1).toInt, is(2))
+    }
 
   reactions += {
-    case event: updateStates => print1
+    case event: updateStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: welcomeStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: endStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: failureStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: saveStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: loadStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: undoStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: redoStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
+    case event: newgameStates => print(GameStatus.handleStatus(controller.gameStatus, controller))
   }
-

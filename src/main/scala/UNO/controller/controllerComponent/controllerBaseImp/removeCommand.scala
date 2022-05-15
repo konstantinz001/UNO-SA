@@ -1,16 +1,18 @@
 package UNO.controller.controllerComponent.controllerBaseImp
 
 import UNO.controller.controllerComponent.controllerInterface
-import UNO.model.cardComponent.cardBaseImp.Card
+import UnoCards.cardBaseImp.Card
 import UNO.util.Command
 
+//TODO ENDGAME LOGIC mit SPezialcards verbessern
 
 class RemoveCommand(handindex: Int, controller: controllerInterface) extends Command:
+  
   override def doStep(): Unit =
     controller.playStack2 = controller.playerList(0).playerCards(handindex) :: controller.playStack2
     cardDiff()
 
-  override def undoStep(): Unit =  //TODO: Aussetzen, Richtungswechsel funktionieren noch nicht, weil vorher setPlayercard + Playlist umdrehen
+  override def undoStep(): Unit =
     if controller.playStack2(1).color == "black" then
       controller.playerList = List(controller.playerList(1).setPlayerCards(controller.playStack2(1)), controller.playerList(0))
       controller.playStack2 = controller.playStack2.tail.tail
@@ -57,5 +59,3 @@ class RemoveCommand(handindex: Int, controller: controllerInterface) extends Com
         controller.playerList = controller.playerList.tail ::: List(controller.playerList.head) ::: Nil
       case _ =>
         controller.playerList = List(controller.playerList(1), controller.playerList(0).removePlayerCards(handindex))
-
-
