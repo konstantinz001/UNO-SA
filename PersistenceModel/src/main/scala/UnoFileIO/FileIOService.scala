@@ -60,6 +60,7 @@ case object FileIOService {
     //val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
     val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
 
+    /*
     bindingFuture.onComplete{
       case Success(binding) => {
         val address = binding.localAddress
@@ -70,6 +71,7 @@ case object FileIOService {
         println("File IO REST service couldn't be started! Error: " + exception + "\n")
       }
     }
+    */
 
     def stop():Unit =
       bindingFuture
