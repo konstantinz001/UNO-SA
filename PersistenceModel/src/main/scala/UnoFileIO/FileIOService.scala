@@ -27,7 +27,7 @@ case object FileIOService {
     implicit val executionContext = system.executionContext
 
     val fileIOPort = 8081
-    val fileIOUri = "fileio-service"
+    val fileIOUri = "localhost"
 
 
     val route =
@@ -62,17 +62,6 @@ case object FileIOService {
 
     //val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
     val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
-
-    bindingFuture.onComplete{
-      case Success(binding) => {
-        val address = binding.localAddress
-        println(s"File IO Save: http://${address.getHostName}:${address.getPort}/${"save"}\n" +
-          s"File IO Load: http://${address.getHostName}:${address.getPort}/${"load"} \n")
-      }
-      case Failure(exception) => {
-        println("File IO REST service couldn't be started! Error: " + exception + "\n")
-      }
-    }
 
     def stop():Unit =
       bindingFuture

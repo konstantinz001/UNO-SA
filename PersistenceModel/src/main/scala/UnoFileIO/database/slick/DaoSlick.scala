@@ -101,9 +101,6 @@ class DaoSlick extends DaoInterface {
         i <- (0 to valueStack.size - 1)
       } yield ("1","STACK",valueStack(i), colorStack(i))),
     )
-    database.run(injection).andThen {
-      case Success(_) => println("Daten erfolgreich gespeichert")
-      case Failure(e) => println(s"Fehler beim Speichern in die Datenbank: ${e.getMessage}")
-    }
+    database.run(injection)
   }
 }

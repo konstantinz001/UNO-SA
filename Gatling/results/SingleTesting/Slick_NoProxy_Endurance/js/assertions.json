@@ -1,0 +1,10 @@
+{
+  "simulation": "Testing_SingleDB",
+  "simulationId": "testing-singledb",
+  "start": 1652646990945,
+  "description": "",
+  "scenarios": ["ENDURANCE - Simulation"],
+  "assertions": [
+
+  ]
+}

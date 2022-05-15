@@ -1,7 +1,7 @@
 {
-  "simulation": "RecordedData_SlickSaveLoad_Updated",
-  "simulationId": "recordeddata-slicksaveload-updated",
-  "start": 1652626977266,
+  "simulation": "Testing_FullDB",
+  "simulationId": "testing-fulldb",
+  "start": 1652647248276,
   "description": "",
   "scenarios": ["SPIKE - Simulation", "ENDURANCE - Simulation", "STRESS - Simulation", "LOAD - Simulation", "VOLUME - Simulation"],
   "assertions": [

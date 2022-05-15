@@ -8,7 +8,7 @@ import io.gatling.jdbc.Predef._
 class Testing_FullDB extends Simulation {
 
   private val httpProtocol = http
-    .baseUrl("http://kubernetes.docker.internal:8081")
+    .baseUrl("http://localhost:8081")
     .inferHtmlResources(AllowList(), DenyList())
     .acceptHeader("*/*")
     .acceptEncodingHeader("gzip, deflate")
