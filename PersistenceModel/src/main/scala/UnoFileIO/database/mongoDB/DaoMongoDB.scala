@@ -21,46 +21,14 @@ class DaoMongoDB extends DaoInterface{
   val collection: MongoCollection[Document] = db.getCollection("uno")
 
   override def load(gameid:String): String = {
-    val collection = db.getCollection("uno")
     val result = Await.result(collection.find().first().head(), Duration.Inf)
     result.toJson
   }
 
   override def save(game: String) : Unit =
     val doc = Document(BsonDocument.apply(game))
-    collection.countDocuments().subscribe(new Observer[Long] {
-      override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-      override def onNext(result: Long): Unit = documentFound(doc)//if (result == 0) documentNotFound(doc) else documentFound(doc)
-      override def onError(e: Throwable): Unit = ???//println(e.toString)
-      override def onComplete(): Unit = ???//println("Completed")
-    })
-
-    def documentNotFound(doc: Document) = {
-      collection.insertOne(doc).subscribe(new Observer[InsertOneResult] {
-        override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-        override def onNext(result: InsertOneResult): Unit = ???//println(s"onNext $result")
-        override def onError(e: Throwable): Unit = ???//println("New Insert Failed")
-        override def onComplete(): Unit = ???//println("New Insert Complete")
-      })
-    }
-
-  def documentFound(doc: Document) = {
-    collection.deleteMany(Document.empty).subscribe(new Observer[Any] {
-      override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-      override def onNext(result: Any): Unit = ???//println(s"onNext $result")
-      override def onError(e: Throwable): Unit = ???//println("Failed")
-      override def onComplete(): Unit = ???//println("Completed")
-    })
-    collection
-      .insertOne(doc)
-      .subscribe(new Observer[Any] {
-        override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-        override def onNext(result: Any): Unit = ???//println(s"onNext $result")
-        override def onError(e: Throwable): Unit = ???//println("Failed")
-        override def onComplete(): Unit = ???//println("Completed")
-      })
-  }
+    collection.deleteMany(Document.empty)
+    collection.insertOne(doc)
 }
-
 
 
