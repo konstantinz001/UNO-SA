@@ -5,7 +5,7 @@ import UnoFileIO.fileIOJsonImp.FileIO
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity}
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives.{post, *}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import com.google.inject.Guice
@@ -32,19 +32,19 @@ case object FileIOService {
       concat (
         get {
           path("load") {
-            complete(HttpEntity(ContentTypes.`application/json`, fileIO.load))
+            complete(StatusCodes.Created, HttpEntity(ContentTypes.`application/json`, Await.result(fileIO.load, Duration.Inf)))
           }
         },
         get {
           path("loadDB") {
-            complete(HttpEntity(ContentTypes.`application/json`, Await.result(db.load("1"), Duration.Inf)))
+            complete(StatusCodes.Created, HttpEntity(ContentTypes.`application/json`, Await.result(db.load("1"), Duration.Inf)))
           }
         },
         post {
           path("save") {
             entity(as [String]) { game =>
               fileIO.save(game)
-              complete("game saved")
+              complete(StatusCodes.Accepted,"game saved")
             }
           }
         },
@@ -52,14 +52,13 @@ case object FileIOService {
           path("saveDB") {
             entity(as [String]) { game =>
               db.save(game)
-              complete("game saved")
+              complete(StatusCodes.Accepted,"game saved")
             }
           }
         }
       )
 
-    //val bindingFuture = Http().newServerAt(fileIOUri, fileIOPort).bind(route)
-    val bindingFuture = Http().newServerAt("localhost", 8081).bind(route)
+    val bindingFuture = Http().newServerAt(fileIOUri, 8081).bind(route)
 
     def stop():Unit =
       bindingFuture

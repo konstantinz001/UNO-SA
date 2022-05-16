@@ -9,8 +9,7 @@ import UnoPlayer.playerBaseImp.Player
 import UnoCards.cardBaseImp.Card
 import UnoStack.stackBaseImp.Stack
 import UNO.util.UndoManager
-import UnoFileIO.FileIOTrait
-import UnoFileIO.fileIOJsonImp.FileIO
+import UnoFileIO.fileIOJsonImp.{FileIO, FileIOTrait}
 import com.google.inject.{Guice, Inject}
 import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 import play.api.libs.json.{JsArray, JsString, JsValue, Json}

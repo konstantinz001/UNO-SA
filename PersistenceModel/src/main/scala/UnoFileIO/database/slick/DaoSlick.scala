@@ -23,7 +23,6 @@ class DaoSlick extends DaoInterface {
   val databaseUser: String = sys.env.getOrElse("MYSQL_USER", "uno")
   val databasePassword: String = sys.env.getOrElse("MYSQL_PASSWORD", "uno123")
 
-
   val database = Database.forURL(
     url = databaseUrl,
     driver = "com.mysql.cj.jdbc.Driver",
@@ -34,9 +33,12 @@ class DaoSlick extends DaoInterface {
   val gameState = TableQuery[GamestateTable]
 
   override def load(gameID: String): Future[String]={
-    val gameQuery_1 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';""".as[(String, String, String)]
-    val gameResult_1 = Await.result(database.run(gameQuery_1), Duration.Inf)
-
+    val gameResult_1 = Await.result(database.run(sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '1';"""
+      .as[(String, String, String)]),Duration.Inf)
+    val gameResult_2 = Await.result(database.run(sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '2';"""
+      .as[(String, String, String)]),Duration.Inf)
+    val gameResult_STACK = Await.result(database.run(sql"""select VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = 'STACK';"""
+      .as[(String, String)]),Duration.Inf).head
     val dbCard_1Value =
       (for{
         i <- (0 to gameResult_1.size - 1)
@@ -46,8 +48,6 @@ class DaoSlick extends DaoInterface {
         i <- (0 to gameResult_1.size - 1)
       } yield (gameResult_1(i)._3)).toList
 
-    val gameQuery_2 = sql"""select PLAYER,VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = '2';""".as[(String, String, String)]
-    val gameResult_2 = Await.result(database.run(gameQuery_2), Duration.Inf)
     val dbCard_2Value =
       (for{
         i <- (0 to gameResult_2.size - 1)
@@ -57,9 +57,6 @@ class DaoSlick extends DaoInterface {
         i <- (0 to gameResult_2.size - 1)
       } yield (gameResult_2(i)._3)).toList
 
-
-    val gameQuery_STACK = sql"""select VALUE,COLOR from GAMESTATE where GAMEID = $gameID and PLAYER = 'STACK';""".as[(String, String)]
-    val gameResult_STACK = Await.result(database.run(gameQuery_STACK), Duration.Inf).head
     val dbCard_STACKValue = gameResult_STACK._1
     val dbCard_STACKColor = gameResult_STACK._2
     val playerName = List("1","2")

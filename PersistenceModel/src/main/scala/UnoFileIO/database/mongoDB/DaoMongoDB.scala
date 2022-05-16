@@ -25,36 +25,14 @@ class DaoMongoDB extends DaoInterface{
   val collection: MongoCollection[Document] = db.getCollection("uno")
 
   override def load(gameid:String): Future[String] = {
-    val collection = db.getCollection("uno")
     val result = Await.result(collection.find().first().head(), Duration.Inf)
     Future(result.toJson)
   }
 
   override def save(game: String) : Unit =
     val doc = Document(BsonDocument.apply(game))
-    collection.countDocuments().subscribe(new Observer[Long] {
-      override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-      override def onNext(result: Long): Unit = documentFound(doc)
-      override def onError(e: Throwable): Unit = ???
-      override def onComplete(): Unit = ???
-    })
-
-  def documentFound(doc: Document) = {
-    collection.deleteMany(Document.empty).subscribe(new Observer[Any] {
-      override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-      override def onNext(result: Any): Unit = ???
-      override def onError(e: Throwable): Unit = ???
-      override def onComplete(): Unit = ???
-    })
-    collection
-      .insertOne(doc)
-      .subscribe(new Observer[Any] {
-        override def onSubscribe(subscription: Subscription): Unit = subscription.request(1)
-        override def onNext(result: Any): Unit = ???
-        override def onError(e: Throwable): Unit = ???
-        override def onComplete(): Unit = ???
-      })
-  }
+    collection.deleteMany(Document.empty)
+    collection.insertOne(doc)
 }
 
 

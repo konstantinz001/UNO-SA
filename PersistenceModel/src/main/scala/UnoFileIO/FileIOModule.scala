@@ -2,6 +2,7 @@ package UnoFileIO
 
 import UnoFileIO.database
 import UnoFileIO.database.DaoInterface
+import UnoFileIO.fileIOJsonImp.FileIOTrait
 import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
 
