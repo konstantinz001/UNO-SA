@@ -20,8 +20,6 @@ case object FileIOService {
   def main(args: Array[String]): Unit = {
 
     val fileIO = new FileIO
-    //val injector = Guice.createInjector(new FileIOModule)
-    //val db = injector.getInstance(classOf[DaoInterface])
     val db = new FileIODBProxy
     implicit val system = ActorSystem(Behaviors.empty, "my-system")
     implicit val executionContext = system.executionContext
