@@ -18,11 +18,19 @@ class DaoMongoDB extends DaoInterface{
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "SingleRequest")
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
-  val uri: String = "mongodb+srv://uno:uno123@unodb.f3zdh.mongodb.net/unodb?retryWrites=true&w=majority"
-  System.setProperty("org.mongodb.async.type", "netty")
-  val client: MongoClient = MongoClient(uri)
-  val db: MongoDatabase = client.getDatabase("unodb")
-  val collection: MongoCollection[Document] = db.getCollection("uno")
+  //Cloud:
+  //val uri: String = "mongodb://localhost:27017/"
+  //System.setProperty("org.mongodb.async.type", "netty")
+  //val client: MongoClient = MongoClient(uri)
+  //val db: MongoDatabase = client.getDatabase("unodb")
+  //val collection: MongoCollection[Document] = db.getCollection("uno")
+
+  //Local:
+  val connectionString: String = "mongodb://localhost:27017"
+  val mongoClient: MongoClient = MongoClient(connectionString)
+  val database: MongoDatabase = mongoClient.getDatabase("unodb")
+  val collection: MongoCollection[Document] = database.getCollection("uno")
+
 
   override def load(gameid:String): Future[String] = {
     val result = Await.result(collection.find().first().head(), Duration.Inf)

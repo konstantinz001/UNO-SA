@@ -60,6 +60,18 @@ case object FileIOService {
 
     val bindingFuture = Http().newServerAt(fileIOUri, 8081).bind(route)
 
+    bindingFuture.onComplete{
+      case Success(binding) => {
+        val address = binding.localAddress
+        println(s"File IO Save: http://${address.getHostName}:${address.getPort}/${"save"}\n" +
+          s"File IO Load: http://${address.getHostName}:${address.getPort}/${"load"} \n")
+      }
+      case Failure(exception) => {
+        println("File IO REST service couldn't be started! Error: " + exception + "\n")
+      }
+    }
+
+
     def stop():Unit =
       bindingFuture
         .flatMap(_.unbind()) // trigger unbinding from the port
