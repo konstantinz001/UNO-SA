@@ -1,0 +1,10 @@
+{
+  "simulation": "RecordedData_SlickSaveLoad_Updated",
+  "simulationId": "recordeddata-slicksaveload-updated",
+  "start": 1652624511961,
+  "description": "",
+  "scenarios": ["STRESS - Simulation"],
+  "assertions": [
+
+  ]
+}

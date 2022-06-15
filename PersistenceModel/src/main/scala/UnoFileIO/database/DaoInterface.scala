@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 
 trait DaoInterface  {
-  def load(gameid:String):String
+  def load(gameid:String): Future[String]
   def save(game: String): Unit
 
 }

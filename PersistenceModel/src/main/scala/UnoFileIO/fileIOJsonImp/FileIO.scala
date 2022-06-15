@@ -1,25 +1,24 @@
 package UnoFileIO.fileIOJsonImp
 
-import UnoFileIO.FileIOTrait
+import akka.actor.typed.ActorSystem
+import akka.actor.typed.scaladsl.Behaviors
 import play.api.libs.json.{JsValue, Json}
 
 import java.io.File
+import scala.concurrent.{Await, ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success, Try}
 import scala.io.Source
 
 class FileIO extends FileIOTrait:
-  def load: String =
-    fileNotFound("gamestate.json") match
+  implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "SingleRequest")
+  implicit val executionContext: ExecutionContextExecutor = system.executionContext
+  def load: Future[String] =
+    Try(Source.fromFile("gamestate.json").getLines().mkString) match
       case Success(v) => println("File Found")
       case Failure(v) => println("Es ist kein Spielstand vorhanden!")
 
-    val file = Source.fromFile("gamestate.json")
-    try file.mkString finally file.close()
-
-
-  def fileNotFound(filename: String): Try[String] =
-    Try(Source.fromFile(filename).getLines().mkString)
-
+    val file = Source.fromFile("gamestate.json").mkString
+    Future(file.mkString)
 
   def save(gamestate_json: String): Unit =
     import java.io._

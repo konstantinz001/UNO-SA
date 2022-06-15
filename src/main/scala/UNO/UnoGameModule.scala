@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule
 import net.codingwell.scalaguice.ScalaModule
 import controller.controllerComponent.*
 import UnoFileIO.*
+import UnoFileIO.fileIOJsonImp.FileIOTrait
 
 class UnoGameModule extends AbstractModule:
 

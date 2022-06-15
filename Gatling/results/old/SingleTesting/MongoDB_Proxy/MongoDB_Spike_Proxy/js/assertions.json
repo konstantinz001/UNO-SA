@@ -1,0 +1,10 @@
+{
+  "simulation": "Testing_SingleDB",
+  "simulationId": "testing-singledb",
+  "start": 1652630149489,
+  "description": "",
+  "scenarios": ["SPIKE - Simulation"],
+  "assertions": [
+
+  ]
+}
